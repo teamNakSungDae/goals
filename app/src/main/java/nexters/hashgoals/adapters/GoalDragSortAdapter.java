@@ -32,6 +32,12 @@ import static android.R.attr.button;
 
 public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
 
+    /*
+    * Possible Application State
+    * */
+
+    public static boolean isOnEditMenu = false;
+
     private class ViewHolder {
         public ImageView orderButton;
         public TextView textView;
@@ -76,7 +82,15 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
             holder = (ViewHolder) convertView.getTag();
         }
 
+        if(isOnEditMenu){
+            holder.orderButton.setVisibility(View.VISIBLE);
+        }
+
         return convertView;
+    }
+
+    public static void setEditMenu(boolean value) {
+        isOnEditMenu = value;
     }
 
     public DragSortListView.DropListener onDrop = new DragSortListView.DropListener() {

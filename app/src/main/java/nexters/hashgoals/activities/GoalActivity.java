@@ -112,7 +112,8 @@ public class GoalActivity extends AppCompatActivity {
         logoIcon.setVisibility(View.INVISIBLE);
         logo.setVisibility(View.INVISIBLE);
         editTitle.setVisibility(View.VISIBLE);
-        orderButton.setVisibility(View.VISIBLE);
+        GoalDragSortAdapter.setEditMenu(true);
+        goalDragSortAdapter.reflection();
     }
 
     public void setDragSortListView() {
