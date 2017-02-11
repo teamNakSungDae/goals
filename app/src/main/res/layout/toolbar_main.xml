@@ -34,6 +34,18 @@
             />
 
         <ImageView
+            android:id="@+id/arrow_back"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="9dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_back"
+            android:layout_gravity="left"
+            android:visibility="invisible"
+            />
+
+        <ImageView
             android:id="@+id/logo"
             android:layout_width="54dp"
             android:layout_height="16dp"
@@ -58,9 +70,11 @@
             android:id="@+id/edit_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/arrow_back"
             android:text="@string/goal_edit_title"
+            android:textSize="18dp"
+            android:textColor="@color/goals_white"
             android:layout_centerVertical="true"
-            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:visibility="invisible"/>
 
     </RelativeLayout>

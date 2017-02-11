@@ -18,6 +18,7 @@ import com.mobeta.android.dslv.DragSortListView;
 import nexters.hashgoals.R;
 import nexters.hashgoals.adapters.GoalDragSortAdapter;
 import nexters.hashgoals.controllers.GoalDataController;
+import nexters.hashgoals.fonts.FontsLoader;
 import nexters.hashgoals.fragments.EditGoalDialogFragment;
 import nexters.hashgoals.helpers.DatabaseHelper;
 
@@ -95,14 +96,19 @@ public class GoalActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayUseLogoEnabled(false);
 
+
         TextView editTitle = (TextView) toolbar.findViewById(R.id.edit_title);
-        ImageView orderButton = (ImageView) findViewById(R.id.order_button);
+        editTitle.setTypeface(FontsLoader.getTypeface(getApplicationContext(), FontsLoader.N_S_MEDUIM));
         ImageView logoIcon = (ImageView) findViewById(R.id.logo_icon);
         ImageView logo = (ImageView) findViewById(R.id.logo);
+        ImageView arrowBack = (ImageView) findViewById(R.id.arrow_back);
 
         logoIcon.setVisibility(View.INVISIBLE);
         logo.setVisibility(View.INVISIBLE);
+
+        arrowBack.setVisibility(View.VISIBLE);
         editTitle.setVisibility(View.VISIBLE);
+
         GoalDragSortAdapter.setEditMenu(true);
         goalDragSortAdapter.reflection();
     }
