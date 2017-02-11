@@ -6,16 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import nexters.hashgoals.models.Goal;
 
-import static android.R.attr.id;
-import static android.R.id.list;
 import static android.content.ContentValues.TAG;
-import static android.os.Build.ID;
 
 /**
  * Created by flecho on 2017. 2. 3..

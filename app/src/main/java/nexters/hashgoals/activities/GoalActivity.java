@@ -1,34 +1,25 @@
 package nexters.hashgoals.activities;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.InflateException;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 
-import butterknife.BindView;
+import nexters.hashgoals.R;
 import nexters.hashgoals.adapters.GoalDragSortAdapter;
 import nexters.hashgoals.controllers.GoalDataController;
-import nexters.hashgoals.helpers.DatabaseHelper;
-import nexters.hashgoals.R;
 import nexters.hashgoals.fragments.EditGoalDialogFragment;
+import nexters.hashgoals.helpers.DatabaseHelper;
 
 
 public class GoalActivity extends AppCompatActivity {

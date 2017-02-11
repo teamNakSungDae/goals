@@ -16,9 +16,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import nexters.hashgoals.helpers.DatabaseHelper;
 import nexters.hashgoals.R;
 import nexters.hashgoals.activities.GoalActivity;
+import nexters.hashgoals.helpers.DatabaseHelper;
 import nexters.hashgoals.models.Goal;
 
 /**
