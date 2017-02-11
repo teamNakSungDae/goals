@@ -4,10 +4,9 @@
     android:id="@+id/activity_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="nexters.hashgoals.activities.DetailActivity">
+    tools:context="nexters.hashgoals.activities.DetailActivity"
+    android:background="@drawable/detailbackground"
+
+    >
 
 </RelativeLayout>
