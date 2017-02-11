@@ -1,5 +1,13 @@
 <resources>
 <!-- Base application theme. -->
-<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
+<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    <item name="android:actionOverflowButtonStyle">@style/OverflowMenuButton</item>
+</style>
+
+    <style name="OverflowMenuButton" parent="@android:style/Widget.Holo.ActionButton.Overflow">
+        <item name="android:src">@drawable/more</item>
+    </style>
+
 
 </resources>
