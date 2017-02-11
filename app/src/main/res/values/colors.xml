@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="goals_toolbar">#3693F5</color>
+    <color name="goals_title">#525252</color>
+    <color name="goals_repeat_complete_edit">#202b78</color>
+    <color name="goals_cyan">#1BBBBF</color>
+    <color name="goals_turquoise">#202B78</color>
+    <color name="goals_turquoise_opacity100">#FF202B78</color>
+    <color name="goals_gray">#585858</color>
+    <color name="goals_background">#EDEDED</color>
+    <color name="goals_memocolor">#585858</color>
+    <color name="goals_white">#ffffff</color>
+    <color name="goals_edit">#cd202b78</color>
+    <color name="goals_date">#202b78</color>
+    <color name="goals_addanewtask">#88202b78</color>
+    <color name="goals_edittextWindow">#33ffffff</color>
+    <color name="goals_completedTaskColor">#88585858</color>
+    <color name="goals_completed_event_date">#525252</color>
+    <color name="goals_repeat_event_date">#525252</color>
+    <color name="goals_completedItemColor">#66ffffff</color>
+    <color name="goals_toastbg">#b3000000</color>
+    <color name="goals_linecolor">#b1b2c1</color>
+
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_item"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/goals_white"
+    android:descendantFocusability="blocksDescendants"
+    android:clickable="false"
+    android:focusable="false"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        >
+
+        <ImageView
+            android:id="@+id/order_button"
+            android:layout_centerVertical="true"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:padding="4dp"
+            android:src="@drawable/order"
+            />
+
+        <ImageView
+            android:id="@+id/repeat_button"
+            android:layout_centerVertical="true"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="4dp"
+            android:src="@drawable/repeat"
+            />
+
+
+
+        <TextView
+            android:id="@+id/goal_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:textSize="14dp"
+            android:layout_toRightOf="@id/repeat_button"
+            android:layout_centerVertical="true"
+            android:textColor="@color/goals_memocolor"
+            />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

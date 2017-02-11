@@ -1,0 +1,54 @@
+<!-- fragment_edit_goal.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/edit_goal"
+    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:layout_gravity="center" android:orientation="vertical"  >
+
+    <TextView
+        android:id="@+id/lbl_your_goal"
+        android:text="목표 설정하기"
+        android:textSize="20dp"
+        android:width="270dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        />
+
+    <EditText
+        android:id="@+id/txt_your_goal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:inputType="text"
+        android:hint="@string/goal_hint"
+        />
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal"
+         android:paddingLeft="70dp"
+         android:gravity="right">
+
+         <Button
+             android:id="@+id/btn_cancel"
+             android:text="취소"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             />
+
+         <Button
+             android:id="@+id/btn_save"
+             android:text="저장"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             />
+
+     </LinearLayout>
+</LinearLayout>
