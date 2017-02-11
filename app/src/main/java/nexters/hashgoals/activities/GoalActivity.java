@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +42,7 @@ public class GoalActivity extends AppCompatActivity {
     DragSortListView dslv;
 
     public Toolbar toolbar;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +80,7 @@ public class GoalActivity extends AppCompatActivity {
             case R.id.add_goals:
                 showEditDialog();
                 return true;
-            case R.id.edit:
+            case R.id.new_edit:
                 showEditToolbar();
                 return true;
             case R.id.setting:
@@ -95,20 +97,22 @@ public class GoalActivity extends AppCompatActivity {
         setSupportActionBar(toolbar); // Sets the Toolbar to act as the ActionBar for this Activity window.
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //toolbar.setNavigationIcon(R.drawable.more);
-
-
 
     }
 
     public void showEditToolbar() {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayUseLogoEnabled(false);
-        TextView editTitle = (TextView) toolbar.findViewById(R.id.edit_title);
-        editTitle.setVisibility(View.VISIBLE);
 
-        //getSupportActionBar().setCustomView(editTitle);
-        //getSupportActionBar().setCustomView();
+        TextView editTitle = (TextView) toolbar.findViewById(R.id.edit_title);
+        ImageView orderButton = (ImageView) findViewById(R.id.order_button);
+        ImageView logoIcon = (ImageView) findViewById(R.id.logo_icon);
+        ImageView logo = (ImageView) findViewById(R.id.logo);
+
+        logoIcon.setVisibility(View.INVISIBLE);
+        logo.setVisibility(View.INVISIBLE);
+        editTitle.setVisibility(View.VISIBLE);
+        orderButton.setVisibility(View.VISIBLE);
     }
 
     public void setDragSortListView() {

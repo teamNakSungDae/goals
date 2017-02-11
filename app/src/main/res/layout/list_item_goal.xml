@@ -22,6 +22,7 @@
             android:layout_alignParentRight="true"
             android:padding="4dp"
             android:src="@drawable/order"
+            android:visibility="invisible"
             />
 
         <ImageView
@@ -32,8 +33,6 @@
             android:padding="4dp"
             android:src="@drawable/repeat"
             />
-
-
 
         <TextView
             android:id="@+id/goal_content"
