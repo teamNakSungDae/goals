@@ -77,6 +77,8 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
 
         if(isOnEditMenu){
             holder.orderButton.setVisibility(View.VISIBLE);
+        } else {
+            holder.orderButton.setVisibility(View.INVISIBLE);
         }
 
         return convertView;

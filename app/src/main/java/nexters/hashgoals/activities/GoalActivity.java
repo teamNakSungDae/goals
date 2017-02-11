@@ -15,6 +15,9 @@ import android.widget.TextView;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import nexters.hashgoals.R;
 import nexters.hashgoals.adapters.GoalDragSortAdapter;
 import nexters.hashgoals.controllers.GoalDataController;
@@ -35,6 +38,8 @@ public class GoalActivity extends AppCompatActivity {
 
     public Toolbar toolbar;
 
+    @BindView(R.id.arrow_back) ImageView arrowBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,11 +48,13 @@ public class GoalActivity extends AppCompatActivity {
         goalDataController = GoalDataController.getInstance(getApplicationContext());
         dslv = (DragSortListView) findViewById(R.id.dslv);
 
+        ButterKnife.bind(GoalActivity.this);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         defaultToolbar();
 
         setDragSortListView();
         populateDragSortListView();
+        onArrowBack();
     }
 
     private void showEditDialog() {
@@ -143,6 +150,27 @@ public class GoalActivity extends AppCompatActivity {
         dslv.setDropListener(goalDragSortAdapter.onDrop);
 
     }
+
+
+    @OnClick(R.id.arrow_back)
+    public void onArrowBack(){
+
+        TextView editTitle = (TextView) toolbar.findViewById(R.id.edit_title);
+        editTitle.setTypeface(FontsLoader.getTypeface(getApplicationContext(), FontsLoader.N_S_MEDUIM));
+        ImageView logoIcon = (ImageView) findViewById(R.id.logo_icon);
+        ImageView logo = (ImageView) findViewById(R.id.logo);
+        ImageView arrowBack = (ImageView) findViewById(R.id.arrow_back);
+
+        logoIcon.setVisibility(View.VISIBLE);
+        logo.setVisibility(View.VISIBLE);
+
+        arrowBack.setVisibility(View.INVISIBLE);
+        editTitle.setVisibility(View.INVISIBLE);
+
+        GoalDragSortAdapter.setEditMenu(false);
+        goalDragSortAdapter.reflection();
+    }
+
 
     @Override
     public void onResume() {
