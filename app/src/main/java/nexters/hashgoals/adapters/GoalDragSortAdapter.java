@@ -2,12 +2,14 @@ package nexters.hashgoals.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobeta.android.dslv.DragSortListView;
 import com.mobeta.android.dslv.SimpleDragSortCursorAdapter;
@@ -17,6 +19,8 @@ import nexters.hashgoals.controllers.GoalDataController;
 import nexters.hashgoals.fonts.FontsLoader;
 import nexters.hashgoals.helpers.DatabaseHelper;
 
+import static android.R.id.toggle;
+
 
 /**
  * Created by flecho on 2017. 2. 10..
@@ -24,15 +28,22 @@ import nexters.hashgoals.helpers.DatabaseHelper;
 
 public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
 
-    /*
-    * Possible Application State
-    * */
-
+    //Possible Application State
     public static boolean isOnEditMenu = false;
 
+    // View Toggle State
+    private static final int TOGGLE_OFF = 0;
+    private static final int TOGGLE_ON = 1;
+
+    // Total number of Toggled Buttons
+    private static int numOfToggledButtons = 0;
+
     private class ViewHolder {
-        public ImageView orderButton;
-        public TextView textView;
+        ImageView repeatButton;
+        ImageView orderButton; // originally public
+        TextView textView;
+        ImageView checkBox;
+        int toggle;
     }
 
     /*
@@ -56,7 +67,7 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
-        int positionSync = position + 1;
+        int syncedPosition = position + 1;
 
         if (convertView == null) {
 
@@ -64,21 +75,37 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
             convertView = li.inflate(R.layout.list_item_goal, parent, false);
 
             holder = new ViewHolder();
+            holder.repeatButton = (ImageView) convertView.findViewById(R.id.repeat_button);
             holder.orderButton = (ImageView) convertView.findViewById(R.id.order_button);
             holder.textView = (TextView) convertView.findViewById(R.id.goal_content);
-            setMemo(positionSync, holder.textView);
+            holder.checkBox = (ImageView) convertView.findViewById(R.id.checkbox_off);
+            setMemo(syncedPosition, holder.textView);
             holder.textView.setTypeface(FontsLoader.getTypeface(mContext, FontsLoader.N_S_REGULAR));
+            holder.toggle = TOGGLE_OFF;
 
             convertView.setTag(holder);
 
         } else {
             holder = (ViewHolder) convertView.getTag();
+            /* Didn't work that effectively.
+                if (holder.toggle == TOGGLE_ON)
+                    holder.checkBox.setImageResource(R.drawable.checkbox_off);
+                */
+            // touch feel worse.
+            //holder.checkBox.setImageResource(R.drawable.checkbox_off); // for update state renewal.
         }
 
+        /* Setting up Listeners */
+        respondToCheckButton(holder, syncedPosition);
+
         if(isOnEditMenu){
+            holder.repeatButton.setVisibility(View.INVISIBLE);
             holder.orderButton.setVisibility(View.VISIBLE);
+            holder.checkBox.setVisibility(View.VISIBLE);
         } else {
+            holder.repeatButton.setVisibility(View.VISIBLE);
             holder.orderButton.setVisibility(View.INVISIBLE);
+            holder.checkBox.setVisibility(View.INVISIBLE);
         }
 
         return convertView;
@@ -87,6 +114,27 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
     public static void setEditMenu(boolean value) {
         isOnEditMenu = value;
     }
+
+    private void respondToCheckButton(final ViewHolder holder, int position) {
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // default setting, empty check box is changed to checked check box.
+                //Toast.makeText(mContext, "Off", Toast.LENGTH_SHORT).show();
+
+                if (holder.toggle == TOGGLE_OFF) {
+                    holder.checkBox.setImageResource(R.drawable.checkbox_on);
+                    holder.toggle = TOGGLE_ON;
+                    numOfToggledButtons += 1;
+                } else {
+                    holder.checkBox.setImageResource(R.drawable.checkbox_off);
+                    holder.toggle = TOGGLE_OFF;
+                    numOfToggledButtons -= 1;
+                }
+            }
+        });
+    }
+
 
     public DragSortListView.DropListener onDrop = new DragSortListView.DropListener() {
         @Override

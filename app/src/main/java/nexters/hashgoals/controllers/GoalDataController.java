@@ -17,9 +17,9 @@ public class GoalDataController {
 
         private static GoalDataController mGoalDataController;
         private static DatabaseHelper mDatabaseHelper;
-
+        /* package private access controlelr. */
         static class Columns {
-            static final String ID = "_id"; // CursorAdapter에서 id명은 반드시 _id. 수정하면 안된다.
+            static final String ID = "_id";
             static final String TEXT = "text";
             static final String LIST_INDEX = "list_index";
         }

@@ -32,13 +32,19 @@
             android:layout_gravity="left"
             android:visibility="visible"
             />
+        <!--
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="9dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        -->
 
         <ImageView
             android:id="@+id/arrow_back"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="9dp"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="9dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_centerVertical="true"
             android:src="@drawable/arrow_back"
             android:layout_gravity="left"

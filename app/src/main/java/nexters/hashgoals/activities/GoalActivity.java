@@ -39,7 +39,11 @@ public class GoalActivity extends AppCompatActivity {
     public Toolbar toolbar;
 
     @BindView(R.id.arrow_back) ImageView arrowBack;
-
+/*
+    @BindView(R.id.edit_title) TextView editTitle;
+    @BindView(R.id.logo_icon) TextView logoIcon;
+    @BindView(R.id.logo) TextView logo;
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +53,9 @@ public class GoalActivity extends AppCompatActivity {
         dslv = (DragSortListView) findViewById(R.id.dslv);
 
         ButterKnife.bind(GoalActivity.this);
+        ButterKnife.setDebug(true);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         defaultToolbar();
 
         setDragSortListView();
@@ -104,11 +110,12 @@ public class GoalActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayUseLogoEnabled(false);
 
 
-        TextView editTitle = (TextView) toolbar.findViewById(R.id.edit_title);
-        editTitle.setTypeface(FontsLoader.getTypeface(getApplicationContext(), FontsLoader.N_S_MEDUIM));
+        TextView editTitle = (TextView) findViewById(R.id.edit_title);
         ImageView logoIcon = (ImageView) findViewById(R.id.logo_icon);
         ImageView logo = (ImageView) findViewById(R.id.logo);
-        ImageView arrowBack = (ImageView) findViewById(R.id.arrow_back);
+        //ImageView arrowBack = (ImageView) findViewById(R.id.arrow_back);
+
+        editTitle.setTypeface(FontsLoader.getTypeface(getApplicationContext(), FontsLoader.N_S_MEDUIM));
 
         logoIcon.setVisibility(View.INVISIBLE);
         logo.setVisibility(View.INVISIBLE);
@@ -155,11 +162,11 @@ public class GoalActivity extends AppCompatActivity {
     @OnClick(R.id.arrow_back)
     public void onArrowBack(){
 
-        TextView editTitle = (TextView) toolbar.findViewById(R.id.edit_title);
-        editTitle.setTypeface(FontsLoader.getTypeface(getApplicationContext(), FontsLoader.N_S_MEDUIM));
         ImageView logoIcon = (ImageView) findViewById(R.id.logo_icon);
         ImageView logo = (ImageView) findViewById(R.id.logo);
-        ImageView arrowBack = (ImageView) findViewById(R.id.arrow_back);
+        TextView editTitle = (TextView) findViewById(R.id.edit_title);
+
+        editTitle.setTypeface(FontsLoader.getTypeface(getApplicationContext(), FontsLoader.N_S_MEDUIM));
 
         logoIcon.setVisibility(View.VISIBLE);
         logo.setVisibility(View.VISIBLE);
