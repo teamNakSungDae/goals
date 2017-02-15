@@ -7,19 +7,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/goals_toolbar"
-    android:contentInsetLeft="0dp"
-    android:contentInsetStart="0dp"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp"
-    android:contentInsetRight="0dp"
-    android:contentInsetEnd="0dp"
+    app:contentInsetStartWithNavigation="0dp"
     app:contentInsetRight="0dp"
     app:contentInsetEnd="0dp"
+    app:theme="@style/goal_toolbar_style"
     >
 
     <RelativeLayout
+        android:id="@+id/toolbar_rl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/logo_icon"
@@ -30,14 +30,8 @@
             android:layout_centerVertical="true"
             android:src="@drawable/logo_icon"
             android:layout_gravity="left"
-            android:visibility="visible"
+            android:visibility="gone"
             />
-        <!--
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="9dp"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        -->
 
         <ImageView
             android:id="@+id/arrow_back"
@@ -48,7 +42,7 @@
             android:layout_centerVertical="true"
             android:src="@drawable/arrow_back"
             android:layout_gravity="left"
-            android:visibility="invisible"
+            android:visibility="gone"
             />
 
         <ImageView
@@ -58,7 +52,7 @@
             android:layout_toRightOf="@id/logo_icon"
             android:layout_centerVertical="true"
             android:src="@drawable/logo"
-            android:visibility="visible"
+            android:visibility="gone"
             />
 
         <ImageView
@@ -69,7 +63,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="46dp"
             android:src="@drawable/edit"
-            android:visibility="invisible"
+            android:visibility="gone"
             />
 
         <TextView
@@ -81,7 +75,7 @@
             android:textSize="18dp"
             android:textColor="@color/goals_white"
             android:layout_centerVertical="true"
-            android:visibility="invisible"/>
+            android:visibility="gone"/>
 
     </RelativeLayout>
 

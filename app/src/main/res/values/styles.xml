@@ -3,11 +3,27 @@
 <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     <item name="android:actionOverflowButtonStyle">@style/OverflowMenuButton</item>
+    <!-- <item name="android:actionMenuTextAppearance">@style/MyActionBarText</item> -->
 </style>
 
     <style name="OverflowMenuButton" parent="@android:style/Widget.Holo.ActionButton.Overflow">
         <item name="android:src">@drawable/more</item>
     </style>
+
+    <style name="goal_toolbar_style" parent="Theme.AppCompat">
+        <item name="android:textColor">@color/goals_white</item>
+    </style>
+
+    <style name="MyActionBarText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <!-- <item name="fontPath">fonts/NotoSansCJKkr-Medium.otf</item> -->
+    </style>
+
+
+    <!--
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+    -->
 
 
 </resources>
