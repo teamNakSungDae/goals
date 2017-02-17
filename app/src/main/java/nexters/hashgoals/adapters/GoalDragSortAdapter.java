@@ -15,6 +15,7 @@ import com.mobeta.android.dslv.DragSortListView;
 import com.mobeta.android.dslv.SimpleDragSortCursorAdapter;
 
 import nexters.hashgoals.R;
+import nexters.hashgoals.activities.GoalActivity;
 import nexters.hashgoals.controllers.GoalDataController;
 import nexters.hashgoals.fonts.FontsLoader;
 import nexters.hashgoals.helpers.DatabaseHelper;
@@ -53,7 +54,7 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
     * 폰트는 처음 생성자에서 한 번 만든 것을 계속 가져다가 씀.
     * */
 
-    private Context mContext; // In order to call MainActivity's method
+    private static Context mContext; // In order to call MainActivity's method
     private GoalDataController mGoalDataController;
     private static DatabaseHelper mDatabaseHelper; // Uses mDatabaseHelper for convenience.
 
@@ -131,6 +132,13 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
                     holder.toggle = TOGGLE_OFF;
                     numOfToggledButtons -= 1;
                 }
+
+                ((GoalActivity)mContext).changeEditButtonState(numOfToggledButtons);
+
+                //GoalActivity goalActivity = (GoalActivity) mContext;
+                //goalActivity.changeEditButtonState(numOfToggledButtons);
+                ;
+
             }
         });
     }
