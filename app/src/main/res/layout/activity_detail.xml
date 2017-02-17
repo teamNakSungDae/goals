@@ -6,11 +6,48 @@
     android:layout_height="match_parent"
     tools:context="nexters.hashgoals.activities.DetailActivity"
     android:background="@drawable/detailbackground"
+    android:theme="@layout/toolbar_detail"
     >
     <include
-        layout="@layout/toolbar_main"
+        android:id="@+id/include_toolbar"
+        layout="@layout/toolbar_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
+    <ImageView
+        android:id="@+id/add_task_btn"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_below="@id/include_toolbar"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="12dp"
+        android:padding="5dp"
+        android:src="@drawable/add"
+        />
+    <TextView
+        android:id="@+id/add_task_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="24dp"
+        android:layout_toRightOf="@id/add_task_btn"
+        android:layout_below="@id/include_toolbar"
+        android:layout_marginLeft="12dp"
+        android:padding="5dp"
+        android:hint="aklsbdfl"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/include_toolbar"
+        android:layout_marginRight="12dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="24dp"
+        android:padding="5dp"
+        android:textColor="#80FFFFFF"
+        android:hint="cycle No"
+        />
+
+
 
 </RelativeLayout>

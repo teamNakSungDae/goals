@@ -14,6 +14,10 @@
         <item name="android:textColor">@color/goals_white</item>
     </style>
 
+    <style name="goal_toolbar_detail_style" parent="Theme.AppCompat">
+        <item name="android:textColor">@color/goals_toolbar_detail</item>
+    </style>
+
     <style name="MyActionBarText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <!-- <item name="fontPath">fonts/NotoSansCJKkr-Medium.otf</item> -->
     </style>

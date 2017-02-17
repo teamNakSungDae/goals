@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="goals_toolbar">#3693F5</color>
+    <color name="goals_toolbar_detail">#73B7FF</color>
     <color name="goals_title">#525252</color>
     <color name="goals_repeat_complete_edit">#202b78</color>
     <color name="goals_cyan">#1BBBBF</color>
