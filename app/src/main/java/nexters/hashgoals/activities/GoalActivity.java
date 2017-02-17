@@ -38,6 +38,7 @@ public class GoalActivity extends AppCompatActivity {
     DragSortListView dslv;
     Toolbar toolbar;
     Menu menu;
+    MenuItem editItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +102,7 @@ public class GoalActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         this.menu = menu;
+        this.editItem = menu.findItem(R.id.new_edit);
         return true;
     }
 
@@ -113,8 +115,10 @@ public class GoalActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 deleteItem.setVisible(false);
+                editItem.setIcon(R.drawable.edit);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 getSupportActionBar().setDisplayShowTitleEnabled(false);
+                //getSupportActionBar().
                 onBackButton();
                 return true;
             case R.id.add_goals:
@@ -124,6 +128,7 @@ public class GoalActivity extends AppCompatActivity {
                 return true;
             case R.id.new_edit:
                 deleteItem.setVisible(true);
+                item.setIcon(getResources().getDrawable(R.drawable.modify_on));
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true); // back button added.
                 getSupportActionBar().setDisplayShowTitleEnabled(true);
                 onEditButton();
@@ -158,8 +163,9 @@ public class GoalActivity extends AppCompatActivity {
         int[] toViewIDs =new int[] {R.id.goal_content};
 
         goalDragSortAdapter =
-                new GoalDragSortAdapter(getApplicationContext(), R.layout.list_item_goal, goalCursor,
+                new GoalDragSortAdapter(GoalActivity.this, R.layout.list_item_goal, goalCursor,
                         fromFieldNames, toViewIDs, goalDataController);
+        // Application context cannot be cast to GoalActivity. Therefore, must pass context as GoalActivity.this.
 
         dslv.setAdapter(goalDragSortAdapter);
         dslv.setDropListener(goalDragSortAdapter.onDrop);
@@ -203,6 +209,14 @@ public class GoalActivity extends AppCompatActivity {
         displayLogo();
         GoalDragSortAdapter.setEditMenu(false);
         goalDragSortAdapter.reflection();
+    }
+
+    public void changeEditButtonState(int numOfCheckedItems) {
+        //this.editItem.setVisible(false);
+        if (numOfCheckedItems >= 2)
+            this.editItem.setIcon(getResources().getDrawable(R.drawable.modify_off));
+        else
+            this.editItem.setIcon(getResources().getDrawable(R.drawable.modify_on));
     }
 
     @Override
