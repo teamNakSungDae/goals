@@ -6,7 +6,7 @@
     android:minHeight="?android:attr/actionBarSize"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/goals_toolbar"
+    android:background="@color/goals_color"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp"
     app:contentInsetStartWithNavigation="0dp"
@@ -28,9 +28,9 @@
             android:layout_width="29dp"
             android:layout_height="29dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/logo_icon"
             android:layout_gravity="left"
             android:visibility="gone"
+            android:src="@drawable/logo_icon"
             />
 
         <ImageView

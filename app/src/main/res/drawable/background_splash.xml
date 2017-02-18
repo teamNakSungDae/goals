@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@color/colorAccent"/>
-<!--
+    <item android:drawable="@color/goals_color"/>
+
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/아직 스플래쉬 이미지는 없뜸"
+            android:src="@drawable/splash"
             android:filter="true"
             android:antialias="true"
             android:dither="true" />
     </item>
--->
+
 </layer-list>
