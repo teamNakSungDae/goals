@@ -18,6 +18,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import nexters.hashgoals.R;
 import nexters.hashgoals.activities.GoalActivity;
+import nexters.hashgoals.controllers.GoalDataController;
 import nexters.hashgoals.helpers.DatabaseHelper;
 import nexters.hashgoals.models.Goal;
 
@@ -80,7 +81,8 @@ public class EditGoalDialogFragment extends DialogFragment {
     void onSaveButtonClicked() {
         Goal g = new Goal();
         g.setTitle(mEditText.getText().toString());
-        DatabaseHelper.getInstance(getActivity()).addOrUpdateGoal(g);
+        GoalDataController.getInstance(getActivity()).addOrUpdateGoal(g);
+        //DatabaseHelper.getInstance(getActivity()).addOrUpdateGoal(g);
         dismiss();
     }
 

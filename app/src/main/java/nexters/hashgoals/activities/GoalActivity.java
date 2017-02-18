@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -118,13 +119,22 @@ public class GoalActivity extends AppCompatActivity {
                 editItem.setIcon(R.drawable.edit);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 getSupportActionBar().setDisplayShowTitleEnabled(false);
-                //getSupportActionBar().
                 onBackButton();
                 return true;
             case R.id.add_goals:
                 showEditDialog();
                 return true;
             case R.id.delete:
+                goalDataController.deleteSelectedItems(); // O
+                Log.d("damn", "point 1 reached ");
+                goalDataController.setLeftItemsNumList(); // O
+                Log.d("damn", "point 2 reached ");
+                goalDataController.alignIndicesAfterDelete();
+                Log.d("damn", "point 3 reached ");
+                goalDragSortAdapter.reflection();
+                Log.d("damn", "point 4 reached ");
+                goalDataController.initializeCheckedList();
+                Log.d("damn", "point 5 reached ");
                 return true;
             case R.id.new_edit:
                 deleteItem.setVisible(true);
@@ -209,6 +219,7 @@ public class GoalActivity extends AppCompatActivity {
         displayLogo();
         GoalDragSortAdapter.setEditMenu(false);
         goalDragSortAdapter.reflection();
+        goalDataController.initializeCheckedList();
     }
 
     public void changeEditButtonState(int numOfCheckedItems) {

@@ -50,7 +50,7 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
     * 폰트는 처음 생성자에서 한 번 만든 것을 계속 가져다가 씀.
     * */
 
-    private static Context mContext; // In order to call MainActivity's method
+    private Context mContext; // In order to call MainActivity's method // from static to non-static
     private GoalDataController mGoalDataController;
     private static DatabaseHelper mDatabaseHelper; // Uses mDatabaseHelper for convenience.
 
@@ -84,6 +84,8 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
 
         } else {
             holder = (ViewHolder) convertView.getTag();
+            holder.checkBox.setImageResource(R.drawable.checkbox_off); // Since Views are recycled.
+            //setMemo(syncedPosition, holder.textView);
             /* Didn't work that effectively.
                 if (holder.toggle == TOGGLE_ON)
                     holder.checkBox.setImageResource(R.drawable.checkbox_off);
@@ -112,7 +114,7 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
         isOnEditMenu = value;
     }
 
-    private void respondToCheckButton(final ViewHolder holder, int position) {
+    private void respondToCheckButton(final ViewHolder holder, final int position) {
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,19 +124,21 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
                 if (holder.toggle == TOGGLE_OFF) {
                     holder.checkBox.setImageResource(R.drawable.checkbox_on);
                     holder.toggle = TOGGLE_ON;
-                    numOfToggledButtons += 1;
+                    numOfToggledButtons += 1; // Check할 때 ID를 받아서 Controller의 ArrayList에 추가한다.
+                    mGoalDataController.addCheckedItemToList(position);
+                    Log.d("damn", "cliked_position: " + position);
+                    Log.d("damn", "checked list size: " + mGoalDataController.getCheckedItemNumList());
                 } else {
                     holder.checkBox.setImageResource(R.drawable.checkbox_off);
                     holder.toggle = TOGGLE_OFF;
                     numOfToggledButtons -= 1;
+                    mGoalDataController.removeUnCheckedItemFromList(position); // UnCheck할 때 ID를 받아서 Controller의 ArrayList에 추가한다.
+                    Log.d("damn", "uncliked_position: " + position);
+                    Log.d("damn", "checked list size: " + mGoalDataController.getCheckedItemNumList());
                 }
 
                 ((GoalActivity)mContext).changeEditButtonState(numOfToggledButtons);
-
-                //GoalActivity goalActivity = (GoalActivity) mContext;
-                //goalActivity.changeEditButtonState(numOfToggledButtons);
-                ;
-
+                GoalDataController.getInstance(mContext).forTest(); // for debugging
             }
         });
     }
@@ -151,7 +155,7 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
                 to += 1; // Since db index starts from 1.
             }
 
-            mDatabaseHelper.remapping(from, to);
+            mGoalDataController.remapping(from, to);
             reflection();
 
             // for debugging.
@@ -160,38 +164,36 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
     };
 
     public void reflection() {
-        Cursor cursor = mDatabaseHelper.getCursor();
-        if(cursor.moveToFirst()) {
+        Cursor cursor = mDatabaseHelper.getOrderedCursor();
+        if (cursor.moveToFirst()) { // This line is intended to prevent cursor index out of bounds exception.
             do {
-                Log.d("damn", "index: " + cursor.getString(cursor.getColumnIndex("list_index")));
+                Log.d("damn", "list_index: " + cursor.getString(cursor.getColumnIndex("list_index"))
+                + "row_id: " + cursor.getString(cursor.getColumnIndex("_id")));
 
             } while (cursor.moveToNext());
+
+            changeCursor(cursor);
         }
-
-        changeCursor(cursor);
-
     }
-    
+
     /*
     * Might be improved using order by query.
     * */
     public void setMemo(int position, TextView textView){
 
-                Cursor cursor = mGoalDataController.getMemoData();
-                cursor.moveToFirst();
-                try{
-                    do {
-                        if (Integer.toString(position).equals(cursor.getString(2))) { // 0 was changed to 2.
-                            textView.setText(cursor.getString(1));
-                            break;
-                        }
-                    } while (cursor.moveToNext());
-
-                } finally {
-                    if(cursor != null)
-                        cursor.close();
+        Cursor cursor = mGoalDataController.getMemoData();
+        if(cursor.moveToFirst()) {
+            try{
+                do {
+                    if (Integer.toString(position).equals(cursor.getString(2))) { // 0 was changed to 2.
+                        textView.setText(cursor.getString(1));
+                        break;
+                    }
+                } while (cursor.moveToNext());
+            } finally {
+                if (cursor != null)
+                    cursor.close();
+            }
         }
-
-
     }
 }
