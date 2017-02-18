@@ -22,6 +22,9 @@
         <!-- <item name="fontPath">fonts/NotoSansCJKkr-Medium.otf</item> -->
     </style>
 
+    <style name="Theme.Splash" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
 
     <!--
         <item name="android:textColorPrimary">@android:color/white</item>
