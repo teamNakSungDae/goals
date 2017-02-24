@@ -1,0 +1,19 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    >
+    <ImageView
+        android:id="@+id/percent_status"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        />
+    <TextView
+        android:id="@+id/detail_list_task"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@id/percent_status"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        />
+</RelativeLayout>

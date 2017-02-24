@@ -27,11 +27,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Table name
     private static final String TABLE_GOALS = "goals";
+    private static final String TABLE_DETAILS = "details";
+
 
     // Goal Table Columns
     private static final String COL_GOAL_ID = "_id"; // This is extremely important.
     private static final String COL_GOAL_TEXT = "text";
     private static final String COL_GOAL_LIST_INDEX = "list_index";
+
+    // Detail Table Columns
+    /**
+     * this column have 2 mean.
+     * First . Primary key.
+     * Second . Foreign Key.
+     */
+    private static final String COL_DETAIL_ID = "_id";
+    private static final String COL_DETAIL_TEXT = "text";
+    private static final String COL_DETAIL_RECYCLE_NO = "recycle_no";
+
+
 
     public static synchronized DatabaseHelper getInstance(Context context) {
         /* Use the application context, which will ensure that you don't accidentally leak an
@@ -65,7 +79,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COL_GOAL_LIST_INDEX + " INTEGER" +
                 ")";
 
+
+        String CREATE_DETAIL_TABLE =
+                "CREAT TABLE "+ TABLE_DETAILS +
+                        " ( "+ COL_DETAIL_ID+" INTEGER PRIMARY KEY REFERENCES "+TABLE_GOALS+"("+COL_GOAL_ID+") ,"+
+                        COL_DETAIL_TEXT +"TEXT," +
+                        COL_DETAIL_RECYCLE_NO +" INTEGER )";
+
         db.execSQL(CREATE_GOALS_TABLE);
+        db.execSQL(CREATE_DETAIL_TABLE);
     }
 
     @Override
@@ -73,6 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (oldVersion != newVersion) {
             // Simplest implementation is to drop all old tables and recreate them.
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_GOALS);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_DETAILS);
             onCreate(db);
         }
     }

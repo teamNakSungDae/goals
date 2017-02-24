@@ -33,6 +33,7 @@ public class EditGoalDialogFragment extends DialogFragment {
     @BindView(R.id.btn_save) Button mSaveButton;
     @BindView(R.id.btn_cancel) Button mCancelButton;
 
+
     private Unbinder unbinder;
 
     public EditGoalDialogFragment() {
