@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
     <!--You will want to add android:fitsSystemWindows="true" to the parent layout of the Toolbar
      to ensure that the height of the activity is calculated correctly. -->
     <!-- Loat the toolbar here-->
@@ -14,19 +15,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
-
-    <com.mobeta.android.dslv.DragSortListView
-        android:id="@+id/dslv"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="match_parent">
 
-        android:smoothScrollbar="true"
-        android:scrollingCache="false"
-        android:animationCache="false"
+        <com.mobeta.android.dslv.DragSortListView
+            android:id="@+id/dslv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
 
-        android:divider="@android:color/transparent"
-        android:dividerHeight="2dp"
-        />
+            android:smoothScrollbar="true"
+            android:scrollingCache="false"
+            android:animationCache="false"
 
+            android:divider="@android:color/transparent"
+            android:dividerHeight="2dp"
+            />
+
+        <ImageView
+            android:id="@+id/add_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/floating"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            />
+
+    </RelativeLayout>
 </LinearLayout>

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -39,7 +40,7 @@ public class GoalActivity extends AppCompatActivity {
     DragSortListView dslv;
     Toolbar toolbar;
     Menu menu;
-    MenuItem editItem;
+    MenuItem modifyItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class GoalActivity extends AppCompatActivity {
         defaultToolbar();
 
         setDragSortListView();
+        setAddButton();
         populateDragSortListView();
     }
 
@@ -66,6 +68,15 @@ public class GoalActivity extends AppCompatActivity {
         editGoalDialogFragment.show(fm, "fragment_edit_goal");
     }
 
+    private void setAddButton() {
+        ImageView addButton = (ImageView) findViewById(R.id.add_button);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showEditDialog();
+            }
+        });
+    }
     public void defaultToolbar() {
 
         //setToolbarTitleFont();
@@ -103,7 +114,8 @@ public class GoalActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         this.menu = menu;
-        this.editItem = menu.findItem(R.id.new_edit);
+        this.modifyItem = menu.findItem(R.id.modify);
+        this.modifyItem.setVisible(false); // initial state of modify icon is invisible.
         return true;
     }
 
@@ -111,38 +123,38 @@ public class GoalActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         MenuItem deleteItem = menu.findItem(R.id.delete);
+        MenuItem editItem = menu.findItem(R.id.edit);
+
 
         // Handle item selection
         switch (item.getItemId()) {
             case android.R.id.home:
-                deleteItem.setVisible(false);
-                editItem.setIcon(null);
                 editItem.setVisible(true);
+                deleteItem.setVisible(false);
+                modifyItem.setVisible(false);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 getSupportActionBar().setDisplayShowTitleEnabled(false);
                 onBackButton();
                 return true;
-            case R.id.add_goals:
-                showEditDialog();
-                return true;
             case R.id.delete:
                 goalDataController.deleteSelectedItems(); // O
-                Log.d("damn", "point 1 reached ");
                 goalDataController.setLeftItemsNumList(); // O
-                Log.d("damn", "point 2 reached ");
                 goalDataController.alignIndicesAfterDelete();
-                Log.d("damn", "point 3 reached ");
                 goalDragSortAdapter.reflection();
-                Log.d("damn", "point 4 reached ");
                 goalDataController.initializeCheckedList();
-                Log.d("damn", "point 5 reached ");
                 return true;
-            case R.id.new_edit:
+            case R.id.edit:
+                editItem.setVisible(false);
                 deleteItem.setVisible(true);
-                item.setIcon(getResources().getDrawable(R.drawable.modify_on));
+                modifyItem.setVisible(true);
+                modifyItem.setIcon(getResources().getDrawable(R.drawable.modify_on));
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true); // back button added.
                 getSupportActionBar().setDisplayShowTitleEnabled(true);
                 onEditButton();
+                return true;
+            case R.id.modify:
+                Log.e("damn", "modify button is clicked.");
+                /* 이 부분 구현해서, Goal의 제목과 반복 알람이 수정되게 바꾸면 된다. */
                 return true;
             case R.id.setting:
                 return true;
@@ -155,12 +167,15 @@ public class GoalActivity extends AppCompatActivity {
 
         dragSortController = new DragSortController(dslv);
         dragSortController.setDragHandleId(R.id.order_button);
-        dragSortController.setSortEnabled(true);
+        dragSortController.setSortEnabled(false); // Initally, drag-sort must not be enabled.
         dragSortController.setDragInitMode(0);
 
         dslv.setFloatViewManager(dragSortController);
         dslv.setOnTouchListener(dragSortController);
         dslv.setDragEnabled(true);
+        /* If dragSortController's mSortEnabled is set true, drag-sort is allowed.
+        Otherwise, drag-sort is rejected.
+         */
 
     }
 
@@ -217,6 +232,7 @@ public class GoalActivity extends AppCompatActivity {
         hideLogo();
         GoalDragSortAdapter.setEditMenu(true);
         goalDragSortAdapter.reflection();
+        dragSortController.setSortEnabled(true);
     }
 
     public void onBackButton(){
@@ -225,13 +241,14 @@ public class GoalActivity extends AppCompatActivity {
         GoalDragSortAdapter.setEditMenu(false);
         goalDragSortAdapter.reflection();
         goalDataController.initializeCheckedList();
+        dragSortController.setSortEnabled(false);
     }
 
     public void changeEditButtonState(int numOfCheckedItems) {
         if (numOfCheckedItems >= 2)
-            this.editItem.setIcon(getResources().getDrawable(R.drawable.modify_off));
+            this.modifyItem.setIcon(getResources().getDrawable(R.drawable.modify_off));
         else
-            this.editItem.setIcon(getResources().getDrawable(R.drawable.modify_on));
+            this.modifyItem.setIcon(getResources().getDrawable(R.drawable.modify_on));
     }
 
     @Override

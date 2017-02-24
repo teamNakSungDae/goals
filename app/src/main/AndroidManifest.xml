@@ -18,7 +18,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.GoalActivity" />
+        <activity android:name=".activities.GoalActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <!-- This line was added for floating add button not to be pushed by software keyboard -->
 
         <activity android:name=".activities.DetailActivity" />
 

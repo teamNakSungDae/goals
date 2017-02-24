@@ -14,14 +14,16 @@
         />
 
     <item
-        android:id="@+id/new_edit"
+        android:id="@+id/edit"
         android:title="편집"
         app:showAsAction="always"
         />
 
     <item
-        android:id="@+id/add_goals"
-        android:title="Add"
+        android:id="@+id/modify"
+        android:title="modify"
+        android:icon="@drawable/modify_on"
+        app:showAsAction="always"
         />
 
     <item

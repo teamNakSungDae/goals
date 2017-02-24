@@ -25,7 +25,6 @@ public class DetailActivity extends AppCompatActivity {
     private List<Detail> detailList = new ArrayList<Detail>();
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
