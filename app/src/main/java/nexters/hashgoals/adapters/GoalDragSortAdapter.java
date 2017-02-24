@@ -26,7 +26,7 @@ import nexters.hashgoals.helpers.DatabaseHelper;
 public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
 
     //Possible Application State
-    public static boolean isOnEditMenu = false;
+    private static boolean isOnEditMenu = false;
 
     // View Toggle State
     private static final int TOGGLE_OFF = 0;
@@ -68,7 +68,7 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
 
         if (convertView == null) {
 
-            LayoutInflater li = (LayoutInflater)mContext.getSystemService(mContext.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater li = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE); // changed.
             convertView = li.inflate(R.layout.list_item_goal, parent, false);
 
             holder = new ViewHolder();
@@ -158,42 +158,45 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
             mGoalDataController.remapping(from, to);
             reflection();
 
-            // for debugging.
-            //Toast.makeText(mContext, "from: " + from + " to: " + to, Toast.LENGTH_SHORT).show();
         }
     };
 
     public void reflection() {
         Cursor cursor = mDatabaseHelper.getOrderedCursor();
-        if (cursor.moveToFirst()) { // This line is intended to prevent cursor index out of bounds exception.
-            do {
-                Log.d("damn", "list_index: " + cursor.getString(cursor.getColumnIndex("list_index"))
-                + "row_id: " + cursor.getString(cursor.getColumnIndex("_id")));
+        try {
+            if (cursor.moveToFirst()) { // This line is intended to prevent cursor index out of bounds exception.
+                do {
+                    Log.d("damn", "list_index: " + cursor.getString(cursor.getColumnIndex("list_index"))
+                            + "row_id: " + cursor.getString(cursor.getColumnIndex("_id")));
 
-            } while (cursor.moveToNext());
-
+                } while (cursor.moveToNext());
+            }
             changeCursor(cursor);
+            /* Here, you must not close the cursor, since this is the new cursor and is used by adapter. */
+        } catch (Exception e) {
+            Log.e("damn", e.toString());
         }
     }
 
     /*
     * Might be improved using order by query.
     * */
-    public void setMemo(int position, TextView textView){
+    private void setMemo(int position, TextView textView){
 
         Cursor cursor = mGoalDataController.getMemoData();
-        if(cursor.moveToFirst()) {
-            try{
+        try {
+            if (cursor.moveToFirst()) {
                 do {
                     if (Integer.toString(position).equals(cursor.getString(2))) { // 0 was changed to 2.
                         textView.setText(cursor.getString(1));
                         break;
                     }
                 } while (cursor.moveToNext());
-            } finally {
-                if (cursor != null)
-                    cursor.close();
             }
+        } finally {
+            if (cursor != null && !cursor.isClosed())
+                cursor.close();
         }
     }
+
 }

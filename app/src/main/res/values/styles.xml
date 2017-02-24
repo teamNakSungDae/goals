@@ -1,6 +1,7 @@
 <resources>
 <!-- Base application theme. -->
 <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="android:textSize">17dp</item>
     <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     <item name="android:actionOverflowButtonStyle">@style/OverflowMenuButton</item>
     <!-- <item name="android:actionMenuTextAppearance">@style/MyActionBarText</item> -->

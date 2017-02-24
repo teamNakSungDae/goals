@@ -116,7 +116,8 @@ public class GoalActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 deleteItem.setVisible(false);
-                editItem.setIcon(R.drawable.edit);
+                editItem.setIcon(null);
+                editItem.setVisible(true);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 getSupportActionBar().setDisplayShowTitleEnabled(false);
                 onBackButton();
@@ -169,17 +170,21 @@ public class GoalActivity extends AppCompatActivity {
         db = databaseHelper.getWritableDatabase();
 
         Cursor goalCursor = db.rawQuery("SELECT * FROM goals", null);
-        String[] fromFieldNames = new String[] { "text" };
-        int[] toViewIDs =new int[] {R.id.goal_content};
+        try {
+            String[] fromFieldNames = new String[]{"text"};
+            int[] toViewIDs = new int[]{R.id.goal_content};
 
-        goalDragSortAdapter =
-                new GoalDragSortAdapter(GoalActivity.this, R.layout.list_item_goal, goalCursor,
-                        fromFieldNames, toViewIDs, goalDataController);
-        // Application context cannot be cast to GoalActivity. Therefore, must pass context as GoalActivity.this.
-
-        dslv.setAdapter(goalDragSortAdapter);
-        dslv.setDropListener(goalDragSortAdapter.onDrop);
-
+            goalDragSortAdapter =
+                    new GoalDragSortAdapter(GoalActivity.this, R.layout.list_item_goal, goalCursor,
+                            fromFieldNames, toViewIDs, goalDataController);
+            // Application context cannot be cast to GoalActivity. Therefore, must pass context as GoalActivity.this.
+            dslv.setAdapter(goalDragSortAdapter);
+            dslv.setDropListener(goalDragSortAdapter.onDrop);
+        } finally {
+            if (goalCursor != null && !goalCursor.isClosed()) {
+                goalCursor.close();
+            }
+        }
     }
 
 
@@ -223,7 +228,6 @@ public class GoalActivity extends AppCompatActivity {
     }
 
     public void changeEditButtonState(int numOfCheckedItems) {
-        //this.editItem.setVisible(false);
         if (numOfCheckedItems >= 2)
             this.editItem.setIcon(getResources().getDrawable(R.drawable.modify_off));
         else

@@ -15,8 +15,7 @@
 
     <item
         android:id="@+id/new_edit"
-        android:icon="@drawable/edit"
-        android:title="edit_button"
+        android:title="편집"
         app:showAsAction="always"
         />
 

@@ -39,7 +39,7 @@ public class GoalDataController {
         private static ArrayList<Integer> leftItemNumList; // This list holds the list_index of the items to be preserved.
 
         /* package private access controlelr. */
-        static class Columns {
+        private static class Columns {
             static final String ID = "_id";
             static final String TEXT = "text";
             static final String LIST_INDEX = "list_index";
@@ -70,12 +70,13 @@ public class GoalDataController {
             SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
             db.beginTransaction();
             try {
-                int deleteCounter = 0;
+                int deleteCounter;
                 Log.d("damn", "checked list size is : " + checkedItemNumList.size());
 
                 deleteCounter = db.delete(TABLE_GOALS,
                         "_id in (" + StringUtils.join(checkedItemNumList, ",") + ")",
                         null);
+                Log.e("damn", "how many lines are deleted: " + deleteCounter);
 
                 if ((deleteCounter != 0) && deleteCounter == checkedItemNumList.size()) {
                     db.setTransactionSuccessful();
@@ -94,8 +95,8 @@ public class GoalDataController {
         /* After performing delete, entities in list_index column must be rearranged. */
         public void alignIndicesAfterDelete() {
 
-            int numOfItemsLeft = mDatabaseHelper.getCount(); // the remaining items after deletion.
-
+            int numOfItemsLeft = leftItemNumList.size();
+                    //mDatabaseHelper.getCount(); // the remaining items after deletion.
             SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
             db.beginTransaction();
 
@@ -103,9 +104,11 @@ public class GoalDataController {
             
             try {
                 //int safeUpdateVariable = 0;
+                Log.d("damn", "numOfItmesLeft = " + numOfItemsLeft);
 
                 for (int i=0; i < numOfItemsLeft; i++) {
                     int targetIndex = leftItemNumList.get(i);
+                    Log.d("damn", "targetIndex = " + targetIndex);
                     values.put(Columns.LIST_INDEX, Integer.toString(i+1));
                     db.update(TABLE_GOALS, values, Columns.LIST_INDEX + "= ?", new String[]{ Integer.toString(targetIndex)});
                 }
@@ -121,16 +124,18 @@ public class GoalDataController {
 
         /* Thi method must be called after 'deleteSelectedItems()' in order to get left items correctly.  */
         public void setLeftItemsNumList() {
-            Cursor cursor = mDatabaseHelper.getOrderedCursor();
-    
+            Cursor cursor = mDatabaseHelper.getNewCursor();
+
+            boolean cursormtf;
             try {
-                if (cursor.moveToFirst()) {
+                if (cursormtf = cursor.moveToFirst()) {
                     do {
                         int id = cursor.getInt(cursor.getColumnIndex("list_index"));
                         leftItemNumList.add(id);
                         Log.d("damn", "list_index from cursor: " + id);
                     } while (cursor.moveToNext());
                 }
+                Log.d("damn", "cursormtf value is " + cursormtf);
             } catch (Exception e) {
                 Log.d(TAG, "Error while trying to get goals from database");
             } finally {
@@ -153,6 +158,7 @@ public class GoalDataController {
                     do {
                         int id = cursor.getInt(cursor.getColumnIndex("_id"));
                         checkedItemNumList.add(id);
+                        Log.e("damn", "here!");
                     } while (cursor.moveToNext());
                 }
 
@@ -196,8 +202,7 @@ public class GoalDataController {
 
         public Cursor getMemoData(){
             SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM goals ORDER BY list_index ASC", null);
-            return cursor;
+            return db.rawQuery("SELECT * FROM goals ORDER BY list_index ASC", null);
         }
 
         public void deleteAllData(){
@@ -267,33 +272,6 @@ public class GoalDataController {
             db.endTransaction();
         }
 
-    }
-
-    // Get all goals in the database
-    public ArrayList<Goal> getAllGoals() {
-        ArrayList<Goal> goals = new ArrayList<Goal>();
-
-        String GOALS_SELECT_QUERY =
-                String.format("SELECT * FROM %s ", TABLE_GOALS);
-
-        SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery(GOALS_SELECT_QUERY, null);
-        try {
-            if (cursor.moveToFirst()) {
-                do {
-                    Goal newGoal = new Goal();
-                    newGoal.setTitle(cursor.getString(cursor.getColumnIndex(Columns.TEXT)));
-                    goals.add(newGoal);
-                } while (cursor.moveToNext());
-            }
-        } catch (Exception e) {
-            Log.d(TAG, "Error while trying to get posts from database");
-        } finally {
-            if (cursor != null && !cursor.isClosed()) {
-                cursor.close();
-            }
-        }
-        return goals;
     }
 
     /*

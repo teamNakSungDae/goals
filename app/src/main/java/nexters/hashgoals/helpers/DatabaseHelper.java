@@ -121,10 +121,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return counter;
     }
 
+    /* This method must only be used by reflection(). Otherwise, you must not use it.*/
     public Cursor getOrderedCursor() {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM goals ORDER BY list_index ASC", null);
-        return cursor;
+        return db.rawQuery("SELECT * FROM goals ORDER BY list_index ASC", null);
     }
+
+    public Cursor getNewCursor() {
+        SQLiteDatabase db = getReadableDatabase();
+        return db.rawQuery("SELECT * FROM goals ORDER BY list_index ASC", null);
+    }
+
+
+
 
 }
