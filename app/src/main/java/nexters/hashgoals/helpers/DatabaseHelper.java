@@ -81,7 +81,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         String CREATE_DETAIL_TABLE =
-                "CREAT TABLE "+ TABLE_DETAILS +
+                "create TABLE "+ TABLE_DETAILS +
                         " ( "+ COL_DETAIL_ID+" INTEGER PRIMARY KEY REFERENCES "+TABLE_GOALS+"("+COL_GOAL_ID+") ,"+
                         COL_DETAIL_TEXT +"TEXT," +
                         COL_DETAIL_RECYCLE_NO +" INTEGER )";
