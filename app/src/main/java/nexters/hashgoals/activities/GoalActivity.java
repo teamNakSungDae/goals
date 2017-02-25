@@ -1,5 +1,6 @@
 package nexters.hashgoals.activities;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -10,11 +11,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.facebook.CallbackManager;
+import com.facebook.ProfileTracker;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 
@@ -41,6 +44,9 @@ public class GoalActivity extends AppCompatActivity {
     Toolbar toolbar;
     Menu menu;
     MenuItem modifyItem;
+
+    ProfileTracker profileTracker;
+    CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +84,6 @@ public class GoalActivity extends AppCompatActivity {
         });
     }
     public void defaultToolbar() {
-
         //setToolbarTitleFont();
         toolbar.setTitle(R.string.goal_edit_title); //
         setSupportActionBar(toolbar); // Sets the Toolbar to act as the ActionBar for this Activity window.
@@ -121,7 +126,6 @@ public class GoalActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         MenuItem deleteItem = menu.findItem(R.id.delete);
         MenuItem editItem = menu.findItem(R.id.edit);
 
@@ -164,7 +168,6 @@ public class GoalActivity extends AppCompatActivity {
     }
 
     public void setDragSortListView() {
-
         dragSortController = new DragSortController(dslv);
         dragSortController.setDragHandleId(R.id.order_button);
         dragSortController.setSortEnabled(false); // Initally, drag-sort must not be enabled.
@@ -176,11 +179,9 @@ public class GoalActivity extends AppCompatActivity {
         /* If dragSortController's mSortEnabled is set true, drag-sort is allowed.
         Otherwise, drag-sort is rejected.
          */
-
     }
 
     public void populateDragSortListView() {
-
         databaseHelper = DatabaseHelper.getInstance(this);
         db = databaseHelper.getWritableDatabase();
 
@@ -202,9 +203,7 @@ public class GoalActivity extends AppCompatActivity {
         }
     }
 
-
     private void displayLogo() {
-
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.toolbar_rl);
         ImageView logoIcon = (ImageView) findViewById(R.id.logo_icon);
         ImageView logo = (ImageView) findViewById(R.id.logo);
@@ -212,11 +211,9 @@ public class GoalActivity extends AppCompatActivity {
         relativeLayout.setVisibility(View.VISIBLE);
         logoIcon.setVisibility(View.VISIBLE);
         logo.setVisibility(View.VISIBLE);
-
     }
 
     private void hideLogo() {
-
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.toolbar_rl);
         ImageView logoIcon = (ImageView) findViewById(R.id.logo_icon);
         ImageView logo = (ImageView) findViewById(R.id.logo);
@@ -224,11 +221,9 @@ public class GoalActivity extends AppCompatActivity {
         relativeLayout.setVisibility(View.GONE);
         logoIcon.setVisibility(View.GONE);
         logo.setVisibility(View.GONE);
-
     }
 
     public void onEditButton() {
-
         hideLogo();
         GoalDragSortAdapter.setEditMenu(true);
         goalDragSortAdapter.reflection();
@@ -236,7 +231,6 @@ public class GoalActivity extends AppCompatActivity {
     }
 
     public void onBackButton(){
-
         displayLogo();
         GoalDragSortAdapter.setEditMenu(false);
         goalDragSortAdapter.reflection();
@@ -251,10 +245,57 @@ public class GoalActivity extends AppCompatActivity {
             this.modifyItem.setIcon(getResources().getDrawable(R.drawable.modify_on));
     }
 
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//
+//        // Load facebook profile image if exists. Or else get logo_icon
+//        final ImageView logoIcon = (ImageView) findViewById(R.id.logo_icon);
+//        logoIcon.setVisibility(View.VISIBLE);
+//
+//        callbackManager = CallbackManager.Factory.create();
+//
+//        profileTracker = new ProfileTracker() {
+//            @Override
+//            protected void onCurrentProfileChanged(
+//                    Profile oldProfile,
+//                    Profile currentProfile) {
+//                Profile.setCurrentProfile(currentProfile);
+//                setLogoIcon(logoIcon, currentProfile.getId());
+//            }
+//        };
+//        Profile currentProfile = Profile.getCurrentProfile();
+//
+//        if (currentProfile != null) {
+//            setLogoIcon(logoIcon, currentProfile.getId());
+//        }
+//    }
+
+    private void setLogoIcon(ImageView logoIcon, String userId) {
+        String userImageUrl = String.format("https://graph.facebook.com/%s/picture?type=small",
+                userId);
+        Glide.with(getApplicationContext())
+                .load(userImageUrl)
+                .placeholder(R.drawable.logo_icon)
+                .into(logoIcon);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         goalDragSortAdapter.reflection();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        profileTracker.stopTracking();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
 }

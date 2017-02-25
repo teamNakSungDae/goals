@@ -3,4 +3,8 @@
     <string name="goal_hint">당신의 목표는 무엇인가요?</string>
     <string name="goal_edit">편집</string>
     <string name="goal_edit_title">편집하기</string>
+    <string name="goal_logo">로고 이미지</string>
+    <string name="login_skip">건너뛰기</string>
+    <string name="facebook_app_id">408567052813625</string>
+    <string name="fb_login_protocol_scheme">fb408567052813625</string>
 </resources>

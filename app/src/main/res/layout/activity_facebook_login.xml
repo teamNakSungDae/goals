@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_facebook_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/goals_color"
+    tools:context="nexters.hashgoals.activities.FacebookLoginActivity">
+
+    <ImageView
+        android:id="@+id/image_logo_login"
+        android:layout_width="157dp"
+        android:layout_height="138dp"
+        android:layout_marginTop="149dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/splash"
+        android:contentDescription="@string/goal_logo" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/button_login_facebook"
+        android:layout_below="@+id/image_logo_login"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_marginTop="138dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="17dp"
+        android:paddingTop="16.5dp"
+        android:paddingBottom="16.5dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_login_facebook"
+        android:textColor="@color/goals_color" />
+
+    <Button
+        android:id="@+id/button_login_skip"
+        android:layout_below="@+id/button_login_facebook"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="17dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_login_skip"
+        android:text="@string/login_skip"
+        android:textSize="16sp"
+        android:textColor="@color/goals_white" />
+
+</RelativeLayout>
