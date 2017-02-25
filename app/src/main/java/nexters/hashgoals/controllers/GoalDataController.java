@@ -250,16 +250,18 @@ public class GoalDataController {
                             listIndexToListIndexMap.get(q.getString(q.getColumnIndex("list_index"))));
                 } while (q.moveToNext());
             }
-            String temp = StringUtils.join(idToListIndexMap.entrySet().toArray(), ",");
-            temp = "(" + temp.replace(",", "), (") + ")";
-            temp = temp.replace("=", ",");
+            String idList = "(" + StringUtils.join(idToListIndexMap.keySet(), ", ") + ")";
+            String temp = StringUtils.join(idToListIndexMap.entrySet().toArray(), " when ");
+            temp = "when " + temp + " end";
+            temp = temp.replace("=", " then ");
             Log.e("hello", temp);
 
-            db.execSQL(String.format("replace into %s (_id, list_index) values %s",
+            db.execSQL(String.format("update %s set list_index = case _id %s where _id in %s",
                     TABLE_GOALS,
-                    temp));
+                    temp,
+                    idList));
         } catch (Exception e) {
-            Log.d(TAG, "Error while remapping");
+            Log.d("hello", "Error while remapping");
         } finally {
             if(q != null && !q.isClosed()) {
                 q.close();

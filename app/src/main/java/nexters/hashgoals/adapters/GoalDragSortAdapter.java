@@ -79,19 +79,14 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
             setMemo(syncedPosition, holder.textView);
             holder.textView.setTypeface(FontsLoader.getTypeface(mContext, FontsLoader.N_S_REGULAR));
             holder.toggle = TOGGLE_OFF;
-
             convertView.setTag(holder);
+            Log.e("damn", "새로 만들기");
 
         } else {
+            Log.e("damn", "재활용");
             holder = (ViewHolder) convertView.getTag();
+            setMemo(syncedPosition, holder.textView);
             holder.checkBox.setImageResource(R.drawable.checkbox_off); // Since Views are recycled.
-            //setMemo(syncedPosition, holder.textView);
-            /* Didn't work that effectively.
-                if (holder.toggle == TOGGLE_ON)
-                    holder.checkBox.setImageResource(R.drawable.checkbox_off);
-                */
-            // touch feel worse.
-            //holder.checkBox.setImageResource(R.drawable.checkbox_off); // for update state renewal.
         }
 
         /* Setting up Listeners */
@@ -167,7 +162,8 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
             if (cursor.moveToFirst()) { // This line is intended to prevent cursor index out of bounds exception.
                 do {
                     Log.d("damn", "list_index: " + cursor.getString(cursor.getColumnIndex("list_index"))
-                            + "row_id: " + cursor.getString(cursor.getColumnIndex("_id")));
+                            + " text: " + cursor.getString(cursor.getColumnIndex("text"))
+                            + " row_id: " + cursor.getString(cursor.getColumnIndex("_id")));
 
                 } while (cursor.moveToNext());
             }
@@ -188,6 +184,7 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
             if (cursor.moveToFirst()) {
                 do {
                     if (Integer.toString(position).equals(cursor.getString(2))) { // 0 was changed to 2.
+                        Log.e("damn", "db text = " + cursor.getString(1));
                         textView.setText(cursor.getString(1));
                         break;
                     }

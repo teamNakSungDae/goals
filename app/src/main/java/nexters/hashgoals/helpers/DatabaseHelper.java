@@ -75,7 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String CREATE_GOALS_TABLE = "CREATE TABLE " + TABLE_GOALS +
                 "(" +
                 COL_GOAL_ID + " INTEGER PRIMARY KEY," + // Define a primary key
-                COL_GOAL_TEXT + " TEXT," +
+                COL_GOAL_TEXT + " TEXT NOT NULL," +
                 COL_GOAL_LIST_INDEX + " INTEGER" +
                 ")";
 
@@ -124,7 +124,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /* This method must only be used by reflection(). Otherwise, you must not use it.*/
     public Cursor getOrderedCursor() {
         SQLiteDatabase db = getReadableDatabase();
-        return db.rawQuery("SELECT * FROM goals ORDER BY list_index ASC", null);
+        return db.rawQuery("SELECT * FROM goals ORDER BY list_index ASC", null); // ORDER BY list_index ASC
     }
 
     public Cursor getNewCursor() {

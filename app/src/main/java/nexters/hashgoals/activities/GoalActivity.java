@@ -37,6 +37,7 @@ public class GoalActivity extends AppCompatActivity {
     GoalDataController goalDataController;
     DragSortController dragSortController;
     DragSortListView dslv;
+    Cursor dragSortCursor;
     Toolbar toolbar;
     Menu menu;
     MenuItem modifyItem;
@@ -181,22 +182,17 @@ public class GoalActivity extends AppCompatActivity {
         databaseHelper = DatabaseHelper.getInstance(this);
         db = databaseHelper.getWritableDatabase();
 
-        Cursor goalCursor = db.rawQuery("SELECT * FROM goals", null);
-        try {
-            String[] fromFieldNames = new String[]{"text"};
-            int[] toViewIDs = new int[]{R.id.goal_content};
+        dragSortCursor = db.rawQuery("SELECT * FROM goals order by list_index", null); // This adapter attached cursor closes at the 'onPause' state.
 
-            goalDragSortAdapter =
-                    new GoalDragSortAdapter(GoalActivity.this, R.layout.list_item_goal, goalCursor,
-                            fromFieldNames, toViewIDs, goalDataController);
-            // Application context cannot be cast to GoalActivity. Therefore, must pass context as GoalActivity.this.
-            dslv.setAdapter(goalDragSortAdapter);
-            dslv.setDropListener(goalDragSortAdapter.onDrop);
-        } finally {
-            if (goalCursor != null && !goalCursor.isClosed()) {
-                goalCursor.close();
-            }
-        }
+        String[] fromFieldNames = new String[]{"_id", "text", "list_index"};
+        int[] toViewIDs = new int[]{R.id.goal_content};
+
+        goalDragSortAdapter =
+                new GoalDragSortAdapter(GoalActivity.this, R.layout.list_item_goal, dragSortCursor,
+                        fromFieldNames, toViewIDs, goalDataController);
+        // Application context cannot be cast to GoalActivity. Therefore, must pass context as GoalActivity.this.
+        dslv.setAdapter(goalDragSortAdapter);
+        dslv.setDropListener(goalDragSortAdapter.onDrop);
     }
 
     private void displayLogo() {
@@ -278,17 +274,29 @@ public class GoalActivity extends AppCompatActivity {
 
     @Override
     public void onResume() {
+        Log.e("damn", "onResume state");
         super.onResume();
         goalDragSortAdapter.reflection();
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-//        profileTracker.stopTracking();
+    public void onPause() {
+        Log.e("damn", "onPause state");
+        super.onPause();
+        if (dragSortCursor != null && !dragSortCursor.isClosed()) {
+            dragSortCursor.close();
+        }
     }
 
-//    @Override
+    @Override
+    public void onDestroy() {
+        Log.e("damn", "onDestroy state");
+        super.onDestroy();
+        // profileTracker.stopTracking();
+        db.close();
+    }
+
+    //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
 //        callbackManager.onActivityResult(requestCode, resultCode, data);

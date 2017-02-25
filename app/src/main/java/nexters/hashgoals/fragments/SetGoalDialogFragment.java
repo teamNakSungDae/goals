@@ -94,7 +94,7 @@ public class SetGoalDialogFragment extends DialogFragment {
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
         GoalActivity goalActivity = (GoalActivity)getActivity();
-        Cursor cursor = goalActivity.db.rawQuery("SELECT * FROM goals", null);
+        Cursor cursor = goalActivity.db.rawQuery("SELECT * FROM goals order by list_index", null);
         goalActivity.goalDragSortAdapter.changeCursor(cursor);
     }
 
