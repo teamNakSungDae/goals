@@ -2,9 +2,6 @@ package nexters.hashgoals.models;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

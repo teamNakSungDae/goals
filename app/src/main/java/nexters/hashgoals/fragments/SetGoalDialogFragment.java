@@ -12,6 +12,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +46,7 @@ public class SetGoalDialogFragment extends DialogFragment {
 
     @BindViews({R.id.monday, R.id.tuesday, R.id.wednesday, R.id.thursday, R.id.friday, R.id.saturday, R.id.sunday})
     List<Button> dayViews;
+    Goal goal;
 
     private boolean[] daysButtonState;
 
@@ -62,6 +65,7 @@ public class SetGoalDialogFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_goal_set, container);
         unbinder = ButterKnife.bind(this, view);
+        goal = new Goal();
 
         return view;
     }
@@ -72,8 +76,6 @@ public class SetGoalDialogFragment extends DialogFragment {
     * */
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        // @Nullable이 뭐지?
-        // onViewCreated는 뭐지?
         super.onViewCreated(view, savedInstanceState);
         // Get field from view
         initializeDaysButtonState();
@@ -88,10 +90,9 @@ public class SetGoalDialogFragment extends DialogFragment {
 
     @OnClick(R.id.btn_save)
     void onSaveButtonClicked() {
-        Goal g = new Goal();
-        g.setMTitle(mEditText.getText().toString());
-        GoalDataController.getInstance(getActivity()).addOrUpdateGoal(g);
-        //DatabaseHelper.getInstance(getActivity()).addOrUpdateGoal(g);
+        goal.setMTitle(mEditText.getText().toString());
+        goal.setMDaysOfWeek(getIntArrayOfDays());
+        GoalDataController.getInstance(getActivity()).addOrUpdateGoal(goal);
         dismiss();
     }
 
@@ -154,9 +155,22 @@ public class SetGoalDialogFragment extends DialogFragment {
 
         if (daysButtonState[day]) {
             dayButton.setBackgroundResource(R.color.goals_btn_repeat_goal_set);
+
         } else {
             dayButton.setBackgroundResource(R.color.goals_click_on_btn_repeat_goal_set);
+
         }
         daysButtonState[day] = !daysButtonState[day];
+    }
+
+    public int[] getIntArrayOfDays() {
+        int[] arrayOfDays = new int [7];
+        for (int i=0; i<daysButtonState.length; i++) {
+            if (daysButtonState[i])
+                arrayOfDays[i] = 1;
+            else
+                arrayOfDays[i] = 0;
+        }
+        return arrayOfDays;
     }
 }

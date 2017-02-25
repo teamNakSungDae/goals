@@ -39,6 +39,7 @@ public class GoalDataController {
             static final String ID = "_id";
             static final String TEXT = "text";
             static final String LIST_INDEX = "list_index";
+            static final String DAYS = "days";
         }
 
         public int getCheckedItemNumList() {
@@ -298,8 +299,9 @@ public class GoalDataController {
             ContentValues values = new ContentValues();
             values.put(Columns.TEXT, goal.getMTitle());
             values.put(Columns.LIST_INDEX, mDatabaseHelper.getCount()+1);
-            // Since it is a newly added item, one must be added to the index.
+            values.put(Columns.DAYS, goal.getMDaysOfWeek());
 
+            // Since it is a newly added item, one must be added to the index.
             // goal with this goalTitle did not already exist, so insert new goal
             goalId = db.insertOrThrow(TABLE_GOALS, null, values);
             db.setTransactionSuccessful();
