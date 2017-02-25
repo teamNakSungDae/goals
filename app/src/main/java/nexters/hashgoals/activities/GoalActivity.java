@@ -13,19 +13,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import butterknife.ButterKnife;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
-
-import java.lang.reflect.Field;
-
-import butterknife.ButterKnife;
 import nexters.hashgoals.R;
 import nexters.hashgoals.adapters.GoalDragSortAdapter;
 import nexters.hashgoals.controllers.GoalDataController;
 import nexters.hashgoals.fonts.FontsLoader;
 import nexters.hashgoals.fragments.SetGoalDialogFragment;
 import nexters.hashgoals.helpers.DatabaseHelper;
+
+import java.lang.reflect.Field;
 
 
 public class GoalActivity extends AppCompatActivity {

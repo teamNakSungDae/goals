@@ -1,12 +1,11 @@
 package nexters.hashgoals.models;
 
-import org.apache.commons.lang3.StringUtils;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
-import static android.R.attr.x;
+import java.util.List;
 
 /**
  * Created by flecho on 2017. 1. 31..
@@ -23,7 +22,7 @@ public class Goal {
     private String mDaysOfWeek;
 
 
-    public void setMDaysOfWeek(int[] daysOfWeek) {
+    public void setMDaysOfWeek(List<String> daysOfWeek) {
         this.mDaysOfWeek = StringUtils.join(daysOfWeek, ",");
     }
 

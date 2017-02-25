@@ -5,15 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
+import nexters.hashgoals.helpers.DatabaseHelper;
+import nexters.hashgoals.models.Goal;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import nexters.hashgoals.helpers.DatabaseHelper;
-import nexters.hashgoals.models.Goal;
 
 import static android.content.ContentValues.TAG;
 

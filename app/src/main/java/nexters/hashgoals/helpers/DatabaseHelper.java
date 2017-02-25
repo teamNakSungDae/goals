@@ -1,15 +1,10 @@
 package nexters.hashgoals.helpers;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
-import java.util.ArrayList;
-
-import nexters.hashgoals.models.Goal;
 
 import static android.content.ContentValues.TAG;
 
@@ -77,7 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "(" +
                 COL_GOAL_ID + " INTEGER PRIMARY KEY," + // Define a primary key
                 COL_GOAL_TEXT + " TEXT NOT NULL," +
-                COL_GOAL_LIST_INDEX + " INTEGER" +
+                COL_GOAL_LIST_INDEX + " INTEGER," +
                 COL_GOAL_DAYS + " TEXT" +
                 ")";
 

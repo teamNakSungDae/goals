@@ -8,10 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.mobeta.android.dslv.DragSortListView;
 import com.mobeta.android.dslv.SimpleDragSortCursorAdapter;
-
 import nexters.hashgoals.R;
 import nexters.hashgoals.activities.GoalActivity;
 import nexters.hashgoals.controllers.GoalDataController;

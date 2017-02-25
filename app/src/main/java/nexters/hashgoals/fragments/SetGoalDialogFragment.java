@@ -11,23 +11,15 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindArray;
-import butterknife.BindView;
-import butterknife.BindViews;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+import butterknife.*;
 import lombok.NoArgsConstructor;
 import nexters.hashgoals.R;
 import nexters.hashgoals.activities.GoalActivity;
 import nexters.hashgoals.controllers.GoalDataController;
 import nexters.hashgoals.models.Goal;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by flecho on 2017. 2. 7..
@@ -91,7 +83,7 @@ public class SetGoalDialogFragment extends DialogFragment {
     @OnClick(R.id.btn_save)
     void onSaveButtonClicked() {
         goal.setMTitle(mEditText.getText().toString());
-        goal.setMDaysOfWeek(getIntArrayOfDays());
+        goal.setMDaysOfWeek(getIntListOfDays());
         GoalDataController.getInstance(getActivity()).addOrUpdateGoal(goal);
         dismiss();
     }
@@ -153,23 +145,21 @@ public class SetGoalDialogFragment extends DialogFragment {
 
         dayButton = dayViews.get(day);
 
-        if (daysButtonState[day]) {
+        if (daysButtonState[day])
             dayButton.setBackgroundResource(R.color.goals_btn_repeat_goal_set);
-
-        } else {
+        else
             dayButton.setBackgroundResource(R.color.goals_click_on_btn_repeat_goal_set);
 
-        }
         daysButtonState[day] = !daysButtonState[day];
     }
 
-    public int[] getIntArrayOfDays() {
-        int[] arrayOfDays = new int [7];
-        for (int i=0; i<daysButtonState.length; i++) {
-            if (daysButtonState[i])
-                arrayOfDays[i] = 1;
+    private List<String> getIntListOfDays() {
+        List<String> arrayOfDays = new ArrayList<>();
+        for (boolean aDaysButtonState : daysButtonState) {
+            if (aDaysButtonState)
+                arrayOfDays.add("1");
             else
-                arrayOfDays[i] = 0;
+                arrayOfDays.add("0");
         }
         return arrayOfDays;
     }

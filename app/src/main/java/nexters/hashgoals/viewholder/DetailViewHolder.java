@@ -4,13 +4,9 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-
-import lombok.Data;
 import nexters.hashgoals.R;
 import nexters.hashgoals.models.Detail;
-import nexters.hashgoals.models.DetailData;
 
 /**
  * Created by kwongiho on 2017. 2. 24..

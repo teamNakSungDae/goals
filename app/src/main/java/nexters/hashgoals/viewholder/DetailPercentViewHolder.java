@@ -1,16 +1,9 @@
 package nexters.hashgoals.viewholder;
 
-import android.content.Context;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-
 import nexters.hashgoals.R;
 import nexters.hashgoals.models.Detail;
-import nexters.hashgoals.models.DetailData;
-import nexters.hashgoals.models.DetailPercent;
 
 /**
  * Created by kwongiho on 2017. 2. 24..
