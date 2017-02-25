@@ -1,6 +1,5 @@
 package nexters.hashgoals.activities;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -15,9 +14,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.facebook.CallbackManager;
-import com.facebook.ProfileTracker;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 
@@ -28,7 +24,7 @@ import nexters.hashgoals.R;
 import nexters.hashgoals.adapters.GoalDragSortAdapter;
 import nexters.hashgoals.controllers.GoalDataController;
 import nexters.hashgoals.fonts.FontsLoader;
-import nexters.hashgoals.fragments.EditGoalDialogFragment;
+import nexters.hashgoals.fragments.SetGoalDialogFragment;
 import nexters.hashgoals.helpers.DatabaseHelper;
 
 
@@ -45,8 +41,8 @@ public class GoalActivity extends AppCompatActivity {
     Menu menu;
     MenuItem modifyItem;
 
-    ProfileTracker profileTracker;
-    CallbackManager callbackManager;
+//    ProfileTracker profileTracker;
+//    CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +64,10 @@ public class GoalActivity extends AppCompatActivity {
         populateDragSortListView();
     }
 
-    private void showEditDialog() {
+    private void showSetDialog() {
         FragmentManager fm = getSupportFragmentManager();
-        EditGoalDialogFragment editGoalDialogFragment = EditGoalDialogFragment.newInstance("Some Title");
-        editGoalDialogFragment.show(fm, "fragment_edit_goal");
+        SetGoalDialogFragment setGoalDialogFragment = SetGoalDialogFragment.newInstance("Some Title");
+        setGoalDialogFragment.show(fm, "fragment_goal_set");
     }
 
     private void setAddButton() {
@@ -79,7 +75,7 @@ public class GoalActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showEditDialog();
+                showSetDialog();
             }
         });
     }
@@ -271,14 +267,14 @@ public class GoalActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private void setLogoIcon(ImageView logoIcon, String userId) {
-        String userImageUrl = String.format("https://graph.facebook.com/%s/picture?type=small",
-                userId);
-        Glide.with(getApplicationContext())
-                .load(userImageUrl)
-                .placeholder(R.drawable.logo_icon)
-                .into(logoIcon);
-    }
+//    private void setLogoIcon(ImageView logoIcon, String userId) {
+//        String userImageUrl = String.format("https://graph.facebook.com/%s/picture?type=small",
+//                userId);
+//        Glide.with(getApplicationContext())
+//                .load(userImageUrl)
+//                .placeholder(R.drawable.logo_icon)
+//                .into(logoIcon);
+//    }
 
     @Override
     public void onResume() {
@@ -289,13 +285,13 @@ public class GoalActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        profileTracker.stopTracking();
+//        profileTracker.stopTracking();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        callbackManager.onActivityResult(requestCode, resultCode, data);
+//    }
 
 }

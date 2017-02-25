@@ -16,34 +16,32 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import lombok.NoArgsConstructor;
 import nexters.hashgoals.R;
 import nexters.hashgoals.activities.GoalActivity;
 import nexters.hashgoals.controllers.GoalDataController;
-import nexters.hashgoals.helpers.DatabaseHelper;
 import nexters.hashgoals.models.Goal;
 
 /**
  * Created by flecho on 2017. 2. 7..
  */
 
-public class EditGoalDialogFragment extends DialogFragment {
+// Empty constructor is required for DialogFragment
+// Make sure not to add arguments to the constructor
+// Use 'newInstance' instead as shown below
+@NoArgsConstructor
+public class SetGoalDialogFragment extends DialogFragment {
 
     /* Butterknife was used to make onClick codes more readable */
     @BindView(R.id.txt_your_goal) EditText mEditText;
     @BindView(R.id.btn_save) Button mSaveButton;
     @BindView(R.id.btn_cancel) Button mCancelButton;
 
-
     private Unbinder unbinder;
 
-    public EditGoalDialogFragment() {
-        // Empty constructor is required for DialogFragment
-        // Make sure not to add arguments to the constructor
-        // Use 'newInstance' instead as shown below
-    }
 
-    public static EditGoalDialogFragment newInstance(String title) {
-        EditGoalDialogFragment frag = new EditGoalDialogFragment();
+    public static SetGoalDialogFragment newInstance(String title) {
+        SetGoalDialogFragment frag = new SetGoalDialogFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
         frag.setArguments(args);
@@ -53,7 +51,7 @@ public class EditGoalDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_edit_goal, container);
+        View view = inflater.inflate(R.layout.fragment_goal_set, container);
         unbinder = ButterKnife.bind(this, view);
 
         return view;
