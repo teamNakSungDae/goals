@@ -34,6 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_GOAL_ID = "_id"; // This is extremely important.
     private static final String COL_GOAL_TEXT = "text";
     private static final String COL_GOAL_LIST_INDEX = "list_index";
+    private static final String COL_GOAL_DAYS = "days";
 
     // Detail Table Columns
     /**
@@ -77,6 +78,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COL_GOAL_ID + " INTEGER PRIMARY KEY," + // Define a primary key
                 COL_GOAL_TEXT + " TEXT NOT NULL," +
                 COL_GOAL_LIST_INDEX + " INTEGER" +
+                COL_GOAL_DAYS + " TEXT" +
                 ")";
 
 

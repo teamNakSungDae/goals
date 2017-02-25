@@ -79,7 +79,7 @@ public class SetGoalDialogFragment extends DialogFragment {
     @OnClick(R.id.btn_save)
     void onSaveButtonClicked() {
         Goal g = new Goal();
-        g.setTitle(mEditText.getText().toString());
+        g.setMTitle(mEditText.getText().toString());
         GoalDataController.getInstance(getActivity()).addOrUpdateGoal(g);
         //DatabaseHelper.getInstance(getActivity()).addOrUpdateGoal(g);
         dismiss();

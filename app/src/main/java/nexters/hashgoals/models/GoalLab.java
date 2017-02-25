@@ -19,7 +19,7 @@ public class GoalLab {
         mGoals = new ArrayList<Goal>();
         for (int i = 0; i< 5; i++) {
             Goal g = new Goal();
-            g.setTitle("Goal #" + i);
+            g.setMTitle("Goal #" + i);
             mGoals.add(g);
         }
     }

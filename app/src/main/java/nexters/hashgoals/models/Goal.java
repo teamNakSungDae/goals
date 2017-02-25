@@ -1,15 +1,37 @@
 package nexters.hashgoals.models;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import static android.R.attr.x;
+
 /**
  * Created by flecho on 2017. 1. 31..
  */
 
+@Getter
+@NoArgsConstructor
 public class Goal {
     private long mId;
+
+    @Setter
     private String mTitle;
 
-    public Goal() {
-        // Generate unique identifier
+    private String mDaysOfWeek;
+
+
+    public void setMDaysOfWeek(int[] daysOfWeek) {
+        this.mDaysOfWeek = StringUtils.join(daysOfWeek, ",");
+    }
+
+    public String[] parseDaysOfWeek() {
+        return StringUtils.split(mDaysOfWeek, ",");
     }
 
     @Override
@@ -20,12 +42,5 @@ public class Goal {
     * to populate the TextView.
     * */
 
-    public long getId() {
-        return mId;
-    }
 
-    public String getTitle() { return mTitle; }
-    public void setTitle(String mTitle) {
-        this.mTitle = mTitle;
-    }
 }

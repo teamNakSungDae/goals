@@ -192,8 +192,8 @@ public class GoalDataController {
         * I'm not sure whether this is a good idea for initializing ArrayList.
         * */
         public void initializeCheckedList() {
-            checkedItemNumList.clear();
-            leftItemNumList.clear();
+            checkedItemNumList = new ArrayList<>();
+            leftItemNumList= new ArrayList<>();
         }
 
         public Cursor getMemoData(){
@@ -296,7 +296,7 @@ public class GoalDataController {
         try{
 
             ContentValues values = new ContentValues();
-            values.put(Columns.TEXT, goal.getTitle());
+            values.put(Columns.TEXT, goal.getMTitle());
             values.put(Columns.LIST_INDEX, mDatabaseHelper.getCount()+1);
             // Since it is a newly added item, one must be added to the index.
 
