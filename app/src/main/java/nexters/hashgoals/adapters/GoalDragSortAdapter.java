@@ -116,16 +116,16 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
                     holder.toggle = TOGGLE_ON;
                     mGoalDataController.addCheckedItemToList(position);
                     Log.d("damn", "cliked_position: " + position);
-                    Log.d("damn", "checked list size: " + mGoalDataController.getCheckedItemNumList());
+                    Log.d("damn", "checked list size: " + mGoalDataController.getCheckedIdListSize());
                 } else {
                     holder.checkBox.setImageResource(R.drawable.checkbox_off);
                     holder.toggle = TOGGLE_OFF;
                     mGoalDataController.removeUnCheckedItemFromList(position); // UnCheck할 때 ID를 받아서 Controller의 ArrayList에 추가한다.
                     Log.d("damn", "uncliked_position: " + position);
-                    Log.d("damn", "checked list size: " + mGoalDataController.getCheckedItemNumList());
+                    Log.d("damn", "checked list size: " + mGoalDataController.getCheckedIdListSize());
                 }
 
-                ((GoalActivity)mContext).changeEditButtonState(mGoalDataController.getCheckedItemListSize());
+                ((GoalActivity)mContext).changeEditButtonState(mGoalDataController.getCheckedIdListSize());
                 GoalDataController.getInstance(mContext).forTest(); // for debugging
             }
         });

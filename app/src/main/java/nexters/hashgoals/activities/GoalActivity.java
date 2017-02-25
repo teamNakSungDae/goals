@@ -13,7 +13,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 import nexters.hashgoals.R;
@@ -22,8 +24,11 @@ import nexters.hashgoals.controllers.GoalDataController;
 import nexters.hashgoals.fonts.FontsLoader;
 import nexters.hashgoals.fragments.SetGoalDialogFragment;
 import nexters.hashgoals.helpers.DatabaseHelper;
+import nexters.hashgoals.models.Goal;
+import nexters.hashgoals.models.GoalAction;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 
 public class GoalActivity extends AppCompatActivity {
@@ -40,6 +45,9 @@ public class GoalActivity extends AppCompatActivity {
     Menu menu;
     MenuItem modifyItem;
 
+    @BindViews({R.id.add_button})
+    List<ImageView> setGoalButtons;
+
 //    ProfileTracker profileTracker;
 //    CallbackManager callbackManager;
 
@@ -51,33 +59,33 @@ public class GoalActivity extends AppCompatActivity {
         goalDataController = GoalDataController.getInstance(getApplicationContext());
         dslv = (DragSortListView) findViewById(R.id.dslv);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         ButterKnife.bind(GoalActivity.this);
         ButterKnife.setDebug(true);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         displayLogo();
         defaultToolbar();
 
         setDragSortListView();
-        setAddButton();
         populateDragSortListView();
     }
 
-    private void showSetDialog() {
+    @OnClick({R.id.add_button})
+    void onSetButtonClick(View view) {
         FragmentManager fm = getSupportFragmentManager();
         SetGoalDialogFragment setGoalDialogFragment = SetGoalDialogFragment.newInstance("Some Title");
+
+        if (view.getId() == R.id.add_button) {
+            setGoalDialogFragment.setAction(GoalAction.INSERT);
+            setGoalDialogFragment.setGoal(new Goal());
+        } else {
+            setGoalDialogFragment.setAction(GoalAction.UPDATE);
+            setGoalDialogFragment.setGoal(goalDataController.getCheckedGoal());
+        }
+
         setGoalDialogFragment.show(fm, "fragment_goal_set");
     }
 
-    private void setAddButton() {
-        ImageView addButton = (ImageView) findViewById(R.id.add_button);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showSetDialog();
-            }
-        });
-    }
     public void defaultToolbar() {
         //setToolbarTitleFont();
         toolbar.setTitle(R.string.goal_edit_title); //
@@ -154,6 +162,7 @@ public class GoalActivity extends AppCompatActivity {
             case R.id.modify:
                 Log.e("damn", "modify button is clicked.");
                 /* 이 부분 구현해서, Goal의 제목과 반복 알람이 수정되게 바꾸면 된다. */
+                onSetButtonClick(findViewById(R.id.modify));
                 return true;
             case R.id.setting:
                 return true;

@@ -12,17 +12,17 @@ import java.util.List;
  */
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class Goal {
     private long mId;
 
-    @Setter
     private String mTitle;
 
     private String mDaysOfWeek;
 
 
-    public void setMDaysOfWeek(List<String> daysOfWeek) {
+    public void setMDaysOfWeekOf(List<String> daysOfWeek) {
         this.mDaysOfWeek = StringUtils.join(daysOfWeek, ",");
     }
 

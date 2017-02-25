@@ -34,7 +34,7 @@ public class FacebookLoginActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppEventsLogger.activateApp(getApplication());
-        setContentView(R.layout.activity_facebook_login);
+        setContentView(R.layout.activity_login_facebook);
 
         ButterKnife.bind(this);
 
