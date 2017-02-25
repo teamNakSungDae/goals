@@ -24,25 +24,31 @@
         <ImageView
             android:id="@+id/logo_icon"
             android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginRight="9dp"
+            android:layout_marginEnd="9dp"
             android:layout_width="29dp"
             android:layout_height="29dp"
             android:layout_centerVertical="true"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:visibility="gone"
             android:src="@drawable/logo_icon"
+            android:contentDescription="@string/icon_logo"
             />
 
         <ImageView
             android:id="@+id/arrow_back"
             android:paddingLeft="12dp"
+            android:paddingStart="12dp"
             android:paddingRight="9dp"
+            android:paddingEnd="9dp"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_centerVertical="true"
             android:src="@drawable/arrow_back"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:visibility="gone"
+            android:contentDescription="@string/arrow_back"
             />
 
         <ImageView
@@ -50,9 +56,11 @@
             android:layout_width="54dp"
             android:layout_height="16dp"
             android:layout_toRightOf="@id/logo_icon"
+            android:layout_toEndOf="@id/logo_icon"
             android:layout_centerVertical="true"
             android:src="@drawable/logo"
             android:visibility="gone"
+            android:contentDescription="@string/image_text_logo"
             />
 
         <ImageView
@@ -61,7 +69,9 @@
             android:layout_height="24dp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginRight="46dp"
+            android:layout_marginEnd="46dp"
             android:src="@drawable/edit"
             android:visibility="gone"
             />
@@ -71,8 +81,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/arrow_back"
+            android:layout_toEndOf="@id/arrow_back"
             android:text="@string/goal_edit_title"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textColor="@color/goals_white"
             android:layout_centerVertical="true"
             android:visibility="gone"/>
