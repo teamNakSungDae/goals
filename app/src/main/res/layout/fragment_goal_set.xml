@@ -91,6 +91,7 @@
         android:gravity="center">
 
         <Button
+            android:id="@+id/monday"
             android:layout_width="37dp"
             android:layout_height="37dp"
             android:layout_marginStart="2dp"
@@ -102,6 +103,7 @@
             style="?android:attr/borderlessButtonStyle" />
 
         <Button
+            android:id="@+id/tuesday"
             android:layout_width="37dp"
             android:layout_height="37dp"
             android:layout_marginStart="2dp"
@@ -113,6 +115,7 @@
             style="?android:attr/borderlessButtonStyle" />
 
         <Button
+            android:id="@+id/wednesday"
             android:layout_width="37dp"
             android:layout_height="37dp"
             android:layout_marginStart="2dp"
@@ -124,6 +127,7 @@
             style="?android:attr/borderlessButtonStyle" />
 
         <Button
+            android:id="@+id/thursday"
             android:layout_width="37dp"
             android:layout_height="37dp"
             android:layout_marginStart="2dp"
@@ -135,6 +139,7 @@
             style="?android:attr/borderlessButtonStyle" />
 
         <Button
+            android:id="@+id/friday"
             android:layout_width="37dp"
             android:layout_height="37dp"
             android:layout_marginStart="2dp"
@@ -146,6 +151,7 @@
             style="?android:attr/borderlessButtonStyle" />
 
         <Button
+            android:id="@+id/saturday"
             android:layout_width="37dp"
             android:layout_height="37dp"
             android:layout_marginStart="2dp"
@@ -157,6 +163,7 @@
             style="?android:attr/borderlessButtonStyle" />
 
         <Button
+            android:id="@+id/sunday"
             android:layout_width="37dp"
             android:layout_height="37dp"
             android:layout_marginStart="2dp"

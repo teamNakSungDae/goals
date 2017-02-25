@@ -12,7 +12,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindArray;
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -37,8 +42,12 @@ public class SetGoalDialogFragment extends DialogFragment {
     @BindView(R.id.btn_save) Button mSaveButton;
     @BindView(R.id.btn_cancel) Button mCancelButton;
 
-    private Unbinder unbinder;
+    @BindViews({R.id.monday, R.id.tuesday, R.id.wednesday, R.id.thursday, R.id.friday, R.id.saturday, R.id.sunday})
+    List<Button> dayViews;
 
+    private boolean[] daysButtonState;
+
+    private Unbinder unbinder;
 
     public static SetGoalDialogFragment newInstance(String title) {
         SetGoalDialogFragment frag = new SetGoalDialogFragment();
@@ -67,6 +76,7 @@ public class SetGoalDialogFragment extends DialogFragment {
         // onViewCreated는 뭐지?
         super.onViewCreated(view, savedInstanceState);
         // Get field from view
+        initializeDaysButtonState();
 
         String title = getArguments().getString("title", "Enter your goal");
         getDialog().setTitle(title);
@@ -90,6 +100,13 @@ public class SetGoalDialogFragment extends DialogFragment {
         dismiss();
     }
 
+    void initializeDaysButtonState() {
+        daysButtonState = new boolean[7];
+        for (int i = 0; i<daysButtonState.length; i++) {
+            daysButtonState[i] = false;
+        }
+    }
+
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
@@ -102,5 +119,44 @@ public class SetGoalDialogFragment extends DialogFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick({R.id.monday, R.id.tuesday, R.id.wednesday, R.id.thursday, R.id.friday, R.id.saturday, R.id.sunday})
+    public void onDayButtonClicked(View view) {
+        int day;
+        Button dayButton;
+
+        switch (view.getId()) {
+            case R.id.monday:
+                day = 0;
+                break;
+            case R.id.tuesday:
+                day = 1;
+                break;
+            case R.id.wednesday:
+                day = 2;
+                break;
+            case R.id.thursday:
+                day = 3;
+                break;
+            case R.id.friday:
+                day = 4;
+                break;
+            case R.id.saturday:
+                day = 5;
+                break;
+            default:
+                day = 6;
+                break;
+        }
+
+        dayButton = dayViews.get(day);
+
+        if (daysButtonState[day]) {
+            dayButton.setBackgroundResource(R.color.goals_btn_repeat_goal_set);
+        } else {
+            dayButton.setBackgroundResource(R.color.goals_click_on_btn_repeat_goal_set);
+        }
+        daysButtonState[day] = !daysButtonState[day];
     }
 }
