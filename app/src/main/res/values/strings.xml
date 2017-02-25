@@ -1,10 +1,23 @@
 <resources>
     <string name="app_name">#Goals</string>
-    <string name="goal_hint">당신의 목표는 무엇인가요?</string>
+    <string name="facebook_app_id">408567052813625</string>
+    <string name="fb_login_protocol_scheme">fb408567052813625</string>
     <string name="goal_edit">편집</string>
     <string name="goal_edit_title">편집하기</string>
     <string name="goal_logo">로고 이미지</string>
     <string name="login_skip">건너뛰기</string>
-    <string name="facebook_app_id">408567052813625</string>
-    <string name="fb_login_protocol_scheme">fb408567052813625</string>
+
+    <string name="cancle_goal_set">취소</string>
+    <string name="hint_goal_set">당신의 목표는 무엇인가요?</string>
+    <string name="save_goal_set">저장</string>
+    <string name="title_sub_goal_set">알림 반복 주기</string>
+    <string name="title_goal_set">목표 설정하기</string>
+
+    <string name="mon">월</string>
+    <string name="tue">화</string>
+    <string name="wed">수</string>
+    <string name="thu">목</string>
+    <string name="fri">금</string>
+    <string name="sat">토</string>
+    <string name="sun">일</string>
 </resources>

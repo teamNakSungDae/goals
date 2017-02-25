@@ -26,4 +26,10 @@
     <color name="goals_toastbg">#b3000000</color>
     <color name="goals_linecolor">#b1b2c1</color>
 
+    <color name="goals_title_goal_set">#404040</color>
+    <color name="goals_hint_goal_set">#66000000</color>
+    <color name="goals_btn_repeat_goal_set">#4D0D82FD</color>
+    <color name="goals_click_on_btn_repeat_goal_set">#0D82FD</color>
+    <color name="goals_text_btn_goal_set">#4B8EFF</color>
+
 </resources>

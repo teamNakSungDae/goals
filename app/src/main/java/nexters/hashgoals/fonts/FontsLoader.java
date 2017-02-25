@@ -8,8 +8,6 @@ import android.graphics.Typeface;
  */
 
 public class FontsLoader {
-
-
     public static final int N_S_REGULAR =   0;
     public static final int N_S_MEDUIM =   1;
 
@@ -46,7 +44,6 @@ public class FontsLoader {
             fonts[i] = Typeface.createFromAsset(context.getAssets(), fontPath[i]);
         }
         fontsLoaded = true;
-
     }
 }
 
