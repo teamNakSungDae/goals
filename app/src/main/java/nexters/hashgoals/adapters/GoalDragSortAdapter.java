@@ -30,9 +30,6 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
     private static final int TOGGLE_OFF = 0;
     private static final int TOGGLE_ON = 1;
 
-    // Total number of Toggled Buttons
-    private static int numOfToggledButtons = 0;
-
     private class ViewHolder {
         ImageView repeatButton;
         ImageView orderButton; // originally public
@@ -117,20 +114,18 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
                 if (holder.toggle == TOGGLE_OFF) {
                     holder.checkBox.setImageResource(R.drawable.checkbox_on);
                     holder.toggle = TOGGLE_ON;
-                    numOfToggledButtons += 1; // Check할 때 ID를 받아서 Controller의 ArrayList에 추가한다.
                     mGoalDataController.addCheckedItemToList(position);
                     Log.d("damn", "cliked_position: " + position);
                     Log.d("damn", "checked list size: " + mGoalDataController.getCheckedItemNumList());
                 } else {
                     holder.checkBox.setImageResource(R.drawable.checkbox_off);
                     holder.toggle = TOGGLE_OFF;
-                    numOfToggledButtons -= 1;
                     mGoalDataController.removeUnCheckedItemFromList(position); // UnCheck할 때 ID를 받아서 Controller의 ArrayList에 추가한다.
                     Log.d("damn", "uncliked_position: " + position);
                     Log.d("damn", "checked list size: " + mGoalDataController.getCheckedItemNumList());
                 }
 
-                ((GoalActivity)mContext).changeEditButtonState(numOfToggledButtons);
+                ((GoalActivity)mContext).changeEditButtonState(mGoalDataController.getCheckedItemListSize());
                 GoalDataController.getInstance(mContext).forTest(); // for debugging
             }
         });
