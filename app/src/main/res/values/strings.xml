@@ -6,6 +6,16 @@
     <string name="goal_edit_title">편집하기</string>
     <string name="goal_logo">로고 이미지</string>
     <string name="login_skip">건너뛰기</string>
+    <string name="goal">목표</string>
+
+    <string name="handle_drag">드래그 핸들</string>
+    <string name="off_checkbox">체크박스오프</string>
+    <string name="on_checkbox">체크박스온</string>
+    <string name="button_repeat">반복횟수표시버튼</string>
+    <string name="button_add">큰목표추가버튼</string>
+    <string name="arrow_back">뒤로버튼</string>
+    <string name="icon_logo">로고 아이콘</string>
+    <string name="image_text_logo">로고 텍스트 이미지</string>
 
     <string name="cancle_goal_set">취소</string>
     <string name="hint_goal_set">당신의 목표는 무엇인가요?</string>
