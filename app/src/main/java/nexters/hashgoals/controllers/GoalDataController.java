@@ -140,7 +140,10 @@ public class GoalDataController {
                 }
             }
         }
-    
+
+        public int getCheckedItemListSize() {
+            return checkedItemNumList.size();
+        }
 
         /* Get checked items from database and store its index in ArrayList. */
         public void addCheckedItemToList(int position) {
