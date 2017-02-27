@@ -232,7 +232,7 @@ public class GoalDataController {
         }
 
         goal.setMTitle(title);
-        goal.setMDaysOfWeek(StringUtils.split(days, ","));
+        goal.setMDaysOfWeek(days);
 
         return goal;
     }
@@ -318,7 +318,7 @@ public class GoalDataController {
             do {
                 goal.setMId(q.getInt(q.getColumnIndex("_id")));
                 goal.setMTitle(q.getString(q.getColumnIndex("text")));
-                goal.setMDaysOfWeek(StringUtils.split(q.getString(q.getColumnIndex("days")), ","));
+                goal.setMDaysOfWeek(q.getString(q.getColumnIndex("days")));
             } while (q.moveToNext());
         }
 
