@@ -16,12 +16,12 @@ import java.util.List;
  */
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class Goal implements Parcelable {
 
     private long mId;
 
-    @Setter
     private String mTitle;
     private String mDaysOfWeek;
 

@@ -13,10 +13,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import butterknife.*;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.Setter;
 import nexters.hashgoals.R;
 import nexters.hashgoals.activities.GoalActivity;
 import nexters.hashgoals.controllers.GoalDataController;
 import nexters.hashgoals.models.Goal;
+import nexters.hashgoals.models.GoalAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +31,16 @@ import java.util.List;
 // Empty constructor is required for DialogFragment
 // Make sure not to add arguments to the constructor
 // Use 'newInstance' instead as shown below
+@Setter
 @NoArgsConstructor
 public class SetGoalDialogFragment extends DialogFragment {
+    @NonNull
+    private GoalAction action;
+
+    @NonNull
+    private Goal goal;
+
+    private boolean[] daysButtonState;
 
     /* Butterknife was used to make onClick codes more readable */
     @BindView(R.id.txt_your_goal) EditText mEditText;
@@ -37,10 +48,7 @@ public class SetGoalDialogFragment extends DialogFragment {
     @BindView(R.id.btn_cancel) Button mCancelButton;
 
     @BindViews({R.id.monday, R.id.tuesday, R.id.wednesday, R.id.thursday, R.id.friday, R.id.saturday, R.id.sunday})
-    List<Button> dayViews;
-    Goal goal;
-
-    private boolean[] daysButtonState;
+    List<Button> mDaysButton;
 
     private Unbinder unbinder;
 
@@ -57,7 +65,6 @@ public class SetGoalDialogFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_goal_set, container);
         unbinder = ButterKnife.bind(this, view);
-        goal = new Goal();
 
         return view;
     }
@@ -71,6 +78,7 @@ public class SetGoalDialogFragment extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
         // Get field from view
         initializeDaysButtonState();
+        mEditText.setText(goal.getMTitle());
 
         String title = getArguments().getString("title", "Enter your goal");
         getDialog().setTitle(title);
@@ -93,10 +101,21 @@ public class SetGoalDialogFragment extends DialogFragment {
         dismiss();
     }
 
-    void initializeDaysButtonState() {
+    private void initializeDaysButtonState() {
         daysButtonState = new boolean[7];
-        for (int i = 0; i<daysButtonState.length; i++) {
-            daysButtonState[i] = false;
+        int day_idx = 0;
+        if (GoalAction.INSERT.equals(action)) {
+            for (day_idx = 0; day_idx < daysButtonState.length; day_idx++) {
+                daysButtonState[day_idx] = false;
+            }
+        } else {
+            for (String state : goal.parseDaysOfWeek()) {
+                daysButtonState[day_idx] = state.equals("1");
+                mDaysButton.get(day_idx++).setBackgroundResource(
+                        state.equals("1") ?
+                                R.color.goals_click_on_btn_repeat_goal_set :
+                                R.color.goals_btn_repeat_goal_set);
+            }
         }
     }
 
@@ -143,7 +162,7 @@ public class SetGoalDialogFragment extends DialogFragment {
                 break;
         }
 
-        dayButton = dayViews.get(day);
+        dayButton = mDaysButton.get(day);
 
         if (daysButtonState[day])
             dayButton.setBackgroundResource(R.color.goals_btn_repeat_goal_set);

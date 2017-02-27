@@ -52,7 +52,7 @@
             android:src="@drawable/arrow_back"
             />
         <ImageView
-            android:id="@+id/modift_btn"
+            android:id="@+id/modify_btn"
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:padding="5dp"

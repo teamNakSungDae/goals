@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import nexters.hashgoals.helpers.DatabaseHelper;
 import nexters.hashgoals.models.Goal;
+import nexters.hashgoals.models.GoalAction;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -30,8 +31,9 @@ public class GoalDataController {
 
     private static GoalDataController mGoalDataController;
     private static DatabaseHelper mDatabaseHelper;
-    private static ArrayList<Integer> checkedItemNumList; // This list holds the _id of the items to be deleted.
-    private static ArrayList<Integer> leftItemNumList; // This list holds the list_index of the items to be preserved.
+    private static ArrayList<Integer> checkedIdList; // This list holds the _id of the items to be deleted.
+    private static ArrayList<Integer> unCheckedIdList; // This list holds the list_index of the items to be preserved.
+
 
     /* package private access controlelr. */
     private static class Columns {
@@ -41,15 +43,11 @@ public class GoalDataController {
         static final String DAYS = "days";
     }
 
-    public int getCheckedItemNumList() {
-        return checkedItemNumList.size();
-    }
-
     /* GoalDataController takes hold of DatabaseHelper instance. */
     private GoalDataController(Context context){
         mDatabaseHelper = DatabaseHelper.getInstance(context);
-        checkedItemNumList = new ArrayList<Integer>();
-        leftItemNumList = new ArrayList<Integer>();
+        checkedIdList = new ArrayList<>();
+        unCheckedIdList = new ArrayList<>();
     }
 
     public static GoalDataController getInstance(Context context){
@@ -67,14 +65,15 @@ public class GoalDataController {
         db.beginTransaction();
         try {
             int deleteCounter;
-            Log.d("damn", "checked list size is : " + checkedItemNumList.size());
+
+            Log.d("damn", "checked list size is : " + checkedIdList.size());
 
             deleteCounter = db.delete(TABLE_GOALS,
-                    "_id in (" + StringUtils.join(checkedItemNumList, ",") + ")",
+                    "_id in (" + StringUtils.join(checkedIdList, ",") + ")",
                     null);
             Log.e("damn", "how many lines are deleted: " + deleteCounter);
 
-            if ((deleteCounter != 0) && deleteCounter == checkedItemNumList.size()) {
+            if ((deleteCounter != 0) && deleteCounter == checkedIdList.size()) {
                 db.setTransactionSuccessful();
                 Log.d("damn", "delete is successfully done.");
             }
@@ -91,7 +90,9 @@ public class GoalDataController {
     /* After performing delete, entities in list_index column must be rearranged. */
     public void alignIndicesAfterDelete() {
 
-        int numOfItemsLeft = leftItemNumList.size();
+        int numOfItemsLeft = unCheckedIdList.size();
+        //mDatabaseHelper.getCount(); // the remaining items after deletion.
+
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
         db.beginTransaction();
 
@@ -102,7 +103,9 @@ public class GoalDataController {
             Log.d("damn", "numOfItmesLeft = " + numOfItemsLeft);
 
             for (int i=0; i < numOfItemsLeft; i++) {
-                int targetIndex = leftItemNumList.get(i);
+
+                int targetIndex = unCheckedIdList.get(i);
+
                 Log.d("damn", "targetIndex = " + targetIndex);
                 values.put(Columns.LIST_INDEX, Integer.toString(i+1));
                 db.update(TABLE_GOALS, values, Columns.LIST_INDEX + "= ?", new String[]{ Integer.toString(targetIndex)});
@@ -126,7 +129,7 @@ public class GoalDataController {
             if (cursormtf = cursor.moveToFirst()) {
                 do {
                     int id = cursor.getInt(cursor.getColumnIndex("list_index"));
-                    leftItemNumList.add(id);
+                    unCheckedIdList.add(id);
                     Log.d("damn", "list_index from cursor: " + id);
                 } while (cursor.moveToNext());
             }
@@ -134,14 +137,15 @@ public class GoalDataController {
         } catch (Exception e) {
             Log.d(TAG, "Error while trying to get goals from database");
         } finally {
+
             if (cursor != null && !cursor.isClosed()) {
                 cursor.close();
             }
         }
     }
 
-    public int getCheckedItemListSize() {
-        return checkedItemNumList.size();
+    public int getCheckedIdListSize() {
+        return checkedIdList.size();
     }
 
     /* Get checked items from database and store its index in ArrayList. */
@@ -154,7 +158,7 @@ public class GoalDataController {
             if (cursor.moveToFirst()) {
                 do {
                     int id = cursor.getInt(cursor.getColumnIndex("_id"));
-                    checkedItemNumList.add(id);
+                    checkedIdList.add(id);
                     Log.e("damn", "here!");
                 } while (cursor.moveToNext());
             }
@@ -177,7 +181,7 @@ public class GoalDataController {
             if (cursor.moveToFirst()) {
                 do {
                     int id = cursor.getInt(cursor.getColumnIndex("_id"));
-                    checkedItemNumList.remove(checkedItemNumList.indexOf(id));
+                    checkedIdList.remove(checkedIdList.indexOf(id));
                 } while (cursor.moveToNext());
             }
         } catch (Exception e) {
@@ -190,8 +194,8 @@ public class GoalDataController {
     }
 
     public void initializeCheckedList() {
-        checkedItemNumList = new ArrayList<>();
-        leftItemNumList= new ArrayList<>();
+        checkedIdList = new ArrayList<>();
+        unCheckedIdList = new ArrayList<>();
     }
 
     public Cursor getMemoData(){
@@ -200,7 +204,7 @@ public class GoalDataController {
     }
 
     public void deleteAllData(){
-        SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
+        SQLiteDatabase db = mDatabaseHelper.getWritableDatabase(); // It is going to create your database and table.
         db.execSQL("delete from " + TABLE_GOALS);
     }
 
@@ -299,21 +303,56 @@ public class GoalDataController {
 
     }
 
-    public long addOrUpdateGoal(Goal goal) {
+
+    public Goal getCheckedGoal() {
+        Goal goal = new Goal();
+        SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
+
+        Cursor q = db.rawQuery(
+                String.format("select * from %s where list_index = %s",
+                        TABLE_GOALS,
+                        checkedIdList.get(0).toString()),
+                null);
+
+        if (q.moveToFirst()) {
+            do {
+                goal.setMId(q.getInt(q.getColumnIndex("_id")));
+                goal.setMTitle(q.getString(q.getColumnIndex("text")));
+                goal.setMDaysOfWeek(q.getString(q.getColumnIndex("days")));
+            } while (q.moveToNext());
+        }
+
+        q.close();
+        return goal;
+    }
+
+    public long addOrUpdateGoal(Goal goal, GoalAction action) {
+
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
         long goalId = -1;
 
         db.beginTransaction();
-        try{
 
+        try{
             ContentValues values = new ContentValues();
             values.put(Columns.TEXT, goal.getMTitle());
-            values.put(Columns.LIST_INDEX, mDatabaseHelper.getCount()+1);
             values.put(Columns.DAYS, goal.getMDaysOfWeek());
+            if (GoalAction.INSERT.equals(action)) {
+                values.put(Columns.LIST_INDEX, mDatabaseHelper.getCount()+1);
 
-            // Since it is a newly added item, one must be added to the index.
-            // goal with this goalTitle did not already exist, so insert new goal
-            goalId = db.insertOrThrow(TABLE_GOALS, null, values);
+                // Since it is a newly added item, one must be added to the index.
+                // goal with this goalTitle did not already exist, so insert new goal
+                goalId = db.insertOrThrow(TABLE_GOALS, null, values);
+            } else if (GoalAction.UPDATE.equals(action)) {
+                if (getCheckedIdListSize() != 1)
+                    throw new RuntimeException("checkedIdListSize is not 1. Update Failed.");
+
+                db.update(TABLE_GOALS,
+                        values,
+                        Columns.ID + "= ?",
+                        new String[]{Integer.toString(checkedIdList.get(0))});
+            }
+
             db.setTransactionSuccessful();
         } catch (Exception e) {
             Log.d(TAG, "Error while trying to add or update goal");
