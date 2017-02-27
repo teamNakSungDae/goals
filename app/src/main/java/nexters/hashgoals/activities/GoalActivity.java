@@ -1,5 +1,6 @@
 package nexters.hashgoals.activities;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,6 +24,7 @@ import nexters.hashgoals.controllers.GoalDataController;
 import nexters.hashgoals.fonts.FontsLoader;
 import nexters.hashgoals.fragments.SetGoalDialogFragment;
 import nexters.hashgoals.helpers.DatabaseHelper;
+import nexters.hashgoals.models.Goal;
 
 import java.lang.reflect.Field;
 
@@ -171,6 +174,19 @@ public class GoalActivity extends AppCompatActivity {
         dslv.setFloatViewManager(dragSortController);
         dslv.setOnTouchListener(dragSortController);
         dslv.setDragEnabled(true);
+
+        // test용 코드.
+        dslv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Intent goalIntent = new Intent(GoalActivity.this, DetailActivity.class);
+                Bundle goalBundle = new Bundle();
+                Goal g = goalDataController.getGoalFromPosition(++position);
+                goalBundle.putParcelable("goalInfo", g);
+                goalIntent.putExtras(goalBundle);
+                startActivity(goalIntent);
+            }
+        });
         /* If dragSortController's mSortEnabled is set true, drag-sort is allowed.
         Otherwise, drag-sort is rejected.
          */
