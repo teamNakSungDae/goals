@@ -92,7 +92,7 @@ public class SetGoalDialogFragment extends DialogFragment {
     void onSaveButtonClicked() {
         goal.setMTitle(mEditText.getText().toString());
         goal.setMDaysOfWeek(getStringArrayListOfDays());
-        GoalDataController.getInstance(getActivity()).addOrUpdateGoal(goal);
+        GoalDataController.getInstance(getActivity()).addOrUpdateGoal(goal, GoalAction.INSERT);
         dismiss();
     }
 
