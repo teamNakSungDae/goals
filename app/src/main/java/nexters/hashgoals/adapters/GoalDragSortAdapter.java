@@ -125,8 +125,7 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
                     Log.d("damn", "checked list size: " + mGoalDataController.getCheckedIdListSize());
                 }
 
-                ((GoalActivity)mContext).changeEditButtonState(mGoalDataController.getCheckedIdListSize());
-                GoalDataController.getInstance(mContext).forTest(); // for debugging
+                ((GoalActivity)mContext).changeEditButtonState(mGoalDataController.getCheckedItemListSize());
             }
         });
     }

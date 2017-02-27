@@ -91,8 +91,8 @@ public class SetGoalDialogFragment extends DialogFragment {
     @OnClick(R.id.btn_save)
     void onSaveButtonClicked() {
         goal.setMTitle(mEditText.getText().toString());
-        goal.setMDaysOfWeekOf(getIntListOfDays());
-        GoalDataController.getInstance(getActivity()).addOrUpdateGoal(goal, action);
+        goal.setMDaysOfWeek(getStringArrayListOfDays());
+        GoalDataController.getInstance(getActivity()).addOrUpdateGoal(goal);
         dismiss();
     }
 
@@ -172,13 +172,14 @@ public class SetGoalDialogFragment extends DialogFragment {
         daysButtonState[day] = !daysButtonState[day];
     }
 
-    private List<String> getIntListOfDays() {
-        List<String> arrayOfDays = new ArrayList<>();
+    private String[] getStringArrayListOfDays() {
+        String[] arrayOfDays = new String[7];
+        int index = 0;
         for (boolean aDaysButtonState : daysButtonState) {
             if (aDaysButtonState)
-                arrayOfDays.add("1");
+                arrayOfDays[index++] = "1";
             else
-                arrayOfDays.add("0");
+                arrayOfDays[index++] = "0";
         }
         return arrayOfDays;
     }

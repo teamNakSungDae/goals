@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static android.content.ContentValues.TAG;
@@ -32,6 +33,7 @@ public class GoalDataController {
     private static DatabaseHelper mDatabaseHelper;
     private static ArrayList<Integer> checkedIdList; // This list holds the _id of the items to be deleted.
     private static ArrayList<Integer> unCheckedIdList; // This list holds the list_index of the items to be preserved.
+
 
     /* package private access controlelr. */
     private static class Columns {
@@ -63,6 +65,7 @@ public class GoalDataController {
         db.beginTransaction();
         try {
             int deleteCounter;
+
             Log.d("damn", "checked list size is : " + checkedIdList.size());
 
             deleteCounter = db.delete(TABLE_GOALS,
@@ -89,6 +92,7 @@ public class GoalDataController {
 
         int numOfItemsLeft = unCheckedIdList.size();
         //mDatabaseHelper.getCount(); // the remaining items after deletion.
+
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
         db.beginTransaction();
 
@@ -99,7 +103,9 @@ public class GoalDataController {
             Log.d("damn", "numOfItmesLeft = " + numOfItemsLeft);
 
             for (int i=0; i < numOfItemsLeft; i++) {
+
                 int targetIndex = unCheckedIdList.get(i);
+
                 Log.d("damn", "targetIndex = " + targetIndex);
                 values.put(Columns.LIST_INDEX, Integer.toString(i+1));
                 db.update(TABLE_GOALS, values, Columns.LIST_INDEX + "= ?", new String[]{ Integer.toString(targetIndex)});
@@ -187,9 +193,6 @@ public class GoalDataController {
         }
     }
 
-    /*
-    * I'm not sure whether this is a good idea for initializing ArrayList.
-    * */
     public void initializeCheckedList() {
         checkedIdList = new ArrayList<>();
         unCheckedIdList = new ArrayList<>();
@@ -203,6 +206,35 @@ public class GoalDataController {
     public void deleteAllData(){
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase(); // It is going to create your database and table.
         db.execSQL("delete from " + TABLE_GOALS);
+    }
+
+    public Goal getGoalFromPosition(int position) {
+        SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
+        String title = null;
+        String days = null;
+
+        Goal goal = new Goal();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM goals WHERE list_index = " + position, null);
+        try {
+            if (cursor.moveToFirst()) {
+
+                title = cursor.getString(cursor.getColumnIndex(Columns.TEXT));
+                days = cursor.getString(cursor.getColumnIndex(Columns.DAYS));
+
+            } else {
+                Log.e("damn", "must never reach here.");
+            }
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+
+        goal.setMTitle(title);
+        goal.setMDaysOfWeek(StringUtils.split(days, ","));
+
+        return goal;
     }
 
 
@@ -271,19 +303,6 @@ public class GoalDataController {
 
     }
 
-    //For debugging.
-    //This method shows ID of each column.
-    public void forTest() {
-        String temp = "";
-        for(int i = 0; i< checkedIdList.size(); i++) {
-            if(i == 0)
-                temp = checkedIdList.get(i).toString();
-            else
-                temp = temp + "," + checkedIdList.get(i);
-        }
-
-        //Toast.makeText(mContext, temp, Toast.LENGTH_SHORT).show();
-    }
 
     public Goal getCheckedGoal() {
         Goal goal = new Goal();
@@ -308,6 +327,7 @@ public class GoalDataController {
     }
 
     public long addOrUpdateGoal(Goal goal, GoalAction action) {
+
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
         long goalId = -1;
 

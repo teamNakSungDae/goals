@@ -9,6 +9,7 @@ import butterknife.ButterKnife;
 import nexters.hashgoals.R;
 import nexters.hashgoals.adapters.DetailAdapter;
 import nexters.hashgoals.models.Detail;
+import nexters.hashgoals.models.Goal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,4 +38,12 @@ public class DetailActivity extends AppCompatActivity {
 
 
     }
+
+    /*
+    * To 기호:
+    * 아래의 방식으로 클릭된 아이템을 받을 수 있음.
+    * Goal goal= getIntent().getParcelableExtra("goalInfo");
+    *
+    * */
+
 }
