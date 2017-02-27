@@ -24,7 +24,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_GOALS = "goals";
     private static final String TABLE_DETAILS = "details";
 
-
     // Goal Table Columns
     private static final String COL_GOAL_ID = "_id"; // This is extremely important.
     private static final String COL_GOAL_TEXT = "text";
@@ -128,8 +127,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery("SELECT * FROM goals ORDER BY list_index ASC", null);
     }
-
-
-
 
 }

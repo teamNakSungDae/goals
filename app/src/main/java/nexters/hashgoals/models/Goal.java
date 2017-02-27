@@ -26,7 +26,7 @@ public class Goal implements Parcelable {
     private String mDaysOfWeek;
 
 
-    public void setMDaysOfWeek(String[] daysOfWeek) {
+    public void setMDaysOfWeekOf(String[] daysOfWeek) {
         this.mDaysOfWeek = StringUtils.join(daysOfWeek, ",");
     }
 
