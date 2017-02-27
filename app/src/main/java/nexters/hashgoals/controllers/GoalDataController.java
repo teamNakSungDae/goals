@@ -134,7 +134,6 @@ public class GoalDataController {
         } catch (Exception e) {
             Log.d(TAG, "Error while trying to get goals from database");
         } finally {
-
             if (cursor != null && !cursor.isClosed()) {
                 cursor.close();
             }
