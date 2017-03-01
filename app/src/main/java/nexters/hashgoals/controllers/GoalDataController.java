@@ -12,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static android.content.ContentValues.TAG;
@@ -303,9 +302,12 @@ public class GoalDataController {
 
     }
 
-
     public Goal getCheckedGoal() {
         Goal goal = new Goal();
+
+        if (getCheckedIdListSize() == 0)
+            return goal;
+
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
 
         Cursor q = db.rawQuery(
@@ -322,12 +324,13 @@ public class GoalDataController {
             } while (q.moveToNext());
         }
 
-        q.close();
+        if(q != null && !q.isClosed()) {
+            q.close();
+        }
         return goal;
     }
 
-    public long addOrUpdateGoal(Goal goal, GoalAction action) {
-
+    public long upsertGoal(Goal goal, GoalAction action) {
         SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
         long goalId = -1;
 
@@ -359,8 +362,25 @@ public class GoalDataController {
         } finally {
             db.endTransaction();
         }
+
+        afterGoalAction(action);
+
         return goalId;
     }
+
+    private void afterGoalAction(GoalAction action) {
+        if (GoalAction.INSERT.equals(action)) {
+
+        } else if (GoalAction.UPDATE.equals(action)) {
+            unCheckedIdList.addAll(checkedIdList);
+            checkedIdList = new ArrayList<>();
+        } else if (GoalAction.DELETE.equals(action)) {
+
+        } else {
+            throw new RuntimeException("Invalid action for goal.");
+        }
+    }
+
 }
 
 

@@ -9,7 +9,6 @@ import butterknife.ButterKnife;
 import nexters.hashgoals.R;
 import nexters.hashgoals.adapters.DetailAdapter;
 import nexters.hashgoals.models.Detail;
-import nexters.hashgoals.models.Goal;
 
 import java.util.ArrayList;
 import java.util.List;
