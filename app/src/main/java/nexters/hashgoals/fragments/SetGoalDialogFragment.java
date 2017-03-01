@@ -2,6 +2,7 @@ package nexters.hashgoals.fragments;
 
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import butterknife.*;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -18,6 +20,7 @@ import lombok.Setter;
 import nexters.hashgoals.R;
 import nexters.hashgoals.activities.GoalActivity;
 import nexters.hashgoals.controllers.GoalDataController;
+import nexters.hashgoals.fonts.FontsLoader;
 import nexters.hashgoals.models.Goal;
 import nexters.hashgoals.models.GoalAction;
 
@@ -47,7 +50,7 @@ public class SetGoalDialogFragment extends DialogFragment {
     @BindView(R.id.btn_cancel) Button mCancelButton;
 
     @BindViews({R.id.monday, R.id.tuesday, R.id.wednesday, R.id.thursday, R.id.friday, R.id.saturday, R.id.sunday})
-    List<Button> mDaysButton;
+    List<Button> mDaysButtons;
 
     private Unbinder unbinder;
 
@@ -60,8 +63,7 @@ public class SetGoalDialogFragment extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_goal_set, container);
         unbinder = ButterKnife.bind(this, view);
 
@@ -75,6 +77,8 @@ public class SetGoalDialogFragment extends DialogFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        setFonts(view);
         // Get field from view
         initializeDaysButtonState();
         mEditText.setText(goal.getMTitle());
@@ -85,6 +89,20 @@ public class SetGoalDialogFragment extends DialogFragment {
         mEditText.requestFocus();
         getDialog().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+    }
+
+    private void setFonts(View view) {
+        Typeface medium = FontsLoader.getTypeface(getActivity().getApplicationContext(), FontsLoader.N_S_MEDUIM);
+        Typeface regular = FontsLoader.getTypeface(getActivity().getApplicationContext(), FontsLoader.N_S_REGULAR);
+
+        ((TextView) view.findViewById(R.id.lbl_your_goal)).setTypeface(medium);
+        mEditText.setTypeface(regular);
+        ((TextView) view.findViewById(R.id.title_repeat_goal_set)).setTypeface(medium);
+        for (Button mDayButton : mDaysButtons) {
+            mDayButton.setTypeface(medium);
+        }
+        mSaveButton.setTypeface(regular);
+        mCancelButton.setTypeface(regular);
     }
 
     @OnClick(R.id.btn_save)
@@ -112,7 +130,7 @@ public class SetGoalDialogFragment extends DialogFragment {
         } else {
             for (String state : goal.parseDaysOfWeek()) {
                 daysButtonState[day_idx] = state.equals("1");
-                mDaysButton.get(day_idx++).setBackgroundResource(
+                mDaysButtons.get(day_idx++).setBackgroundResource(
                         state.equals("1") ?
                                 R.color.goals_click_on_btn_repeat_goal_set :
                                 R.color.goals_btn_repeat_goal_set);
@@ -163,7 +181,7 @@ public class SetGoalDialogFragment extends DialogFragment {
                 break;
         }
 
-        dayButton = mDaysButton.get(day);
+        dayButton = mDaysButtons.get(day);
 
         if (daysButtonState[day])
             dayButton.setBackgroundResource(R.color.goals_btn_repeat_goal_set);

@@ -1,213 +1,212 @@
 <!-- fragment_goal_set.xml-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/goal_set"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minWidth="315dp"
-    android:layout_marginStart="22dp"
-    android:layout_marginLeft="22dp"
-    android:layout_marginEnd="23dp"
-    android:layout_marginRight="23dp"
-    android:layout_gravity="center"
-    android:orientation="vertical"
-    android:background="@drawable/background_goal_set">
+              android:id="@+id/goal_set"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:minWidth="315dp"
+              android:layout_marginStart="22dp"
+              android:layout_marginLeft="22dp"
+              android:layout_marginEnd="23dp"
+              android:layout_marginRight="23dp"
+              android:layout_gravity="center"
+              android:orientation="vertical"
+              android:background="@drawable/background_goal_set">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="22dp"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
-
-        <TextView
+    <TextView
             android:id="@+id/lbl_your_goal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
             android:layout_marginStart="21dp"
             android:layout_marginLeft="21dp"
             android:text="@string/title_goal_set"
             android:textColor="@color/goals_title_goal_set"
-            android:textSize="18sp" />
-
-    </LinearLayout>
+            android:textSize="18sp"
+            android:includeFontPadding="false" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="7.5dp"
-        android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="7.5dp"
+            android:orientation="horizontal">
 
         <RelativeLayout
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:layout_marginStart="21dp"
-            android:layout_marginLeft="21dp"
-            android:layout_marginEnd="21dp"
-            android:layout_marginRight="21dp">
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_marginStart="21dp"
+                android:layout_marginLeft="21dp"
+                android:layout_marginEnd="21dp"
+                android:layout_marginRight="21dp">
 
             <EditText
-                android:id="@+id/txt_your_goal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:inputType="text"
-                android:hint="@string/hint_goal_set"
-                android:textSize="15sp" />
+                    android:id="@+id/txt_your_goal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:inputType="text"
+                    android:hint="@string/hint_goal_set"
+                    android:textSize="15sp"
+                    android:includeFontPadding="false" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginBottom="3.5dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/goals_color" />
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginBottom="3.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/goals_color" />
 
         </RelativeLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="22dp"
-        android:layout_marginTop="22.5dp"
-        android:orientation="horizontal">
-
-        <TextView
+    <TextView
+            android:id="@+id/title_repeat_goal_set"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="20.5dp"
             android:layout_marginStart="21dp"
             android:layout_marginLeft="21dp"
             android:text="@string/title_sub_goal_set"
             android:textColor="@color/goals_title_goal_set"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:includeFontPadding="false" />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:paddingLeft="23dp"
+            android:paddingRight="23dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+        <Button
+                android:id="@+id/monday"
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/background_button_repeat_goal_set"
+                android:textColor="@color/goals_white"
+                android:textSize="19sp"
+                android:text="@string/mon"
+                android:includeFontPadding="false"
+                style="?android:attr/borderlessButtonStyle" />
+
+        <Button
+                android:id="@+id/tuesday"
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/background_button_repeat_goal_set"
+                android:textColor="@color/goals_white"
+                android:textSize="19sp"
+                android:text="@string/tue"
+                android:includeFontPadding="false"
+                style="?android:attr/borderlessButtonStyle" />
+
+        <Button
+                android:id="@+id/wednesday"
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/background_button_repeat_goal_set"
+                android:textColor="@color/goals_white"
+                android:textSize="19sp"
+                android:text="@string/wed"
+                android:includeFontPadding="false"
+                style="?android:attr/borderlessButtonStyle" />
+
+        <Button
+                android:id="@+id/thursday"
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/background_button_repeat_goal_set"
+                android:textColor="@color/goals_white"
+                android:textSize="19sp"
+                android:text="@string/thu"
+                android:includeFontPadding="false"
+                style="?android:attr/borderlessButtonStyle" />
+
+        <Button
+                android:id="@+id/friday"
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/background_button_repeat_goal_set"
+                android:textColor="@color/goals_white"
+                android:textSize="19sp"
+                android:text="@string/fri"
+                android:includeFontPadding="false"
+                style="?android:attr/borderlessButtonStyle" />
+
+        <Button
+                android:id="@+id/saturday"
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/background_button_repeat_goal_set"
+                android:textColor="@color/goals_white"
+                android:textSize="19sp"
+                android:text="@string/sat"
+                android:includeFontPadding="false"
+                style="?android:attr/borderlessButtonStyle" />
+
+        <Button
+                android:id="@+id/sunday"
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/background_button_repeat_goal_set"
+                android:textColor="@color/goals_white"
+                android:textSize="19sp"
+                android:text="@string/sun"
+                android:includeFontPadding="false"
+                style="?android:attr/borderlessButtonStyle" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:paddingLeft="23dp"
-        android:paddingRight="23dp"
-        android:orientation="horizontal"
-        android:gravity="center">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="6dp"
+            android:orientation="horizontal"
+            android:gravity="end">
 
         <Button
-            android:id="@+id/monday"
-            android:layout_width="37dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
-            android:background="@drawable/background_button_repeat_goal_set"
-            android:textColor="@color/goals_white"
-            android:textSize="19sp"
-            android:text="@string/mon"
-            style="?android:attr/borderlessButtonStyle" />
+                android:id="@+id/btn_cancel"
+                android:layout_width="58dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/background_goal_set"
+                android:text="@string/cancle_goal_set"
+                android:textColor="@color/goals_text_btn_goal_set"
+                android:textSize="14sp"
+                android:includeFontPadding="false"
+                style="?android:attr/borderlessButtonStyle" />
 
         <Button
-            android:id="@+id/tuesday"
-            android:layout_width="37dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
-            android:background="@drawable/background_button_repeat_goal_set"
-            android:textColor="@color/goals_white"
-            android:textSize="19sp"
-            android:text="@string/tue"
-            style="?android:attr/borderlessButtonStyle" />
-
-        <Button
-            android:id="@+id/wednesday"
-            android:layout_width="37dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
-            android:background="@drawable/background_button_repeat_goal_set"
-            android:textColor="@color/goals_white"
-            android:textSize="19sp"
-            android:text="@string/wed"
-            style="?android:attr/borderlessButtonStyle" />
-
-        <Button
-            android:id="@+id/thursday"
-            android:layout_width="37dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
-            android:background="@drawable/background_button_repeat_goal_set"
-            android:textColor="@color/goals_white"
-            android:textSize="19sp"
-            android:text="@string/thu"
-            style="?android:attr/borderlessButtonStyle" />
-
-        <Button
-            android:id="@+id/friday"
-            android:layout_width="37dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
-            android:background="@drawable/background_button_repeat_goal_set"
-            android:textColor="@color/goals_white"
-            android:textSize="19sp"
-            android:text="@string/fri"
-            style="?android:attr/borderlessButtonStyle" />
-
-        <Button
-            android:id="@+id/saturday"
-            android:layout_width="37dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
-            android:background="@drawable/background_button_repeat_goal_set"
-            android:textColor="@color/goals_white"
-            android:textSize="19sp"
-            android:text="@string/sat"
-            style="?android:attr/borderlessButtonStyle" />
-
-        <Button
-            android:id="@+id/sunday"
-            android:layout_width="37dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
-            android:background="@drawable/background_button_repeat_goal_set"
-            android:textColor="@color/goals_white"
-            android:textSize="19sp"
-            android:text="@string/sun"
-            style="?android:attr/borderlessButtonStyle" />
+                android:id="@+id/btn_save"
+                android:layout_width="58dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
+                android:background="@drawable/background_goal_set"
+                android:text="@string/save_goal_set"
+                android:textColor="@color/goals_text_btn_goal_set"
+                android:textSize="14sp"
+                android:includeFontPadding="false"
+                style="?android:attr/borderlessButtonStyle" />
 
     </LinearLayout>
-
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_marginTop="18dp"
-         android:layout_marginBottom="6dp"
-         android:orientation="horizontal"
-         android:gravity="end">
-
-         <Button
-             android:id="@+id/btn_cancel"
-             android:layout_width="58dp"
-             android:layout_height="32dp"
-             android:layout_marginEnd="3dp"
-             android:layout_marginRight="3dp"
-             android:background="@drawable/background_goal_set"
-             android:text="@string/cancle_goal_set"
-             android:textColor="@color/goals_text_btn_goal_set"
-             android:textSize="14sp"
-             style="?android:attr/borderlessButtonStyle" />
-
-         <Button
-             android:id="@+id/btn_save"
-             android:layout_width="58dp"
-             android:layout_height="32dp"
-             android:layout_marginEnd="6dp"
-             android:layout_marginRight="6dp"
-             android:background="@drawable/background_goal_set"
-             android:text="@string/save_goal_set"
-             android:textColor="@color/goals_text_btn_goal_set"
-             android:textSize="14sp"
-             style="?android:attr/borderlessButtonStyle" />
-
-     </LinearLayout>
 
 </LinearLayout>

@@ -14,6 +14,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import nexters.hashgoals.R;
+import nexters.hashgoals.fonts.FontsLoader;
 
 import java.util.Arrays;
 
@@ -37,10 +38,16 @@ public class FacebookLoginActivity extends AppCompatActivity
         setContentView(R.layout.activity_login_facebook);
 
         ButterKnife.bind(this);
+        setFonts();
 
         loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
         callbackManager = CallbackManager.Factory.create();
         loginButton.registerCallback(callbackManager, this);
+    }
+
+    private void setFonts() {
+        loginButton.setTypeface(FontsLoader.getTypeface(getApplicationContext(), FontsLoader.N_S_MEDUIM));
+        skipButton.setTypeface(FontsLoader.getTypeface(getApplicationContext(), FontsLoader.N_S_MEDUIM));
     }
 
     // FacebookCallback<LoginResult>
