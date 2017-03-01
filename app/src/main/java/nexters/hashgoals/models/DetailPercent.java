@@ -6,7 +6,9 @@ import java.io.Serializable;
  * Created by kwongiho on 2017. 2. 24..
  */
 
-public class DetailPercent implements Detail,Serializable{
+public class DetailPercent implements Detail,Serializable {
+
+    private int id;
     /**
      * The value mean " percent value "
      */
@@ -17,6 +19,16 @@ public class DetailPercent implements Detail,Serializable{
     }
 
     public DetailPercent() {
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id=id;
+    }
+
+    @Override
+    public int getId() {
+        return id;
     }
 
     @Override
@@ -35,5 +47,10 @@ public class DetailPercent implements Detail,Serializable{
     @Override
     public int getRemainNumber() {
         return 0;
+    }
+
+    @Override
+    public void setRemainNumber(int remainNumber) {
+
     }
 }

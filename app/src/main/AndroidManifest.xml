@@ -20,7 +20,8 @@
 
         <activity android:name=".activities.GoalActivity" />
 
-        <activity android:name=".activities.DetailActivity" />
+        <activity android:name=".activities.DetailActivity" android:windowSoftInputMode="adjustPan"/>
+
 
     </application>
 

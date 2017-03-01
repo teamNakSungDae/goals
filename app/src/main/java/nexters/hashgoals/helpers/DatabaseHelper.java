@@ -27,7 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Table name
     private static final String TABLE_GOALS = "goals";
-    private static final String TABLE_DETAILS = "details";
+    public static final String TABLE_DETAILS = "details";
 
 
     // Goal Table Columns
@@ -36,12 +36,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_GOAL_LIST_INDEX = "list_index";
 
     // Detail Table Columns
-    /**
-     * this column have 2 mean.
-     * First . Primary key.
-     * Second . Foreign Key.
-     */
     private static final String COL_DETAIL_ID = "_id";
+    private static final String COL_DETAIL_FOREIGN = "foreign_id";
     private static final String COL_DETAIL_TEXT = "text";
     private static final String COL_DETAIL_RECYCLE_NO = "recycle_no";
 
@@ -73,18 +69,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db){
         String CREATE_GOALS_TABLE = "CREATE TABLE " + TABLE_GOALS +
-                "(" +
-                COL_GOAL_ID + " INTEGER PRIMARY KEY," + // Define a primary key
+                "(" + COL_GOAL_ID + " INTEGER PRIMARY KEY," + // Define a primary key
                 COL_GOAL_TEXT + " TEXT," +
                 COL_GOAL_LIST_INDEX + " INTEGER" +
                 ")";
 
 
         String CREATE_DETAIL_TABLE =
-                "create TABLE "+ TABLE_DETAILS +
-                        " ( "+ COL_DETAIL_ID+" INTEGER PRIMARY KEY REFERENCES "+TABLE_GOALS+"("+COL_GOAL_ID+") ,"+
-                        COL_DETAIL_TEXT +"TEXT," +
-                        COL_DETAIL_RECYCLE_NO +" INTEGER )";
+                "CREATE TABLE "+ TABLE_DETAILS +
+                        " ( "+ COL_DETAIL_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                        COL_DETAIL_FOREIGN+" INTEGER REFERENCES "+TABLE_GOALS+"("+COL_GOAL_ID+") ,"+
+                        COL_DETAIL_TEXT +" TEXT," +
+                        COL_DETAIL_RECYCLE_NO +" INTEGER "+
+                ")";
 
         db.execSQL(CREATE_GOALS_TABLE);
         db.execSQL(CREATE_DETAIL_TABLE);

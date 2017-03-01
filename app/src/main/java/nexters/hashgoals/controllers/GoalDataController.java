@@ -296,10 +296,10 @@ public class GoalDataController {
         return goals;
     }
 
-    /*
-* For debugging.
-* This method shows ID of each column.
-* */
+    /**
+    * For debugging.
+    * This method shows ID of each column.
+    * */
     public void forTest() {
         String temp = "";
         for(int i=0; i<checkedItemNumList.size(); i++) {

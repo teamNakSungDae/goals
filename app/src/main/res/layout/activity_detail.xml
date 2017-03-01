@@ -8,45 +8,106 @@
     android:background="@drawable/detailbackground"
     android:theme="@layout/toolbar_detail"
     >
-    <include
-        android:id="@+id/include_toolbar"
-        layout="@layout/toolbar_detail"
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar_detail"
+        android:minHeight="?android:attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:background="@color/goals_toolbar_detail"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetEnd="0dp"
+        app:theme="@style/goal_toolbar_detail_style"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/arrow_back_detail"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:src="@drawable/arrow_back"
+                android:layout_marginLeft="12dp"
+                android:padding="5dp"
+                />
+            <TextView
+                android:id="@+id/detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Master of foreigner language"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/arrow_back_detail"
+                android:textSize="18sp"
+                android:textColor="#000000"
+                />
+            <ImageView
+                android:id="@+id/delete_btn"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:padding="5dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:src="@drawable/arrow_back"
+                />
+            <ImageView
+                android:id="@+id/chart_btn"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:padding="5dp"
+                android:layout_toLeftOf="@id/delete_btn"
+                android:layout_marginRight="12dp"
+                android:src="@drawable/arrow_back"
+                />
+            <ImageView
+                android:id="@+id/modift_btn"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:padding="5dp"
+                android:layout_toLeftOf="@id/chart_btn"
+                android:layout_marginRight="12dp"
+                android:src="@drawable/modify_on"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
     <ImageView
         android:id="@+id/add_task_btn"
         android:layout_width="34dp"
         android:layout_height="34dp"
-        android:layout_below="@id/include_toolbar"
+        android:layout_below="@id/toolbar_detail"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="12dp"
         android:padding="5dp"
         android:src="@drawable/add"
         />
-    <TextView
+    <EditText
         android:id="@+id/add_task_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="12dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:layout_toRightOf="@id/add_task_btn"
-        android:layout_below="@id/include_toolbar"
+        android:layout_below="@id/toolbar_detail"
         android:layout_marginLeft="12dp"
         android:padding="5dp"
-        android:hint="aklsbdfl"
+        android:hint="할 일 추가하기..."
+        android:background="@drawable/alpha100"
+        android:textColor="#AAFFFFFF"
         />
     <TextView
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/include_toolbar"
+        android:layout_below="@id/toolbar_detail"
         android:layout_marginRight="12dp"
         android:layout_alignParentRight="true"
         android:layout_marginTop="24dp"
         android:padding="5dp"
         android:textColor="#80FFFFFF"
-        android:hint="cycle No"
+        android:hint="50회"
         />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_detail_task"

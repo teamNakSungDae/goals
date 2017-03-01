@@ -1,10 +1,12 @@
 package nexters.hashgoals.models;
 
+import java.io.Serializable;
+
 /**
  * Created by flecho on 2017. 1. 31..
  */
 
-public class Goal {
+public class Goal implements Serializable{
     private long mId;
     private String mTitle;
 

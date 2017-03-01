@@ -1,5 +1,6 @@
 package nexters.hashgoals.activities;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import nexters.hashgoals.R;
@@ -26,6 +28,7 @@ import nexters.hashgoals.controllers.GoalDataController;
 import nexters.hashgoals.fonts.FontsLoader;
 import nexters.hashgoals.fragments.EditGoalDialogFragment;
 import nexters.hashgoals.helpers.DatabaseHelper;
+import nexters.hashgoals.models.Goal;
 
 
 public class GoalActivity extends AppCompatActivity {
@@ -58,6 +61,19 @@ public class GoalActivity extends AppCompatActivity {
 
         setDragSortListView();
         populateDragSortListView();
+
+
+
+        /* for debug*/
+        Intent intent = new Intent(this,DetailActivity.class);
+        List<Goal> lists = GoalDataController.getInstance(getApplicationContext()).getAllGoals();
+        if ( lists == null || lists.get(0) == null)
+            return;
+        //Log.e("Toss the data",lists.get(0).getTitle()+"/"+lists.get(0).getId());
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("goal", lists.get(0) );
+        intent.putExtra("goal",bundle);
+        startActivity(intent);
     }
 
     private void showEditDialog() {
