@@ -29,7 +29,6 @@ import nexters.hashgoals.helpers.DatabaseHelper;
 import nexters.hashgoals.models.Goal;
 import nexters.hashgoals.models.GoalAction;
 
-
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -73,6 +72,7 @@ public class GoalActivity extends AppCompatActivity {
         populateDragSortListView();
     }
 
+    // Add or edit button.
     @OnClick({R.id.add_button})
     void onSetButtonClick(View view) {
         FragmentManager fm = getSupportFragmentManager();
@@ -81,9 +81,11 @@ public class GoalActivity extends AppCompatActivity {
         if (view.getId() == R.id.add_button) {
             setGoalDialogFragment.setAction(GoalAction.INSERT);
             setGoalDialogFragment.setGoal(new Goal());
-        } else {
+        } else if (view.getId() == R.id.modify) {
             setGoalDialogFragment.setAction(GoalAction.UPDATE);
             setGoalDialogFragment.setGoal(goalDataController.getCheckedGoal());
+        } else {
+            throw new RuntimeException("View is not set button.");
         }
 
         setGoalDialogFragment.show(fm, "fragment_goal_set");
@@ -135,7 +137,6 @@ public class GoalActivity extends AppCompatActivity {
         MenuItem deleteItem = menu.findItem(R.id.delete);
         MenuItem editItem = menu.findItem(R.id.edit);
 
-
         // Handle item selection
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -164,7 +165,6 @@ public class GoalActivity extends AppCompatActivity {
                 return true;
             case R.id.modify:
                 Log.e("damn", "modify button is clicked.");
-                /* 이 부분 구현해서, Goal의 제목과 반복 알람이 수정되게 바꾸면 된다. */
                 onSetButtonClick(findViewById(R.id.modify));
                 return true;
             case R.id.setting:

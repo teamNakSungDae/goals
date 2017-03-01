@@ -21,7 +21,6 @@ import nexters.hashgoals.controllers.GoalDataController;
 import nexters.hashgoals.models.Goal;
 import nexters.hashgoals.models.GoalAction;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -92,8 +91,10 @@ public class SetGoalDialogFragment extends DialogFragment {
     void onSaveButtonClicked() {
         goal.setMTitle(mEditText.getText().toString());
         goal.setMDaysOfWeekOf(getStringArrayListOfDays());
-        GoalDataController.getInstance(getActivity()).addOrUpdateGoal(goal, GoalAction.INSERT);
-        dismiss();
+        GoalDataController.getInstance(getActivity()).upsertGoal(goal, action);
+
+        // Hide fragment.
+        this.dismiss();
     }
 
     @OnClick(R.id.btn_cancel)
