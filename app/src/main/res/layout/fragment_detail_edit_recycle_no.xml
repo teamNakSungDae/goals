@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="nexters.hashgoals.activities.DetailActivity"
+    android:layout_gravity="center"
+    >
+    <TextView
+        android:id="@+id/fragment_recycle_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="반복 횟수"
+        android:layout_marginLeft="30dp"
+        android:layout_centerVertical="true"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_recycle_title"
+        android:layout_alignLeft="@id/fragment_recycle_title"
+        android:layout_marginTop="30dp"
+        android:text="반복"
+        />
+    <TextView
+        android:id="@+id/no_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_recycle_title"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
+        android:text="회"
+        />
+    <NumberPicker
+        android:id="@+id/number_picker"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/fragment_recycle_title"
+        android:layout_toLeftOf="@id/no_set"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        />
+    <TextView
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/number_picker"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="30dp"
+        android:text="취소"
+        />
+    <TextView
+        android:id="@+id/confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/cancel"
+        android:layout_below="@id/number_picker"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="30dp"
+        android:text="확인"
+        />
+
+
+
+</RelativeLayout>

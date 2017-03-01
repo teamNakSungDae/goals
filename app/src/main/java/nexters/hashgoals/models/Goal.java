@@ -1,5 +1,6 @@
 package nexters.hashgoals.models;
 
+
 import android.os.Parcel;
 import android.os.Parcelable;
 import lombok.Getter;
@@ -7,14 +8,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
+
 /**
  * Created by flecho on 2017. 1. 31..
  */
+
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class Goal implements Parcelable {
+
 
     private long mId;
 

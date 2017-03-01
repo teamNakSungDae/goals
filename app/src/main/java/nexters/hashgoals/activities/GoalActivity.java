@@ -27,10 +27,12 @@ import nexters.hashgoals.fonts.FontsLoader;
 import nexters.hashgoals.fragments.SetGoalDialogFragment;
 import nexters.hashgoals.helpers.DatabaseHelper;
 import nexters.hashgoals.models.Goal;
+
 import nexters.hashgoals.models.GoalAction;
 
 import java.lang.reflect.Field;
 import java.util.List;
+
 
 
 public class GoalActivity extends AppCompatActivity {
@@ -70,6 +72,19 @@ public class GoalActivity extends AppCompatActivity {
 
         setDragSortListView();
         populateDragSortListView();
+
+
+
+        /* for debug*/
+        Intent intent = new Intent(this,DetailActivity.class);
+        List<Goal> lists = GoalDataController.getInstance(getApplicationContext()).getAllGoals();
+        if ( lists == null || lists.get(0) == null)
+            return;
+        //Log.e("Toss the data",lists.get(0).getTitle()+"/"+lists.get(0).getId());
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("goal", lists.get(0) );
+        intent.putExtra("goal",bundle);
+        startActivity(intent);
     }
 
     // Add or edit button.

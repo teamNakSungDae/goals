@@ -35,7 +35,8 @@
         <!-- This line was added for floating add button not to be pushed by software keyboard -->
 
 
-        <activity android:name=".activities.DetailActivity" />
+        <activity android:name=".activities.DetailActivity" android:windowSoftInputMode="adjustPan"/>
+
 
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 

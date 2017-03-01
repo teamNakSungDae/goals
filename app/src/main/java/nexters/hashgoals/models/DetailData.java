@@ -9,6 +9,8 @@ import java.io.Serializable;
  */
 
 public class DetailData implements Detail , Serializable{
+
+    private int id;
     /**
      * the value is mean " the task name."
      */
@@ -21,6 +23,16 @@ public class DetailData implements Detail , Serializable{
     }
 
     public DetailData() {
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

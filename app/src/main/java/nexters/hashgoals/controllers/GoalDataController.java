@@ -310,6 +310,7 @@ public class GoalDataController {
 
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
 
+
         Cursor q = db.rawQuery(
                 String.format("select * from %s where list_index = %s",
                         TABLE_GOALS,
@@ -322,6 +323,7 @@ public class GoalDataController {
                 goal.setMTitle(q.getString(q.getColumnIndex("text")));
                 goal.setMDaysOfWeek(q.getString(q.getColumnIndex("days")));
             } while (q.moveToNext());
+
         }
 
         if(q != null && !q.isClosed()) {
