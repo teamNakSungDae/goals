@@ -106,7 +106,7 @@ public class GoalActivity extends AppCompatActivity {
         setGoalDialogFragment.show(fm, "fragment_goal_set");
     }
 
-    public void defaultToolbar() {
+    private void defaultToolbar() {
         //setToolbarTitleFont();
         toolbar.setTitle(R.string.goal_edit_title); //
         setSupportActionBar(toolbar); // Sets the Toolbar to act as the ActionBar for this Activity window.
