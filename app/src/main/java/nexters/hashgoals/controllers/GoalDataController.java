@@ -5,14 +5,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import nexters.hashgoals.helpers.DatabaseHelper;
-import nexters.hashgoals.models.Goal;
-import nexters.hashgoals.models.GoalAction;
+
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import nexters.hashgoals.helpers.DatabaseHelper;
+import nexters.hashgoals.models.Goal;
+import nexters.hashgoals.models.GoalAction;
 
 import static android.content.ContentValues.TAG;
 
@@ -32,7 +34,20 @@ public class GoalDataController {
     private static DatabaseHelper mDatabaseHelper;
     private static ArrayList<Integer> checkedIdList; // This list holds the _id of the items to be deleted.
     private static ArrayList<Integer> unCheckedIdList; // This list holds the list_index of the items to be preserved.
+    private Cursor dragSortAdapterCursor;
 
+    public Cursor getCursorByListIndex() {
+        dragSortAdapterCursor = mDatabaseHelper
+                .getReadableDatabase()
+                .rawQuery("SELECT * FROM goals order by list_index", null);
+        return dragSortAdapterCursor;
+    }
+
+    public void closeDragSortAdapterCursor() {
+        if (dragSortAdapterCursor != null && !dragSortAdapterCursor.isClosed()) {
+            dragSortAdapterCursor.close();
+        }
+    }
 
     /* package private access controlelr. */
     private static class Columns {
@@ -310,9 +325,8 @@ public class GoalDataController {
 
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
 
-
         Cursor q = db.rawQuery(
-                String.format("select * from %s where list_index = %s",
+                String.format("select * from %s where _id = %s",
                         TABLE_GOALS,
                         checkedIdList.get(0).toString()),
                 null);
@@ -323,12 +337,10 @@ public class GoalDataController {
                 goal.setMTitle(q.getString(q.getColumnIndex("text")));
                 goal.setMDaysOfWeek(q.getString(q.getColumnIndex("days")));
             } while (q.moveToNext());
-
         }
 
-        if(q != null && !q.isClosed()) {
+        if(!q.isClosed())
             q.close();
-        }
         return goal;
     }
 

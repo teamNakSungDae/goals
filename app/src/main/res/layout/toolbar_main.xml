@@ -16,13 +16,13 @@
     >
 
     <RelativeLayout
-        android:id="@+id/toolbar_rl"
+        android:id="@+id/rl_toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
 
         <ImageView
-            android:id="@+id/logo_icon"
+            android:id="@+id/image_logo"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginRight="9dp"
@@ -52,11 +52,11 @@
             />
 
         <ImageView
-            android:id="@+id/logo"
+            android:id="@+id/image_text_logo"
             android:layout_width="54dp"
             android:layout_height="16dp"
-            android:layout_toRightOf="@id/logo_icon"
-            android:layout_toEndOf="@id/logo_icon"
+            android:layout_toRightOf="@id/image_logo"
+            android:layout_toEndOf="@id/image_logo"
             android:layout_centerVertical="true"
             android:src="@drawable/logo"
             android:visibility="gone"
@@ -64,7 +64,7 @@
             />
 
         <ImageView
-            android:id="@+id/edit"
+            android:id="@+id/button_mode_edit_goal"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_centerVertical="true"

@@ -1,10 +1,9 @@
 package nexters.hashgoals.activities;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,108 +14,74 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import butterknife.BindViews;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
+
+import java.lang.reflect.Field;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import nexters.hashgoals.R;
 import nexters.hashgoals.adapters.GoalDragSortAdapter;
-import nexters.hashgoals.controllers.GoalDataController;
+import nexters.hashgoals.boxes.GoalBox;
 import nexters.hashgoals.fonts.FontsLoader;
 import nexters.hashgoals.fragments.SetGoalDialogFragment;
 import nexters.hashgoals.helpers.DatabaseHelper;
 import nexters.hashgoals.models.Goal;
-
 import nexters.hashgoals.models.GoalAction;
-
-import java.lang.reflect.Field;
-import java.util.List;
-
 
 
 public class GoalActivity extends AppCompatActivity {
+    private GoalBox goalBox;
 
-    public SQLiteDatabase db;
-    public DatabaseHelper databaseHelper;
-    public GoalDragSortAdapter goalDragSortAdapter;
-    
-    GoalDataController goalDataController;
-    DragSortController dragSortController;
-    DragSortListView dslv;
-    Cursor dragSortCursor;
-    Toolbar toolbar;
-    Menu menu;
-    MenuItem modifyItem;
+    private GoalDragSortAdapter goalDragSortAdapter;
+    private DragSortController dragSortController;
+    private DragSortListView dragSortListView;
 
-    @BindViews({R.id.add_button})
-    List<ImageView> setGoalButtons;
+    private enum ToolbarMode {EDIT_MODE, HOME_MODE}
+    private Toolbar toolbar;
+    private MenuItem deleteItem, editModeItem, modifyItem;
 
-//    ProfileTracker profileTracker;
-//    CallbackManager callbackManager;
+    @BindView(R.id.rl_toolbar) RelativeLayout toolbarRL;
+    @BindView(R.id.image_logo) ImageView logoImage;
+    @BindView(R.id.image_text_logo) ImageView logoTextImage;
+    @BindView(R.id.button_add_goal) ImageView addGoalButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goal);
-
-        goalDataController = GoalDataController.getInstance(getApplicationContext());
-        dslv = (DragSortListView) findViewById(R.id.dslv);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         ButterKnife.bind(GoalActivity.this);
         ButterKnife.setDebug(true);
 
-        displayLogo();
-        defaultToolbar();
+        goalBox = new GoalBox(getApplicationContext());
 
-        setDragSortListView();
-        populateDragSortListView();
+        initializeToolbar();
 
-
+        initializeDragSortAdapter();
+        initializeDragSortListView();
 
         /* for debug*/
-        Intent intent = new Intent(this,DetailActivity.class);
-        List<Goal> lists = GoalDataController.getInstance(getApplicationContext()).getAllGoals();
-        if ( lists == null || lists.get(0) == null)
-            return;
-        //Log.e("Toss the data",lists.get(0).getTitle()+"/"+lists.get(0).getId());
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("goal", lists.get(0) );
-        intent.putExtra("goal",bundle);
-        startActivity(intent);
+//        Intent intent = new Intent(this,DetailActivity.class);
+//        List<Goal> lists = GoalDataController.getInstance(getApplicationContext()).getAllGoals();
+//        if ( lists == null || lists.get(0) == null)
+//            return;
+//        //Log.e("Toss the data",lists.get(0).getTitle()+"/"+lists.get(0).getId());
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("goal", lists.get(0));
+//        intent.putExtra("goal",bundle);
+//        startActivity(intent);
     }
 
-    // Add or edit button.
-    @OnClick({R.id.add_button})
-    void onSetButtonClick(View view) {
-        FragmentManager fm = getSupportFragmentManager();
-        SetGoalDialogFragment setGoalDialogFragment = SetGoalDialogFragment.newInstance("Some Title");
+    private void initializeToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        if (view.getId() == R.id.add_button) {
-            setGoalDialogFragment.setAction(GoalAction.INSERT);
-            setGoalDialogFragment.setGoal(new Goal());
-        } else if (view.getId() == R.id.modify) {
-            setGoalDialogFragment.setAction(GoalAction.UPDATE);
-            setGoalDialogFragment.setGoal(goalDataController.getCheckedGoal());
-        } else {
-            throw new RuntimeException("View is not set button.");
-        }
-
-        setGoalDialogFragment.show(fm, "fragment_goal_set");
-    }
-
-    private void defaultToolbar() {
         //setToolbarTitleFont();
-        toolbar.setTitle(R.string.goal_edit_title); //
+        toolbar.setTitle(R.string.goal_edit_title);
         setSupportActionBar(toolbar); // Sets the Toolbar to act as the ActionBar for this Activity window.
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false); // back button added.
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        /*
-        * setDisplayOptions(,) method affects the entire options of an ActionBar.
-        * */
-
+        setToolbarViewsVisibility(android.R.id.home);
     }
 
     private void setToolbarTitleFont() {
@@ -128,160 +93,214 @@ public class GoalActivity extends AppCompatActivity {
             mToolbarTitle = (TextView) f.get(toolbar);
             mToolbarTitle.setTypeface(FontsLoader.getTypeface(getApplicationContext(), FontsLoader.N_S_MEDUIM));
 
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    private void initializeDragSortAdapter() {
+        goalDragSortAdapter = new GoalDragSortAdapter(getApplicationContext(),
+                this,
+                R.layout.list_item_goal,
+                new String[]{"_id", "text", "list_index"},
+                new int[]{R.id.goal_content});
+    }
+
+
+    private void initializeDragSortListView() {
+        dragSortListView = (DragSortListView) findViewById(R.id.dslv);
+
+        dragSortController = new DragSortController(dragSortListView);
+        dragSortController.setDragHandleId(R.id.order_button);
+//        If dragSortController's mSortEnabled is set true, drag-sort is allowed.
+//        Otherwise, drag-sort is rejected.
+        dragSortController.setSortEnabled(false); // Initally, drag-sort must not be enabled.
+        dragSortController.setDragInitMode(0);
+
+        dragSortListView.setFloatViewManager(dragSortController);
+        dragSortListView.setOnTouchListener(dragSortController);
+        dragSortListView.setDragEnabled(true);
+        dragSortListView.setAdapter(goalDragSortAdapter);
+        dragSortListView.setDropListener(goalDragSortAdapter.onDrop);
+
+        // test용 코드.
+        dragSortListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                startDetailActivity(position);
+            }
+        });
+    }
 
     // Menu icons are inflated just as they were with actionbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        this.menu = menu;
-        this.modifyItem = menu.findItem(R.id.modify);
+        this.deleteItem = menu.findItem(R.id.button_delete_goal);
+        this.editModeItem = menu.findItem(R.id.button_mode_edit_goal);
+        this.modifyItem = menu.findItem(R.id.button_modify_goal);
         this.modifyItem.setVisible(false); // initial state of modify icon is invisible.
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        MenuItem deleteItem = menu.findItem(R.id.delete);
-        MenuItem editItem = menu.findItem(R.id.edit);
-
+        int itemId = item.getItemId();
         // Handle item selection
-        switch (item.getItemId()) {
+        switch (itemId) {
             case android.R.id.home:
-                editItem.setVisible(true);
-                deleteItem.setVisible(false);
-                modifyItem.setVisible(false);
-                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                getSupportActionBar().setDisplayShowTitleEnabled(false);
-                onBackButton();
+                setToolbarViewsVisibility(itemId);
+                onModeChange(ToolbarMode.HOME_MODE);
                 return true;
-            case R.id.delete:
-                goalDataController.deleteSelectedItems(); // O
-                goalDataController.setLeftItemsNumList(); // O
-                goalDataController.alignIndicesAfterDelete();
-                goalDragSortAdapter.reflection();
-                goalDataController.initializeCheckedList();
+            case R.id.button_mode_edit_goal:
+                setToolbarViewsVisibility(itemId);
+                onModeChange(ToolbarMode.EDIT_MODE);
                 return true;
-            case R.id.edit:
-                editItem.setVisible(false);
-                deleteItem.setVisible(true);
-                modifyItem.setVisible(true);
-                modifyItem.setIcon(getResources().getDrawable(R.drawable.modify_on));
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true); // back button added.
-                getSupportActionBar().setDisplayShowTitleEnabled(true);
-                onEditButton();
+            case R.id.button_delete_goal:
+                goalBox.delete();
+                onListChange();
+                goalBox.initializeCheckedList();
                 return true;
-            case R.id.modify:
-                Log.e("damn", "modify button is clicked.");
-                onSetButtonClick(findViewById(R.id.modify));
+            case R.id.button_modify_goal:
+                onSetButtonClick(findViewById(R.id.button_modify_goal));
                 return true;
-            case R.id.setting:
+            case R.id.button_setting_goal:
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    public void setDragSortListView() {
-        dragSortController = new DragSortController(dslv);
-        dragSortController.setDragHandleId(R.id.order_button);
-        dragSortController.setSortEnabled(false); // Initally, drag-sort must not be enabled.
-        dragSortController.setDragInitMode(0);
+    private void setToolbarViewsVisibility(int itemId) {
+        boolean baseBoolean;
+        int baseVisibility;
 
-        dslv.setFloatViewManager(dragSortController);
-        dslv.setOnTouchListener(dragSortController);
-        dslv.setDragEnabled(true);
+        if (itemId == android.R.id.home) {
+            baseBoolean = true;
+            baseVisibility = View.VISIBLE;
+        } else if (itemId == R.id.button_mode_edit_goal) {
+            baseBoolean = false;
+            baseVisibility = View.GONE;
+            modifyItem.setIcon(R.drawable.modify_on);
+        } else {
+            throw new RuntimeException("None of toolbar's business");
+        }
 
-        // test용 코드.
-        dslv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent goalIntent = new Intent(GoalActivity.this, DetailActivity.class);
-                Bundle goalBundle = new Bundle();
-                Goal g = goalDataController.getGoalFromPosition(++position);
-                goalBundle.putParcelable("goalInfo", g);
-                goalIntent.putExtras(goalBundle);
-                startActivity(goalIntent);
-            }
-        });
-        /* If dragSortController's mSortEnabled is set true, drag-sort is allowed.
-        Otherwise, drag-sort is rejected.
-         */
+        toolbarRL.setVisibility(baseVisibility);
+        logoImage.setVisibility(baseVisibility);
+        logoTextImage.setVisibility(baseVisibility);
+
+        if (editModeItem != null) {
+            editModeItem.setVisible(baseBoolean);
+            deleteItem.setVisible(!baseBoolean);
+            modifyItem.setVisible(!baseBoolean);
+        }
+
+        getSupportActionBarSafe().setDisplayHomeAsUpEnabled(!baseBoolean);
+        getSupportActionBarSafe().setDisplayShowTitleEnabled(!baseBoolean);
     }
 
-    public void populateDragSortListView() {
-        databaseHelper = DatabaseHelper.getInstance(this);
-        db = databaseHelper.getWritableDatabase();
+    private void onModeChange(ToolbarMode mode) {
+        boolean isEditMode = true;
 
-        dragSortCursor = db.rawQuery("SELECT * FROM goals order by list_index", null); // This adapter attached cursor closes at the 'onPause' state.
+        if (ToolbarMode.HOME_MODE.equals(mode))
+            isEditMode = false;
 
-        String[] fromFieldNames = new String[]{"_id", "text", "list_index"};
-        int[] toViewIDs = new int[]{R.id.goal_content};
-
-        goalDragSortAdapter =
-                new GoalDragSortAdapter(GoalActivity.this, R.layout.list_item_goal, dragSortCursor,
-                        fromFieldNames, toViewIDs, goalDataController);
-        // Application context cannot be cast to GoalActivity. Therefore, must pass context as GoalActivity.this.
-        dslv.setAdapter(goalDragSortAdapter);
-        dslv.setDropListener(goalDragSortAdapter.onDrop);
+        GoalDragSortAdapter.setEditMenu(isEditMode);
+        onListChange();
+        if (!isEditMode)
+            goalBox.initializeCheckedList();
+        dragSortController.setSortEnabled(isEditMode);
     }
 
-    private void displayLogo() {
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.toolbar_rl);
-        ImageView logoIcon = (ImageView) findViewById(R.id.logo_icon);
-        ImageView logo = (ImageView) findViewById(R.id.logo);
-
-        relativeLayout.setVisibility(View.VISIBLE);
-        logoIcon.setVisibility(View.VISIBLE);
-        logo.setVisibility(View.VISIBLE);
-    }
-
-    private void hideLogo() {
-        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.toolbar_rl);
-        ImageView logoIcon = (ImageView) findViewById(R.id.logo_icon);
-        ImageView logo = (ImageView) findViewById(R.id.logo);
-
-        relativeLayout.setVisibility(View.GONE);
-        logoIcon.setVisibility(View.GONE);
-        logo.setVisibility(View.GONE);
-    }
-
-    public void onEditButton() {
-        hideLogo();
-        GoalDragSortAdapter.setEditMenu(true);
+    public void onListChange() {
         goalDragSortAdapter.reflection();
-        dragSortController.setSortEnabled(true);
     }
 
-    public void onBackButton(){
-        displayLogo();
-        GoalDragSortAdapter.setEditMenu(false);
-        goalDragSortAdapter.reflection();
-        goalDataController.initializeCheckedList();
-        dragSortController.setSortEnabled(false);
+    @OnClick(R.id.button_add_goal)
+    public void onAddButtonClick() {
+        onSetButtonClick(addGoalButton);
+    }
+
+    private void onSetButtonClick(View view) {
+        FragmentManager fm = getSupportFragmentManager();
+        SetGoalDialogFragment setGoalDialogFragment = SetGoalDialogFragment.newInstance("Some Title");
+
+        if (view.getId() == R.id.button_add_goal) {
+            setGoalDialogFragment.setAction(GoalAction.INSERT);
+            setGoalDialogFragment.setGoal(new Goal());
+        } else if (view.getId() == R.id.button_modify_goal) {
+            setGoalDialogFragment.setAction(GoalAction.UPDATE);
+            setGoalDialogFragment.setGoal(goalBox.getGoalBy());
+        } else {
+            throw new RuntimeException("View is not set button.");
+        }
+
+        setGoalDialogFragment.show(fm, "fragment_goal_set");
+    }
+
+    @Override
+    public void onResume() {
+        Log.e("damn", "onResume state");
+        super.onResume();
+        onListChange();
+    }
+
+    @Override
+    public void onPause() {
+        Log.e("damn", "onPause state");
+        super.onPause();
+        goalDragSortAdapter.close();
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.e("damn", "onDestroy state");
+        super.onDestroy();
+        // profileTracker.stopTracking();
+        DatabaseHelper.getInstance(getApplicationContext()).close();
     }
 
     public void changeEditButtonState(int numOfCheckedItems) {
         if (numOfCheckedItems >= 2)
-            this.modifyItem.setIcon(getResources().getDrawable(R.drawable.modify_off));
+            this.modifyItem.setIcon(R.drawable.modify_off);
         else
-            this.modifyItem.setIcon(getResources().getDrawable(R.drawable.modify_on));
+            this.modifyItem.setIcon(R.drawable.modify_on);
     }
 
+    private ActionBar getSupportActionBarSafe() {
+        ActionBar supportActionBar = super.getSupportActionBar();
+        if (supportActionBar != null) {
+            return supportActionBar;
+        }
+        throw new RuntimeException("There is no support action bar.");
+    }
+
+    // Detail activity need position.
+    private void startDetailActivity(int position) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        Bundle goalBundle = new Bundle();
+        Goal clickedGoal = goalBox.getGoalBy(position);
+        goalBundle.putParcelable("goalInfo", clickedGoal);
+        intent.putExtras(goalBundle);
+        startActivity(intent);
+    }
+
+//    ProfileTracker profileTracker;
+//    CallbackManager callbackManager;
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        callbackManager.onActivityResult(requestCode, resultCode, data);
+//    }
 //    @Override
 //    public void onStart() {
 //        super.onStart();
 //
 //        // Load facebook profile image if exists. Or else get logo_icon
-//        final ImageView logoIcon = (ImageView) findViewById(R.id.logo_icon);
-//        logoIcon.setVisibility(View.VISIBLE);
+//        final ImageView logoImage = (ImageView) findViewById(R.id.logo_icon);
+//        logoImage.setVisibility(View.VISIBLE);
 //
 //        callbackManager = CallbackManager.Factory.create();
 //
@@ -291,53 +310,21 @@ public class GoalActivity extends AppCompatActivity {
 //                    Profile oldProfile,
 //                    Profile currentProfile) {
 //                Profile.setCurrentProfile(currentProfile);
-//                setLogoIcon(logoIcon, currentProfile.getId());
+//                setLogoIcon(logoImage, currentProfile.getId());
 //            }
 //        };
 //        Profile currentProfile = Profile.getCurrentProfile();
 //
 //        if (currentProfile != null) {
-//            setLogoIcon(logoIcon, currentProfile.getId());
+//            setLogoIcon(logoImage, currentProfile.getId());
 //        }
 //    }
-
-//    private void setLogoIcon(ImageView logoIcon, String userId) {
+//    private void setLogoIcon(ImageView logoImage, String userId) {
 //        String userImageUrl = String.format("https://graph.facebook.com/%s/picture?type=small",
 //                userId);
 //        Glide.with(getApplicationContext())
 //                .load(userImageUrl)
 //                .placeholder(R.drawable.logo_icon)
-//                .into(logoIcon);
+//                .into(logoImage);
 //    }
-
-    @Override
-    public void onResume() {
-        Log.e("damn", "onResume state");
-        super.onResume();
-        goalDragSortAdapter.reflection();
-    }
-
-    @Override
-    public void onPause() {
-        Log.e("damn", "onPause state");
-        super.onPause();
-        if (dragSortCursor != null && !dragSortCursor.isClosed()) {
-            dragSortCursor.close();
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        Log.e("damn", "onDestroy state");
-        super.onDestroy();
-        // profileTracker.stopTracking();
-        db.close();
-    }
-
-    //    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        callbackManager.onActivityResult(requestCode, resultCode, data);
-//    }
-
 }

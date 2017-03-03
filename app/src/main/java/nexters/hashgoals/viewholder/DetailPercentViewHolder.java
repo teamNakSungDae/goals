@@ -2,6 +2,7 @@ package nexters.hashgoals.viewholder;
 
 import android.view.View;
 import android.widget.TextView;
+
 import nexters.hashgoals.R;
 import nexters.hashgoals.models.Detail;
 

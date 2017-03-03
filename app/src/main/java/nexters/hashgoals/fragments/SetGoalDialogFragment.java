@@ -1,7 +1,6 @@
 package nexters.hashgoals.fragments;
 
 import android.content.DialogInterface;
-import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +12,14 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import butterknife.*;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
@@ -23,8 +29,6 @@ import nexters.hashgoals.controllers.GoalDataController;
 import nexters.hashgoals.fonts.FontsLoader;
 import nexters.hashgoals.models.Goal;
 import nexters.hashgoals.models.GoalAction;
-
-import java.util.List;
 
 /**
  * Created by flecho on 2017. 2. 7..
@@ -141,9 +145,9 @@ public class SetGoalDialogFragment extends DialogFragment {
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        GoalActivity goalActivity = (GoalActivity)getActivity();
-        Cursor cursor = goalActivity.db.rawQuery("SELECT * FROM goals order by list_index", null);
-        goalActivity.goalDragSortAdapter.changeCursor(cursor);
+        if (getActivity() instanceof GoalActivity) {
+            ((GoalActivity) getActivity()).onListChange();
+        }
     }
 
     @Override

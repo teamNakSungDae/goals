@@ -4,19 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import nexters.hashgoals.R;
-import nexters.hashgoals.fonts.FontsLoader;
 
 import java.util.Arrays;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import nexters.hashgoals.R;
+import nexters.hashgoals.fonts.FontsLoader;
 
 /**
  * Created by yoon on 2017. 2. 18..

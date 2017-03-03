@@ -1,17 +1,13 @@
 package nexters.hashgoals.controllers;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.OnClick;
 import nexters.hashgoals.helpers.DatabaseHelper;
 import nexters.hashgoals.models.Detail;
-import nexters.hashgoals.models.DetailData;
 /**
  * Created by kwongiho on 2017. 2. 24..
  */

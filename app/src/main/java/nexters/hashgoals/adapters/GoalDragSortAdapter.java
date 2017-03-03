@@ -8,14 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.mobeta.android.dslv.DragSortListView;
 import com.mobeta.android.dslv.SimpleDragSortCursorAdapter;
+
 import nexters.hashgoals.R;
 import nexters.hashgoals.activities.GoalActivity;
 import nexters.hashgoals.controllers.GoalDataController;
 import nexters.hashgoals.fonts.FontsLoader;
 import nexters.hashgoals.helpers.DatabaseHelper;
-
 
 /**
  * Created by flecho on 2017. 2. 10..
@@ -49,10 +50,21 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
     private GoalDataController mGoalDataController;
     private static DatabaseHelper mDatabaseHelper; // Uses mDatabaseHelper for convenience.
 
-    public GoalDragSortAdapter(Context context, int layout, Cursor c, String[] from, int[] to, GoalDataController controller){
-        super(context, layout, c, from, to, 0);
+    public GoalDragSortAdapter(Context applicationContext,
+                               Context context,
+                               int layout,
+                               String[] from,
+                               int[] to
+    ) {
+        super(context,
+                layout,
+                GoalDataController.getInstance(applicationContext).getCursorByListIndex(),
+                from,
+                to,
+                0);
+
         mContext = context;
-        mGoalDataController = controller;
+        mGoalDataController = GoalDataController.getInstance(applicationContext);
         mDatabaseHelper = DatabaseHelper.getInstance(mContext);
     }
 
@@ -186,6 +198,10 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
             if (cursor != null && !cursor.isClosed())
                 cursor.close();
         }
+    }
+
+    public void close() {
+        mGoalDataController.closeDragSortAdapterCursor();
     }
 
 }

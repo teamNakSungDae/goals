@@ -64,13 +64,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db){
         String CREATE_GOALS_TABLE = "CREATE TABLE " + TABLE_GOALS +
-
                 "(" +
                 COL_GOAL_ID + " INTEGER PRIMARY KEY," + // Define a primary key
                 COL_GOAL_TEXT + " TEXT NOT NULL," +
                 COL_GOAL_LIST_INDEX + " INTEGER," +
                 COL_GOAL_DAYS + " TEXT" +
-
                 ")";
 
 

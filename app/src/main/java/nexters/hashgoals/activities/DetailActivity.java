@@ -1,24 +1,18 @@
 package nexters.hashgoals.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.UiThread;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,13 +20,9 @@ import butterknife.OnClick;
 import nexters.hashgoals.R;
 import nexters.hashgoals.adapters.DetailAdapter;
 import nexters.hashgoals.controllers.DetailController;
-
 import nexters.hashgoals.fragments.SetRecycleNoDialogFragment;
 import nexters.hashgoals.models.Detail;
 import nexters.hashgoals.models.Goal;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -92,7 +82,7 @@ public class DetailActivity extends AppCompatActivity {
          */
         Bundle bundle = getIntent().getBundleExtra("goal");
         Goal goal = (Goal)bundle.get("goal");
-        Log.e("goal",goal.getTitle());
+        //Log.e("goal",goal.getTitle());
         /*
          * initialize value.
          */
@@ -106,7 +96,7 @@ public class DetailActivity extends AppCompatActivity {
          */
 
 
-        detailTitle.setText( goal . getTitle() );
+//        detailTitle.setText( goal . getTitle() );
 
     }
 

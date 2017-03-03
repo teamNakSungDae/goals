@@ -4,13 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.List;
+
 import nexters.hashgoals.R;
 import nexters.hashgoals.models.Detail;
 import nexters.hashgoals.viewholder.CustomViewHolder;
 import nexters.hashgoals.viewholder.DetailPercentViewHolder;
 import nexters.hashgoals.viewholder.DetailViewHolder;
-
-import java.util.List;
 
 /**
  * Created by kwongiho on 2017. 2. 23..

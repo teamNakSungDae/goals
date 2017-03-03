@@ -4,7 +4,9 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
+
 import nexters.hashgoals.R;
 import nexters.hashgoals.models.Detail;
 
