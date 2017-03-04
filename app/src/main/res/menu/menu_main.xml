@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      android:icon="@drawable/more">
+    android:icon="@drawable/more">
 
     <item android:id="@+id/button_mode_edit_goal"
-          android:title="@string/mode_edit_goal" />
+          android:title="@string/mode_edit_goal"/>
 
     <item android:id="@+id/button_delete_goal"
           android:icon="@drawable/delete"
