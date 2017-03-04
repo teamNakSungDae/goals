@@ -1,14 +1,12 @@
 package nexters.hashgoals.activities;
 
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -25,7 +23,6 @@ import butterknife.OnClick;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 import nexters.hashgoals.R;
-import nexters.hashgoals.utilities.GoalTypefaceSpan;
 import nexters.hashgoals.adapters.GoalDragSortAdapter;
 import nexters.hashgoals.boxes.GoalBox;
 import nexters.hashgoals.fonts.FontsLoader;
@@ -33,6 +30,7 @@ import nexters.hashgoals.fragments.SetGoalDialogFragment;
 import nexters.hashgoals.helpers.DatabaseHelper;
 import nexters.hashgoals.models.Goal;
 import nexters.hashgoals.models.GoalAction;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import java.lang.reflect.Field;
 
@@ -148,27 +146,11 @@ public class GoalActivity extends AppCompatActivity {
         this.deleteItem.setVisible(false);
         this.modifyItem.setVisible(false); // initial state of modify icon is invisible.
 
-        Typeface typeface = FontsLoader.getTypeface(getApplicationContext(), FontsLoader.N_S_MEDUIM);
-        for (int i = 0; i < menu.size(); i++)
-            applyFontToMenuItem(menu.getItem(i), typeface);
-
         this.deleteItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         this.editModeItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         this.modifyItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         return super.onCreateOptionsMenu(menu);
-    }
-
-    private void applyFontToMenuItem(MenuItem mi, Typeface typeface) {
-        SpannableString mNewTitle = new SpannableString(mi.getTitle());
-
-        mNewTitle.setSpan(
-                new GoalTypefaceSpan("", typeface),
-                0,
-                mNewTitle.length(),
-                Spannable.SPAN_INCLUSIVE_INCLUSIVE
-        );
-        mi.setTitle(mNewTitle);
     }
 
     @Override
@@ -287,6 +269,11 @@ public class GoalActivity extends AppCompatActivity {
         super.onDestroy();
         // profileTracker.stopTracking();
         DatabaseHelper.getInstance(getApplicationContext()).close();
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     public void changeEditButtonState(int numOfCheckedItems) {

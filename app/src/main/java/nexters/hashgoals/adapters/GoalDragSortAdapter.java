@@ -13,7 +13,6 @@ import com.mobeta.android.dslv.SimpleDragSortCursorAdapter;
 import nexters.hashgoals.R;
 import nexters.hashgoals.activities.GoalActivity;
 import nexters.hashgoals.controllers.GoalDataController;
-import nexters.hashgoals.fonts.FontsLoader;
 import nexters.hashgoals.helpers.DatabaseHelper;
 
 /**
@@ -82,7 +81,7 @@ public class GoalDragSortAdapter extends SimpleDragSortCursorAdapter{
             holder.textView = (TextView) convertView.findViewById(R.id.goal_content);
             holder.checkBox = (ImageView) convertView.findViewById(R.id.checkbox_off);
             setMemo(syncedPosition, holder.textView);
-            holder.textView.setTypeface(FontsLoader.getTypeface(mContext, FontsLoader.N_S_REGULAR));
+            // holder.textView.setTypeface(FontsLoader.getTypeface(mContext, FontsLoader.N_S_REGULAR));
             holder.toggle = TOGGLE_OFF;
             convertView.setTag(holder);
             Log.e("damn", "새로 만들기");
