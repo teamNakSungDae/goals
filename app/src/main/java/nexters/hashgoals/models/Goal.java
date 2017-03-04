@@ -3,12 +3,10 @@ package nexters.hashgoals.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import org.apache.commons.lang3.StringUtils;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 
 /**

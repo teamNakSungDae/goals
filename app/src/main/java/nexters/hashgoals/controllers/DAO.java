@@ -2,10 +2,9 @@ package nexters.hashgoals.controllers;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import nexters.hashgoals.models.Detail;
 
 import java.util.List;
-
-import nexters.hashgoals.models.Detail;
 
 /**
  * Created by kwongiho on 2017. 2. 24..

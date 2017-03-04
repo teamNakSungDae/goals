@@ -1,11 +1,14 @@
 package nexters.hashgoals.activities;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,16 +17,13 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.mobeta.android.dslv.DragSortController;
-import com.mobeta.android.dslv.DragSortListView;
-
-import java.lang.reflect.Field;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.mobeta.android.dslv.DragSortController;
+import com.mobeta.android.dslv.DragSortListView;
 import nexters.hashgoals.R;
+import nexters.hashgoals.utilities.GoalTypefaceSpan;
 import nexters.hashgoals.adapters.GoalDragSortAdapter;
 import nexters.hashgoals.boxes.GoalBox;
 import nexters.hashgoals.fonts.FontsLoader;
@@ -31,6 +31,8 @@ import nexters.hashgoals.fragments.SetGoalDialogFragment;
 import nexters.hashgoals.helpers.DatabaseHelper;
 import nexters.hashgoals.models.Goal;
 import nexters.hashgoals.models.GoalAction;
+
+import java.lang.reflect.Field;
 
 
 public class GoalActivity extends AppCompatActivity {
@@ -78,10 +80,10 @@ public class GoalActivity extends AppCompatActivity {
     private void initializeToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        //setToolbarTitleFont();
         toolbar.setTitle(R.string.goal_edit_title);
         setSupportActionBar(toolbar); // Sets the Toolbar to act as the ActionBar for this Activity window.
         setToolbarViewsVisibility(android.R.id.home);
+        setToolbarTitleFont();
     }
 
     private void setToolbarTitleFont() {
@@ -92,7 +94,6 @@ public class GoalActivity extends AppCompatActivity {
             f.setAccessible(true);
             mToolbarTitle = (TextView) f.get(toolbar);
             mToolbarTitle.setTypeface(FontsLoader.getTypeface(getApplicationContext(), FontsLoader.N_S_MEDUIM));
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -127,7 +128,7 @@ public class GoalActivity extends AppCompatActivity {
         dragSortListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                startDetailActivity(position);
+                startDetailActivity(goalBox.getGoalBy(position));
             }
         });
     }
@@ -135,13 +136,35 @@ public class GoalActivity extends AppCompatActivity {
     // Menu icons are inflated just as they were with actionbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         this.deleteItem = menu.findItem(R.id.button_delete_goal);
         this.editModeItem = menu.findItem(R.id.button_mode_edit_goal);
         this.modifyItem = menu.findItem(R.id.button_modify_goal);
+        this.deleteItem.setVisible(false);
         this.modifyItem.setVisible(false); // initial state of modify icon is invisible.
-        return true;
+
+        Typeface typeface = FontsLoader.getTypeface(getApplicationContext(), FontsLoader.N_S_MEDUIM);
+        for (int i = 0; i < menu.size(); i++)
+            applyFontToMenuItem(menu.getItem(i), typeface);
+
+        this.deleteItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        this.editModeItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        this.modifyItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private void applyFontToMenuItem(MenuItem mi, Typeface typeface) {
+        SpannableString mNewTitle = new SpannableString(mi.getTitle());
+
+        mNewTitle.setSpan(
+                new GoalTypefaceSpan("", typeface),
+                0,
+                mNewTitle.length(),
+                Spannable.SPAN_INCLUSIVE_INCLUSIVE
+        );
+        mi.setTitle(mNewTitle);
     }
 
     @Override
@@ -163,7 +186,8 @@ public class GoalActivity extends AppCompatActivity {
                 goalBox.initializeCheckedList();
                 return true;
             case R.id.button_modify_goal:
-                onSetButtonClick(findViewById(R.id.button_modify_goal));
+                if ("modify_on".equals(item.getTitle()))
+                    onSetButtonClick(findViewById(R.id.button_modify_goal));
                 return true;
             case R.id.button_setting_goal:
                 return true;
@@ -182,7 +206,6 @@ public class GoalActivity extends AppCompatActivity {
         } else if (itemId == R.id.button_mode_edit_goal) {
             baseBoolean = false;
             baseVisibility = View.GONE;
-            modifyItem.setIcon(R.drawable.modify_on);
         } else {
             throw new RuntimeException("None of toolbar's business");
         }
@@ -263,10 +286,13 @@ public class GoalActivity extends AppCompatActivity {
     }
 
     public void changeEditButtonState(int numOfCheckedItems) {
-        if (numOfCheckedItems >= 2)
-            this.modifyItem.setIcon(R.drawable.modify_off);
-        else
+        if (numOfCheckedItems == 1) {
+            this.modifyItem.setTitle("modify_on");
             this.modifyItem.setIcon(R.drawable.modify_on);
+        } else {
+            this.modifyItem.setTitle("modify_off");
+            this.modifyItem.setIcon(R.drawable.modify_off);
+        }
     }
 
     private ActionBar getSupportActionBarSafe() {
@@ -278,10 +304,9 @@ public class GoalActivity extends AppCompatActivity {
     }
 
     // Detail activity need position.
-    private void startDetailActivity(int position) {
+    private void startDetailActivity(Goal clickedGoal) {
         Intent intent = new Intent(this, DetailActivity.class);
         Bundle goalBundle = new Bundle();
-        Goal clickedGoal = goalBox.getGoalBy(position);
         goalBundle.putParcelable("goalInfo", clickedGoal);
         intent.putExtras(goalBundle);
         startActivity(intent);
