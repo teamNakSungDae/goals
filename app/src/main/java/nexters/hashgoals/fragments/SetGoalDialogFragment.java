@@ -12,14 +12,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.BindViews;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+import butterknife.*;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
@@ -29,6 +22,8 @@ import nexters.hashgoals.controllers.GoalDataController;
 import nexters.hashgoals.fonts.FontsLoader;
 import nexters.hashgoals.models.Goal;
 import nexters.hashgoals.models.GoalAction;
+
+import java.util.List;
 
 /**
  * Created by flecho on 2017. 2. 7..
@@ -146,6 +141,7 @@ public class SetGoalDialogFragment extends DialogFragment {
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
         if (getActivity() instanceof GoalActivity) {
+            ((GoalActivity) getActivity()).changeEditButtonState(0);
             ((GoalActivity) getActivity()).onListChange();
         }
     }
