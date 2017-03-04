@@ -1,12 +1,18 @@
 <resources>
 <!-- Base application theme. -->
 <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="android:textSize">17dp</item>
+    <item name="android:textSize">17sp</item>
     <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     <item name="android:actionOverflowButtonStyle">@style/OverflowMenuButton</item>
-    <!-- <item name="android:actionMenuTextAppearance">@style/MyActionBarText</item> -->
+    <!-- <item name="android:itemTextAppearance">@style/itemText</item> -->
 </style>
 
+    <!--
+    <style name="itemText" parent="@android:style/Widget.Holo.ActionBar.TabText">
+        <item name="android:textSize">10sp</item>
+        <item name="android:typeface">monospace</item>
+    </style>
+    -->
 
     <style name="OverflowMenuButton" parent="@android:style/Widget.Holo.ActionButton.Overflow">
         <item name="android:src">@drawable/more</item>
@@ -28,11 +34,6 @@
         <item name="android:windowBackground">@drawable/background_splash</item>
     </style>
 
-    <!--
-        <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="android:textColorSecondary">@android:color/white</item>
-        <item name="actionMenuTextColor">@android:color/white</item>
-    -->
 
 
 </resources>

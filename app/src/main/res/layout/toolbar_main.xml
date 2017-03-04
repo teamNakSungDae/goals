@@ -5,7 +5,7 @@
     android:id="@+id/toolbar"
     android:minHeight="?android:attr/actionBarSize"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="?android:attr/actionBarSize"
     android:background="@color/goals_color"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp"
@@ -16,9 +16,9 @@
 
     <RelativeLayout
         android:id="@+id/rl_toolbar"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        >
 
         <ImageView
             android:id="@+id/image_logo"
@@ -63,17 +63,12 @@
             android:id="@+id/edit_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/arrow_back"
-            android:layout_toEndOf="@id/arrow_back"
             android:text="@string/goal_edit_title"
             android:textSize="18sp"
             android:textColor="@color/goals_white"
-            android:includeFontPadding="false"
-            android:layout_centerVertical="true"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
     </RelativeLayout>
 
-    <!-- This means that you can style the TextView like any other.-->
 
 </android.support.v7.widget.Toolbar>

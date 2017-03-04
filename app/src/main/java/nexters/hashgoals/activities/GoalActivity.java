@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,7 +61,6 @@ public class GoalActivity extends AppCompatActivity {
         ButterKnife.setDebug(true);
 
         goalBox = new GoalBox(getApplicationContext());
-
         initializeToolbar();
 
         initializeDragSortAdapter();
@@ -94,6 +95,9 @@ public class GoalActivity extends AppCompatActivity {
             f.setAccessible(true);
             mToolbarTitle = (TextView) f.get(toolbar);
             mToolbarTitle.setTypeface(FontsLoader.getTypeface(getApplicationContext(), FontsLoader.N_S_MEDUIM));
+            mToolbarTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            mToolbarTitle.setIncludeFontPadding(false);
+            mToolbarTitle.setGravity(Gravity.CENTER_VERTICAL);
         } catch (Exception e) {
             e.printStackTrace();
         }
