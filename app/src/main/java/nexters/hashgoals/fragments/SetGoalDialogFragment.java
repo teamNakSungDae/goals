@@ -92,16 +92,12 @@ public class SetGoalDialogFragment extends DialogFragment {
 
     private void setFonts(View view) {
         Typeface medium = FontsLoader.getTypeface(getActivity().getApplicationContext(), FontsLoader.N_S_MEDUIM);
-        Typeface regular = FontsLoader.getTypeface(getActivity().getApplicationContext(), FontsLoader.N_S_REGULAR);
 
         ((TextView) view.findViewById(R.id.lbl_your_goal)).setTypeface(medium);
-        mEditText.setTypeface(regular);
         ((TextView) view.findViewById(R.id.title_repeat_goal_set)).setTypeface(medium);
         for (Button mDayButton : mDaysButtons) {
             mDayButton.setTypeface(medium);
         }
-        mSaveButton.setTypeface(regular);
-        mCancelButton.setTypeface(regular);
     }
 
     @OnClick(R.id.btn_save)

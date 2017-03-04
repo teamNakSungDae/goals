@@ -6,6 +6,8 @@ import android.os.Bundle;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
+import nexters.hashgoals.R;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
  * Created by clsan on 2017. 2. 18..
@@ -20,6 +22,11 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/NotoSansCJKkr-Regular.otf")
+                .setFontAttrId(R.attr.fontPath)
+                .build());
 
         callbackManager = CallbackManager.Factory.create();
 
