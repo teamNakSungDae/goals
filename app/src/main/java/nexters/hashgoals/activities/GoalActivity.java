@@ -161,6 +161,8 @@ public class GoalActivity extends AppCompatActivity {
             case android.R.id.home:
                 setToolbarViewsVisibility(itemId);
                 onModeChange(ToolbarMode.HOME_MODE);
+                goalBox.initializeCheckedList();
+                changeEditButtonState(0);
                 return true;
             case R.id.button_mode_edit_goal:
                 setToolbarViewsVisibility(itemId);
