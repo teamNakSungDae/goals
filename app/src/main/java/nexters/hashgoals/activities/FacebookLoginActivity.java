@@ -14,11 +14,10 @@ import com.facebook.FacebookException;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import java.util.Arrays;
 import nexters.hashgoals.R;
 import nexters.hashgoals.fonts.FontsLoader;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
-import java.util.Arrays;
 
 /**
  * Created by yoon on 2017. 2. 18..

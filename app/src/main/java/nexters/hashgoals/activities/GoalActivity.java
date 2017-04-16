@@ -8,8 +8,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,14 +23,11 @@ import com.mobeta.android.dslv.DragSortListView;
 import nexters.hashgoals.R;
 import nexters.hashgoals.adapters.GoalDragSortAdapter;
 import nexters.hashgoals.boxes.GoalBox;
-import nexters.hashgoals.fonts.FontsLoader;
 import nexters.hashgoals.fragments.SetGoalDialogFragment;
 import nexters.hashgoals.helpers.DatabaseHelper;
 import nexters.hashgoals.models.Goal;
 import nexters.hashgoals.models.GoalAction;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
-import java.lang.reflect.Field;
 
 
 public class GoalActivity extends AppCompatActivity {
@@ -47,6 +42,7 @@ public class GoalActivity extends AppCompatActivity {
     private MenuItem deleteItem, editModeItem, modifyItem;
 
     @BindView(R.id.rl_toolbar) RelativeLayout toolbarRL;
+    @BindView(R.id.edit_title) TextView editTitleTextView;
     @BindView(R.id.image_logo) ImageView logoImage;
     @BindView(R.id.image_text_logo) ImageView logoTextImage;
     @BindView(R.id.button_add_goal) ImageView addGoalButton;
@@ -79,26 +75,9 @@ public class GoalActivity extends AppCompatActivity {
     private void initializeToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        toolbar.setTitle(R.string.goal_edit_title);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar); // Sets the Toolbar to act as the ActionBar for this Activity window.
         setToolbarViewsVisibility(android.R.id.home);
-        setToolbarTitleFont();
-    }
-
-    private void setToolbarTitleFont() {
-        TextView mToolbarTitle;
-
-        try {
-            Field f = toolbar.getClass().getDeclaredField("mTitleTextView");
-            f.setAccessible(true);
-            mToolbarTitle = (TextView) f.get(toolbar);
-            mToolbarTitle.setTypeface(FontsLoader.getTypeface(getApplicationContext(), FontsLoader.N_S_MEDUIM));
-            mToolbarTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-            mToolbarTitle.setIncludeFontPadding(false);
-            mToolbarTitle.setGravity(Gravity.CENTER_VERTICAL);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private void initializeDragSortAdapter() {
@@ -201,6 +180,8 @@ public class GoalActivity extends AppCompatActivity {
         toolbarRL.setVisibility(baseVisibility);
         logoImage.setVisibility(baseVisibility);
         logoTextImage.setVisibility(baseVisibility);
+
+        editTitleTextView.setVisibility(baseBoolean ? View.GONE : View.VISIBLE);
 
         if (editModeItem != null) {
             editModeItem.setVisible(baseBoolean);

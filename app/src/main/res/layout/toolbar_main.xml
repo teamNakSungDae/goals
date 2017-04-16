@@ -17,8 +17,7 @@
     <RelativeLayout
         android:id="@+id/rl_toolbar"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/image_logo"
@@ -35,20 +34,6 @@
             android:contentDescription="@string/icon_logo" />
 
         <ImageView
-            android:id="@+id/arrow_back"
-            android:paddingLeft="12dp"
-            android:paddingStart="12dp"
-            android:paddingRight="9dp"
-            android:paddingEnd="9dp"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/arrow_back"
-            android:layout_gravity="start"
-            android:visibility="gone"
-            android:contentDescription="@string/arrow_back" />
-
-        <ImageView
             android:id="@+id/image_text_logo"
             android:layout_width="54dp"
             android:layout_height="16dp"
@@ -59,16 +44,15 @@
             android:visibility="gone"
             android:contentDescription="@string/image_text_logo" />
 
-        <TextView
-            android:id="@+id/edit_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/goal_edit_title"
-            android:textSize="18sp"
-            android:textColor="@color/goals_white"
-            android:visibility="gone"/>
-
     </RelativeLayout>
 
+    <TextView
+      android:id="@+id/edit_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/goal_edit_title"
+      android:textSize="18sp"
+      android:textColor="@color/goals_white"
+      android:visibility="gone" />
 
 </android.support.v7.widget.Toolbar>

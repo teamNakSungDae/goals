@@ -1,12 +1,12 @@
 package nexters.hashgoals.helpers;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by flecho on 2017. 2. 3..

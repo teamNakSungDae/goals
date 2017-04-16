@@ -13,15 +13,14 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import java.util.ArrayList;
+import java.util.List;
 import nexters.hashgoals.R;
 import nexters.hashgoals.adapters.DetailAdapter;
 import nexters.hashgoals.controllers.DetailController;
 import nexters.hashgoals.fragments.SetRecycleNoDialogFragment;
 import nexters.hashgoals.models.Detail;
 import nexters.hashgoals.models.Goal;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
 
