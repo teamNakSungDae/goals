@@ -14,7 +14,7 @@
           android:title="modify" />
 
     <item android:id="@+id/button_setting_goal"
-          android:title="Setting" />
-    <item android:id="@+id/sync"
+          android:title="@string/goal_setting_title" />
+    <item android:id="@+id/button_sync_goal"
           android:title="Sync" />
 </menu>

@@ -37,9 +37,9 @@ public class GoalActivity extends AppCompatActivity {
     private DragSortController dragSortController;
     private DragSortListView dragSortListView;
 
-    private enum ToolbarMode {EDIT_MODE, HOME_MODE}
+    private enum ToolbarMode {EDIT_MODE, HOME_MODE, SETTING_MODE}
     private Toolbar toolbar;
-    private MenuItem deleteItem, editModeItem, modifyItem;
+    private MenuItem deleteItem, editModeItem, modifyItem, settingItem, syncItem;
 
     @BindView(R.id.rl_toolbar) RelativeLayout toolbarRL;
     @BindView(R.id.edit_title) TextView editTitleTextView;
@@ -122,6 +122,8 @@ public class GoalActivity extends AppCompatActivity {
         this.deleteItem = menu.findItem(R.id.button_delete_goal);
         this.editModeItem = menu.findItem(R.id.button_mode_edit_goal);
         this.modifyItem = menu.findItem(R.id.button_modify_goal);
+        this.settingItem = menu.findItem(R.id.button_setting_goal);
+        this.syncItem = menu.findItem(R.id.button_sync_goal);
         this.deleteItem.setVisible(false);
         this.modifyItem.setVisible(false); // initial state of modify icon is invisible.
 
@@ -157,6 +159,8 @@ public class GoalActivity extends AppCompatActivity {
                     onSetButtonClick(findViewById(R.id.button_modify_goal));
                 return true;
             case R.id.button_setting_goal:
+                setToolbarViewsVisibility(itemId);
+                onModeChange(ToolbarMode.SETTING_MODE);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -165,28 +169,32 @@ public class GoalActivity extends AppCompatActivity {
 
     private void setToolbarViewsVisibility(int itemId) {
         boolean baseBoolean;
-        int baseVisibility;
 
         if (itemId == android.R.id.home) {
             baseBoolean = true;
-            baseVisibility = View.VISIBLE;
         } else if (itemId == R.id.button_mode_edit_goal) {
             baseBoolean = false;
-            baseVisibility = View.GONE;
+            editTitleTextView.setText(R.string.goal_edit_title);
+        } else if (itemId == R.id.button_setting_goal) {
+            baseBoolean = false;
+            editTitleTextView.setText(R.string.goal_setting_title);
         } else {
             throw new RuntimeException("None of toolbar's business");
         }
 
-        toolbarRL.setVisibility(baseVisibility);
-        logoImage.setVisibility(baseVisibility);
-        logoTextImage.setVisibility(baseVisibility);
+        toolbarRL.setVisibility(baseBoolean ? View.VISIBLE : View.GONE);
+        logoImage.setVisibility(baseBoolean ? View.VISIBLE : View.GONE);
+        logoTextImage.setVisibility(baseBoolean ? View.VISIBLE : View.GONE);
 
         editTitleTextView.setVisibility(baseBoolean ? View.GONE : View.VISIBLE);
 
         if (editModeItem != null) {
             editModeItem.setVisible(baseBoolean);
-            deleteItem.setVisible(!baseBoolean);
-            modifyItem.setVisible(!baseBoolean);
+            deleteItem.setVisible(!baseBoolean && itemId == R.id.button_mode_edit_goal);
+            modifyItem.setVisible(!baseBoolean && itemId == R.id.button_mode_edit_goal);
+            toolbar.getMenu().close();
+            settingItem.setVisible(itemId != R.id.button_setting_goal);
+            syncItem.setVisible(itemId != R.id.button_setting_goal);
         }
 
         getSupportActionBarSafe().setDisplayHomeAsUpEnabled(!baseBoolean);
