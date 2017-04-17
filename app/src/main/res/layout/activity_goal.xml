@@ -47,17 +47,6 @@
 
     </RelativeLayout>
 
-
-    <RelativeLayout
-        android:id="@+id/setting_activity_goal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:text="hi hello 안녕" />
-
-    </RelativeLayout>
+    <include layout="@layout/view_scroll_setting"
+      android:visibility="gone" />
 </LinearLayout>

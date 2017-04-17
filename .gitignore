@@ -61,5 +61,10 @@ local.properties
 # PDT-specific
 .buildpath
 
-#.DS_Store
+# .DS_Store
 .DS_Store
+
+# Gradle
+gradle/wrapper/gradle-wrapper.properties
+gradlew
+gradlew.bat

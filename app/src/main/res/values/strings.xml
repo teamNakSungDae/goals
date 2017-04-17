@@ -31,4 +31,24 @@
     <string name="fri">금</string>
     <string name="sat">토</string>
     <string name="sun">일</string>
+
+    <!--Setting-->
+    <string name="time_reset_setting">목표 초기화 시간</string>
+    <string name="time_check_setting">목표 확인 시간</string>
+    <string name="default_repeat_setting">기본 반복 횟수</string>
+    <string name="default_alarm_repeat_setting">기본 알림 반복 주기</string>
+    <string name="default_abandoned_setting">방치한 일 기준일</string>
+
+    <string name="ask_sth_setting">뭐지 여기 들어갈 문장은</string>
+    <string name="ask_replay_setting">다시하기 시에 항상 물어보기</string>
+
+    <string name="backup_setting">백업 내보내기</string>
+    <string name="rate_setting">Google Play에서 평가하기</string>
+    <string name="ask_setting">문의하기</string>
+
+    <string name="version_setting">현재 버전</string>
+    <string name="license_setting">오픈소스 라이선스</string>
+
+    <string name="logout_setting">로그아웃 하기</string>
+    <string name="withdraw_setting">탈퇴하기</string>
 </resources>

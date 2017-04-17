@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/setting_activity_goal"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/goals_background_setting">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!--Part 1-->
+    <LinearLayout
+      android:layout_height="48dp"
+      android:layout_width="match_parent"
+      android:layout_marginTop="15dp"
+      android:layout_marginBottom="1dp"
+      android:paddingLeft="16dp"
+      android:paddingStart="16dp"
+      android:paddingRight="16dp"
+      android:paddingEnd="16dp"
+      android:background="@color/goals_white"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/time_reset_setting"
+        android:textColor="@color/goals_text_setting"
+        android:textSize="16sp" />
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical|end"
+        android:text="오후 12:00"
+        android:textColor="@color/goals_sub_text_setting"
+        android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_height="48dp"
+      android:layout_width="match_parent"
+      android:layout_marginBottom="1dp"
+      android:paddingLeft="16dp"
+      android:paddingStart="16dp"
+      android:paddingRight="16dp"
+      android:paddingEnd="16dp"
+      android:background="@color/goals_white"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/time_check_setting"
+        android:textColor="@color/goals_text_setting"
+        android:textSize="16sp" />
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical|end"
+        android:text="오후 9:00"
+        android:textColor="@color/goals_sub_text_setting"
+        android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_height="48dp"
+      android:layout_width="match_parent"
+      android:layout_marginBottom="1dp"
+      android:paddingLeft="16dp"
+      android:paddingStart="16dp"
+      android:paddingRight="16dp"
+      android:paddingEnd="16dp"
+      android:background="@color/goals_white"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/default_repeat_setting"
+        android:textColor="@color/goals_text_setting"
+        android:textSize="16sp" />
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical|end"
+        android:text="50회"
+        android:textColor="@color/goals_sub_text_setting"
+        android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_height="48dp"
+      android:layout_width="match_parent"
+      android:layout_marginBottom="1dp"
+      android:paddingLeft="16dp"
+      android:paddingStart="16dp"
+      android:paddingRight="16dp"
+      android:paddingEnd="16dp"
+      android:background="@color/goals_white"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/default_alarm_repeat_setting"
+        android:textColor="@color/goals_text_setting"
+        android:textSize="16sp" />
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical|end"
+        android:text="반복 없음"
+        android:textColor="@color/goals_sub_text_setting"
+        android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_height="48dp"
+      android:layout_width="match_parent"
+      android:layout_marginBottom="15dp"
+      android:paddingLeft="16dp"
+      android:paddingStart="16dp"
+      android:paddingRight="16dp"
+      android:paddingEnd="16dp"
+      android:background="@color/goals_white"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/default_abandoned_setting"
+        android:textColor="@color/goals_text_setting"
+        android:textSize="16sp" />
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical|end"
+        android:text="21일"
+        android:textColor="@color/goals_sub_text_setting"
+        android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <!--Part 2-->
+    <LinearLayout
+      android:layout_height="48dp"
+      android:layout_width="match_parent"
+      android:layout_marginBottom="1dp"
+      android:paddingLeft="16dp"
+      android:paddingStart="16dp"
+      android:paddingRight="16dp"
+      android:paddingEnd="16dp"
+      android:background="@color/goals_white"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/ask_sth_setting"
+        android:textColor="@color/goals_text_setting"
+        android:textSize="16sp" />
+      <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:thumbTint="@color/goals_color" />
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_height="48dp"
+      android:layout_width="match_parent"
+      android:layout_marginBottom="15dp"
+      android:paddingLeft="16dp"
+      android:paddingStart="16dp"
+      android:paddingRight="16dp"
+      android:paddingEnd="16dp"
+      android:background="@color/goals_white"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/ask_replay_setting"
+        android:textColor="@color/goals_text_setting"
+        android:textSize="16sp" />
+      <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:thumbTint="@color/goals_color" />
+    </LinearLayout>
+
+
+    <!--Part 3-->
+    <LinearLayout
+      android:layout_height="48dp"
+      android:layout_width="match_parent"
+      android:layout_marginBottom="1dp"
+      android:paddingLeft="16dp"
+      android:paddingStart="16dp"
+      android:paddingRight="16dp"
+      android:paddingEnd="16dp"
+      android:background="@color/goals_white"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/backup_setting"
+        android:textColor="@color/goals_text_setting"
+        android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_height="48dp"
+      android:layout_width="match_parent"
+      android:layout_marginBottom="1dp"
+      android:paddingLeft="16dp"
+      android:paddingStart="16dp"
+      android:paddingRight="16dp"
+      android:paddingEnd="16dp"
+      android:background="@color/goals_white"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/rate_setting"
+        android:textColor="@color/goals_text_setting"
+        android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_height="48dp"
+      android:layout_width="match_parent"
+      android:layout_marginBottom="15dp"
+      android:paddingLeft="16dp"
+      android:paddingStart="16dp"
+      android:paddingRight="16dp"
+      android:paddingEnd="16dp"
+      android:background="@color/goals_white"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/ask_setting"
+        android:textColor="@color/goals_text_setting"
+        android:textSize="16sp" />
+    </LinearLayout>
+
+
+    <!--Part 4-->
+    <LinearLayout
+      android:layout_height="48dp"
+      android:layout_width="match_parent"
+      android:layout_marginBottom="1dp"
+      android:paddingLeft="16dp"
+      android:paddingStart="16dp"
+      android:paddingRight="16dp"
+      android:paddingEnd="16dp"
+      android:background="@color/goals_white"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/version_setting"
+        android:textColor="@color/goals_text_setting"
+        android:textSize="16sp" />
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical|end"
+        android:text="Ver 1.0"
+        android:textColor="@color/goals_sub_text_setting"
+        android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_height="48dp"
+      android:layout_width="match_parent"
+      android:layout_marginBottom="15dp"
+      android:paddingLeft="16dp"
+      android:paddingStart="16dp"
+      android:paddingRight="16dp"
+      android:paddingEnd="16dp"
+      android:background="@color/goals_white"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/license_setting"
+        android:textColor="@color/goals_text_setting"
+        android:textSize="16sp" />
+    </LinearLayout>
+
+
+    <!--Part 5-->
+    <LinearLayout
+      android:layout_height="48dp"
+      android:layout_width="match_parent"
+      android:layout_marginBottom="1dp"
+      android:paddingLeft="16dp"
+      android:paddingStart="16dp"
+      android:paddingRight="16dp"
+      android:paddingEnd="16dp"
+      android:background="@color/goals_white"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/logout_setting"
+        android:textColor="@color/goals_text_setting"
+        android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_height="48dp"
+      android:layout_width="match_parent"
+      android:layout_marginBottom="15dp"
+      android:paddingLeft="16dp"
+      android:paddingStart="16dp"
+      android:paddingRight="16dp"
+      android:paddingEnd="16dp"
+      android:background="@color/goals_white"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/withdraw_setting"
+        android:textColor="@color/goals_text_setting"
+        android:textSize="16sp" />
+    </LinearLayout>
+
+  </LinearLayout>
+
+</ScrollView>

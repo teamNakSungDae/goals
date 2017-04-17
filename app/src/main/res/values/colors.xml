@@ -32,4 +32,8 @@
     <color name="goals_click_on_btn_repeat_goal_set">#0D82FD</color>
     <color name="goals_text_btn_goal_set">#4B8EFF</color>
 
+    <color name="goals_background_setting">#f6f6f6</color>
+    <color name="goals_text_setting">#404040</color>
+    <color name="goals_sub_text_setting">#7f7f7f</color>
+
 </resources>
