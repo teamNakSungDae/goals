@@ -3,7 +3,9 @@ package nexters.hashgoals.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +26,7 @@ import nexters.hashgoals.R;
 import nexters.hashgoals.adapters.GoalDragSortAdapter;
 import nexters.hashgoals.boxes.GoalBox;
 import nexters.hashgoals.fragments.SetGoalDialogFragment;
+import nexters.hashgoals.fragments.SettingFragment;
 import nexters.hashgoals.helpers.DatabaseHelper;
 import nexters.hashgoals.models.Goal;
 import nexters.hashgoals.models.GoalAction;
@@ -137,6 +140,15 @@ public class GoalActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
+        if (itemId == R.id.button_setting_goal) {
+            findViewById(R.id.main_activity_goal).setVisibility(View.GONE);
+            findViewById(R.id.fl_main_goal).setVisibility(View.VISIBLE);
+            showFragment("Setting");
+        } else {
+            findViewById(R.id.main_activity_goal).setVisibility(View.VISIBLE);
+            findViewById(R.id.fl_main_goal).setVisibility(View.GONE);
+        }
+
         // Handle item selection
         switch (itemId) {
             case android.R.id.home:
@@ -292,6 +304,18 @@ public class GoalActivity extends AppCompatActivity {
         goalBundle.putParcelable("goalInfo", clickedGoal);
         intent.putExtras(goalBundle);
         startActivity(intent);
+    }
+
+    public void showFragment(String fragmentTag) {
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(fragmentTag);
+        if (fragment == null) {
+            if ("Setting".equals(fragmentTag)) {
+                fragment = new SettingFragment();
+            }
+        }
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fl_main_goal, fragment, fragmentTag);
+        ft.commit();
     }
 
 //    ProfileTracker profileTracker;

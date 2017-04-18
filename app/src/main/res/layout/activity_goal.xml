@@ -47,6 +47,9 @@
 
     </RelativeLayout>
 
-    <include layout="@layout/view_scroll_setting"
+    <FrameLayout
+      android:id="@+id/fl_main_goal"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
       android:visibility="gone" />
 </LinearLayout>
