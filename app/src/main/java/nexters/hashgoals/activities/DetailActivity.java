@@ -17,6 +17,7 @@ import butterknife.OnClick;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.OnTextChanged;
 import nexters.hashgoals.R;
 import nexters.hashgoals.adapters.DetailAdapter;
 import nexters.hashgoals.controllers.DetailController;
