@@ -1,7 +1,9 @@
 package nexters.hashgoals.boxes;
 
 import android.content.Context;
+
 import java.util.ArrayList;
+
 import nexters.hashgoals.controllers.GoalDataController;
 import nexters.hashgoals.models.Goal;
 

@@ -28,6 +28,7 @@ import nexters.hashgoals.boxes.GoalBox;
 import nexters.hashgoals.fragments.SetGoalDialogFragment;
 import nexters.hashgoals.fragments.SettingFragment;
 import nexters.hashgoals.helpers.DatabaseHelper;
+import nexters.hashgoals.models.CustomPreference;
 import nexters.hashgoals.models.Goal;
 import nexters.hashgoals.models.GoalAction;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -112,7 +113,9 @@ public class GoalActivity extends AppCompatActivity {
         dragSortListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                startDetailActivity(goalBox.getGoalBy(position));
+                Goal goal = goalBox.getGoalBy(position);
+                Log.e("GoalActiviry-onItemClic",goal.getMId()+"");
+                startDetailActivity(goal);
             }
         });
     }
@@ -299,11 +302,20 @@ public class GoalActivity extends AppCompatActivity {
 
     // Detail activity need position.
     private void startDetailActivity(Goal clickedGoal) {
+
+        //Log.e("startDetailActivry",clickedGoal.getMId()+"");
+        CustomPreference.getInstance(getApplicationContext()).put("selectedGoalsId",clickedGoal.getMId()); // temp
+
         Intent intent = new Intent(this, DetailActivity.class);
+
         Bundle goalBundle = new Bundle();
+
         goalBundle.putParcelable("goalInfo", clickedGoal);
+
         intent.putExtras(goalBundle);
+
         startActivity(intent);
+
     }
 
     public void showFragment(String fragmentTag) {

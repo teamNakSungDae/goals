@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.Serializable;
+
 
 /**
  * Created by flecho on 2017. 1. 31..
@@ -17,10 +19,10 @@ import org.apache.commons.lang3.StringUtils;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Goal implements Parcelable {
+public class Goal implements Parcelable ,Serializable{
 
 
-    private long mId;
+    private int mId;
 
     private String mTitle;
     private String mDaysOfWeek;

@@ -223,13 +223,16 @@ public class GoalDataController {
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
         String title = null;
         String days = null;
+        int mId = 0;
 
         Goal goal = new Goal();
 
         Cursor cursor = db.rawQuery("SELECT * FROM goals WHERE list_index = " + position, null);
+
         try {
             if (cursor.moveToFirst()) {
 
+                mId = cursor.getInt( cursor.getColumnIndex(Columns.ID ));
                 title = cursor.getString(cursor.getColumnIndex(Columns.TEXT));
                 days = cursor.getString(cursor.getColumnIndex(Columns.DAYS));
 
@@ -242,6 +245,9 @@ public class GoalDataController {
             }
         }
 
+
+        goal.setMId(mId);
+        
         goal.setMTitle(title);
         goal.setMDaysOfWeek(days);
 

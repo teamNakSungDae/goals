@@ -21,7 +21,7 @@ import nexters.hashgoals.R;
 
 public class SetRecycleNoDialogFragment extends DialogFragment {
     @BindView(R.id.cancel)
-    TextView cancel;
+    TextView cancelBtn;
     @BindView(R.id.confirm)
     TextView confirm;
     @BindView(R.id.number_picker)
@@ -32,18 +32,19 @@ public class SetRecycleNoDialogFragment extends DialogFragment {
      */
     private Unbinder unbinder;
 
-    public static SetRecycleNoDialogFragment newInstance(String title) {
+    public static DialogFragment newInstance(String title) {
         SetRecycleNoDialogFragment frag = new SetRecycleNoDialogFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
         frag.setArguments(args);
+
         return frag;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_goal_set, container);
+        View view = inflater.inflate(R.layout.fragment_detail_edit_recycle_no, container);
         unbinder = ButterKnife.bind(this, view);
 
         return view;
@@ -58,7 +59,9 @@ public class SetRecycleNoDialogFragment extends DialogFragment {
 
     @OnClick(R.id.confirm)
     public void confirmClick(View v) {
+
         if(numberPicker.getValue() == 0 )
+            numberPicker.setValue(30);
             Toast.makeText(getActivity(),"반복 횟수를 지정해 주세요",Toast.LENGTH_SHORT).show();
     }
 }
