@@ -3,6 +3,8 @@ package nexters.hashgoals.controllers;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
 import nexters.hashgoals.helpers.DatabaseHelper;
 import nexters.hashgoals.models.Detail;
 
@@ -52,15 +54,21 @@ public class DetailController implements DAO<Detail>,Controller{
     }
 
     @Override
-    public int insertData(Detail data) throws Exception {
+    public int insertData(Detail data)  {
+        int result = 0;
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
+
         dao.setDb(db);
 
         db.beginTransaction();
 
 
-        int result = dao.insertData(data);
+        try {
+            result = dao.insertData(data);
 
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
 
         db.setTransactionSuccessful();
         db.endTransaction();
@@ -69,27 +77,26 @@ public class DetailController implements DAO<Detail>,Controller{
     }
 
     @Override
-    public List<Detail> getAllData(Detail data) {
+    public List<Detail> getAllData(int id) {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
 
-        String query = "SELECT * FROM details d , goals g WHERE d._id = g._id and value='"+data.getId()+"'";
+        String query= "Select * from details where foreign_id="+id+" order by percent";
 
         Cursor cursor = db.rawQuery(query, null);
 
-        if (!cursor.moveToFirst())
-            throw new RuntimeException("Not Found The Id : "+data.getId());
+//        if (!cursor.moveToFirst())
+//            throw new RuntimeException("Not Found The Id : "+id);
 
         dao.setCursor(cursor);
         dao.setDb(db);
 
         try {
 
-            return dao.getAllData(data);
+            return dao.getAllData(id);
 
         } catch(Exception e) {
 
             e.printStackTrace();
-
 
         } finally {
             if (cursor != null && !cursor.isClosed())
@@ -97,4 +104,5 @@ public class DetailController implements DAO<Detail>,Controller{
         }
         return null;
     }
+
 }

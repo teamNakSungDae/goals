@@ -47,21 +47,24 @@ public class DetailControllerImpl implements DAO<Detail>,Controller {
     @Override
     public int insertData(Detail data)  throws Exception{
         ContentValues values = new ContentValues();
-        values . put ( "foreign" , data.getId() );
-        values . put ( "text" , data.getValue() );
-        values . put ( "recycle_no" , 50 );
+        values . put ( "foreign_id" , data.getId() );
+        values . put ( "text" , data.getTaskName() );
+        values . put ( "recycle_no" , data.getRecycleNo() );
+        values . put ( "remain_no" , data.getRecycleNo() );
         return (int)db.insertOrThrow("details", null, values);
-
     }
 
     @Override
-    public List<Detail> getAllData(Detail data) throws Exception {
+    public List<Detail> getAllData(int id) throws Exception {
         List<Detail> lists = new ArrayList<Detail>();
         do {
             Detail detail = new DetailData();
             detail.setId( cursor.getInt( cursor.getColumnIndex("_id")));
-            detail.setValue( cursor . getString ( cursor . getColumnIndex ( "text" ) ) );
-            detail.setRemainNumber( cursor . getInt ( cursor . getColumnIndex ( "recycle_no" ) ) );
+            detail.setTaskName( cursor . getString ( cursor . getColumnIndex ( "text" ) ) );
+            detail.setRecycleNo( cursor . getInt ( cursor . getColumnIndex ( "remain_no" ) ) );
+            detail.setRecycleNo( cursor . getInt( cursor.getColumnIndex( "recycle_no" )));
+            //detail.setPe( cursor . getInt( cursor. getColumnIndex( "percent" )));
+
             lists.add(detail);
         } while ( cursor.moveToNext() );
         return lists;

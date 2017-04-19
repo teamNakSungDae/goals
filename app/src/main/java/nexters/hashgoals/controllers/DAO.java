@@ -14,7 +14,7 @@ public interface DAO<T extends Detail>{
 
     void setDb(SQLiteDatabase db);
     void setCursor(Cursor cursor);
-    List<T> getAllData(T data) throws Exception;
+    List<T> getAllData(int id) throws Exception;
     int insertData(T data) throws Exception;
 
 }
