@@ -1,7 +1,6 @@
 package nexters.hashgoals.models;
 
 import java.io.Serializable;
-
 import lombok.Data;
 
 /**

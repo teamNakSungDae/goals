@@ -1,39 +1,41 @@
 <resources>
-<!-- Base application theme. -->
-<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="android:textSize">17sp</item>
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     <item name="android:actionOverflowButtonStyle">@style/OverflowMenuButton</item>
     <!-- <item name="android:itemTextAppearance">@style/itemText</item> -->
-</style>
+  </style>
 
-    <!--
-    <style name="itemText" parent="@android:style/Widget.Holo.ActionBar.TabText">
-        <item name="android:textSize">10sp</item>
-        <item name="android:typeface">monospace</item>
-    </style>
-    -->
+  <!--
+  <style name="itemText" parent="@android:style/Widget.Holo.ActionBar.TabText">
+      <item name="android:textSize">10sp</item>
+      <item name="android:typeface">monospace</item>
+  </style>
+  -->
 
-    <style name="OverflowMenuButton" parent="@android:style/Widget.Holo.ActionButton.Overflow">
-        <item name="android:src">@drawable/more</item>
-    </style>
+  <style name="dialog" parent="Theme.AppCompat.Light.Dialog">
+    <item name="colorAccent">@color/goals_color</item>
+    <item name="colorControlNormal">@color/goals_white</item>
+    <item name="android:includeFontPadding">false</item>
+  </style>
 
-    <style name="goal_toolbar_style" parent="Theme.AppCompat">
-        <item name="android:textColor">@color/goals_white</item>
-    </style>
+  <style name="OverflowMenuButton" parent="@android:style/Widget.Holo.ActionButton.Overflow">
+    <item name="android:src">@drawable/more</item>
+  </style>
 
-    <style name="goal_toolbar_detail_style" parent="Theme.AppCompat">
-        <item name="android:textColor">@color/goals_toolbar_detail</item>
-    </style>
+  <style name="goal_toolbar_style" parent="Theme.AppCompat">
+    <item name="android:textColor">@color/goals_white</item>
+  </style>
 
-    <style name="MyActionBarText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <!-- <item name="fontPath">fonts/NotoSansCJKkr-Medium.otf</item> -->
-    </style>
+  <style name="goal_toolbar_detail_style" parent="Theme.AppCompat">
+    <item name="android:textColor">@color/goals_toolbar_detail</item>
+  </style>
 
-    <style name="Theme.Splash" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/background_splash</item>
-    </style>
+  <style name="MyActionBarText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+    <!-- <item name="fontPath">fonts/NotoSansCJKkr-Medium.otf</item> -->
+  </style>
 
-
-
+  <style name="Theme.Splash" parent="Theme.AppCompat.NoActionBar">
+    <item name="android:windowBackground">@drawable/background_splash</item>
+  </style>
 </resources>

@@ -12,6 +12,7 @@
 
     <!--Part 1-->
     <LinearLayout
+      android:id="@+id/ll_time_reset_goal"
       android:layout_height="48dp"
       android:layout_width="match_parent"
       android:layout_marginTop="15dp"
@@ -31,6 +32,7 @@
         android:textColor="@color/goals_text_setting"
         android:textSize="16sp" />
       <TextView
+        android:id="@+id/time_reset_goal"
         android:layout_height="48dp"
         android:layout_width="0dp"
         android:layout_weight="1"

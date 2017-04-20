@@ -2,8 +2,6 @@ package nexters.hashgoals.validation;
 
 import android.text.TextUtils;
 import android.widget.EditText;
-
-
 import lombok.Data;
 import lombok.experimental.Builder;
 

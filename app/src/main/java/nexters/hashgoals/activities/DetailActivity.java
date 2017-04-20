@@ -13,11 +13,9 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
+import butterknife.OnTextChanged;
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.OnTextChanged;
 import nexters.hashgoals.R;
 import nexters.hashgoals.adapters.DetailAdapter;
 import nexters.hashgoals.controllers.DetailController;
