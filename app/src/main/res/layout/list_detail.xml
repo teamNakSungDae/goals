@@ -1,8 +1,21 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/low_parent"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
+    android:layout_height="48dp"
+    android:layout_marginBottom="1dp"
+    android:layout_marginTop="1dp"
+    android:layout_marginRight="7dp"
     >
+    <ImageView
+        android:id="@+id/percent_status_top"
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/gridlines"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="-1dp"
+        />
     <ImageView
         android:id="@+id/percent_status"
         android:layout_width="wrap_content"
@@ -10,7 +23,6 @@
         android:src="@drawable/gridlines"
         android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
-
         />
     <TextView
         android:id="@+id/detail_list_task"
@@ -18,7 +30,12 @@
         android:layout_height="50dp"
         android:layout_toRightOf="@id/percent_status"
         android:gravity="center_vertical"
-        android:paddingLeft="20dp"
+        android:layout_marginLeft="13dp"
+        android:paddingLeft="14dp"
+        android:text="temp"
+        android:textSize="14dp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/detail_row_background"
         />
     <TextView
         android:id="@+id/repeat_no"
@@ -26,6 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="14dp"
+        android:layout_marginRight="16dp"
+        android:visibility="invisible"
+
         />
 </RelativeLayout>

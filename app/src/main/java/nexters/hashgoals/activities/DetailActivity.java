@@ -70,11 +70,16 @@ public class DetailActivity extends AppCompatActivity {
 
         //for debug
         //Log.e("DetailActivity goal id-",goal.getMId()+"");
-        //Toast.makeText(getApplicationContext(),goal.getMId()+"",Toast.LENGTH_SHORT).show();
-        //List<Detail> list = detailController.getAllData(goal.getMId()); // Just its have an error and require modify in future
-
+        Toast.makeText(getApplicationContext(),goal.getMId()+"-goalsmid",Toast.LENGTH_SHORT).show();
+        /*
+        List<Detail> list = detailController.getAllData(goal.getMId()); // Just its have an error and require modify in future
+        CustomPreference.getInstance(getApplicationContext()).getValue("selectedGoalsId",0)
         List<Detail> list = detailController . getAllData( goal.getMId() );
-        Log.e("detailController",list == null? "list is null" : "list is not null");
+        */
+        List<Detail> list = detailController . getAllData( CustomPreference.getInstance(getApplicationContext()).getValue("selectedGoalsId",0) );
+        if(list == null)
+            Toast.makeText(getApplicationContext(),"detailController is null",Toast.LENGTH_SHORT).show();
+
         /*
          * check data
          */
@@ -82,6 +87,14 @@ public class DetailActivity extends AppCompatActivity {
 
 
         detailTitle.setText(goal.getMTitle());
+        /* data view type setting (temp)*/
+        if(list!=null)
+            for(int i=0;i<list.size();i++)
+                list.get(i).setViewType(1);
+        /**/
+        if(list!=null)
+            for(int i=0;i<list.size();i++)
+                detailList.add(list.get(i));
         /*
          * initialize value.
          */
@@ -90,9 +103,7 @@ public class DetailActivity extends AppCompatActivity {
         detailAdapter = new DetailAdapter(this,detailList);
         recyclerView.setAdapter(detailAdapter);
 
-        if(list!=null)
-            for(int i=0;i<list.size();i++)
-                detailList.add(list.get(i));
+
 
 
     }
@@ -103,15 +114,19 @@ public class DetailActivity extends AppCompatActivity {
      */
     public void addNewTask(DetailData detail) {
 
-
-        detail.setRemainNo( Integer.parseInt( repeatEdit.getText().toString() ) );
+        detail.setRepeat( Integer.parseInt( repeatEdit.getText().toString() ) );
 
         detail.setTaskName( addTaskDescription.getText().toString() );
 
         detail.setViewType(1);
 
+        detail.setForeignKey(goal.getMId());
+
         int rowId = detailController.insertData(detail);
 
+        detail.setId(rowId);
+
+        Toast.makeText(getApplicationContext(),"addNewTask value - "+detail.toString(),Toast.LENGTH_LONG).show();
 
         detailList.add(detail);
 
@@ -126,9 +141,7 @@ public class DetailActivity extends AppCompatActivity {
     public void addPersent(double persent) {
         DetailPercent detailPercent = new DetailPercent();
         detailPercent.setViewType(2);
-        detailPercent.setValue(Double.toString(persent));
-
-
+        detailPercent.setPercent(persent);
     }
 
     /**
@@ -140,10 +153,14 @@ public class DetailActivity extends AppCompatActivity {
         EditTextValidation editTextValidation = EditTextValidation.builder().editText(addTaskDescription).build();
         EditTextValidation repeatValidation = EditTextValidation.builder().editText(repeatEdit).build();
 
-        if( !editTextValidation.isValid() )
-            Toast.makeText(getApplicationContext(), "세부일정을 등록해 주세요" ,Toast.LENGTH_SHORT).show();
-        else if( !repeatValidation.isNumberic()  )
+        if( !editTextValidation.isValid() ) {
+            Toast.makeText(getApplicationContext(), "세부일정을 등록해 주세요", Toast.LENGTH_SHORT).show();
+            //requirement auto focus
+        }
+        else if( !repeatValidation.isNumberic()  ) {
             Toast.makeText(getApplicationContext(), "반복횟수를 등록해 주세요", Toast.LENGTH_SHORT).show();
+            //requirement auto focus
+        }
         else
             addNewTask(new DetailData());
     }
@@ -181,6 +198,11 @@ public class DetailActivity extends AppCompatActivity {
     @OnClick(R.id.repeat_edit)
     public void setRecycleNo(View v) {
     }
+    @OnClick(R.id.arrow_back_detail)
+    public void onBackBtnClick(View v) {
+        finish();
+    }
+
 }
     /*
     * To 기호:

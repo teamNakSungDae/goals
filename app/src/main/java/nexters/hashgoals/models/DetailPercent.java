@@ -12,14 +12,8 @@ import lombok.Data;
 
 public class DetailPercent implements Serializable,Percent{
 
-    /**
-     * The value mean " percent value "
-     */
-    private String value;
-
     private int viewType;
 
-    private int percent;
-
+    private double percent;
 
 }

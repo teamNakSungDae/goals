@@ -19,7 +19,7 @@ public class DetailPercentViewHolder extends CustomViewHolder<Percent>{
     }
 
     public void onBindView(Percent percent) {
-        this.percent.setText(percent.getPercent());
+        this.percent.setText( Double . toString ( percent . getPercent() ) );
     }
 
 
