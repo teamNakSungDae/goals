@@ -28,38 +28,39 @@
             android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/arrow_back_detail"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:src="@drawable/arrow_back"
-                android:layout_marginLeft="12dp"
-                android:padding="5dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+
                 />
             <TextView
                 android:id="@+id/detail_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Master of foreigner language"
+                android:layout_marginLeft="13dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/arrow_back_detail"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:textColor="#000000"
                 />
             <ImageView
                 android:id="@+id/delete_btn"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:padding="5dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="12dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
                 android:src="@drawable/archivedown"
                 />
             <ImageView
                 android:id="@+id/chart_btn"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:padding="5dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_toLeftOf="@id/delete_btn"
-                android:layout_marginRight="12dp"
+                android:layout_marginRight="23dp"
                 android:src="@drawable/edit"
                 />
 
@@ -67,12 +68,11 @@
     </android.support.v7.widget.Toolbar>
     <ImageView
         android:id="@+id/add_task_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_below="@id/toolbar_detail"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="12dp"
-        android:padding="3dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginLeft="16dp"
         android:src="@drawable/add"
         />
     <EditText
@@ -122,18 +122,3 @@
         >
     </ImageView>
 </RelativeLayout>
-    <!--<ImageView-->
-    <!--android:id="@+id/down_arrow"-->
-    <!--android:layout_width="80dp"-->
-    <!--android:layout_height="80dp"-->
-    <!--android:layout_gravity="center_horizontal"-->
-    <!--android:src="@drawable/arrow_back"-->
-    <!--/>-->
-    <!--<TextView-->
-    <!--android:id="@+id/watch_complete_list"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:gravity="center"-->
-    <!--android:hint="완료 목록 보기"-->
-    <!--android:layout_toRightOf="@id/down_arrow"-->
-    <!--/>-->

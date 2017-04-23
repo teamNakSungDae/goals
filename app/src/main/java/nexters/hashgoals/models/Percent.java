@@ -5,6 +5,6 @@ package nexters.hashgoals.models;
  */
 
 public interface Percent extends ViewType{
-    int getPercent();
-    void setPercent(int percent);
+    double getPercent();
+    void setPercent(double percent);
 }

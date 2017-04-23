@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.List;
 import nexters.hashgoals.helpers.DatabaseHelper;
 import nexters.hashgoals.models.Detail;
+
 /**
  * Created by kwongiho on 2017. 2. 24..
  */
@@ -67,6 +68,7 @@ public class DetailController implements DAO<Detail>,Controller{
             ex.printStackTrace();
         }
 
+
         db.setTransactionSuccessful();
         db.endTransaction();
 
@@ -74,22 +76,24 @@ public class DetailController implements DAO<Detail>,Controller{
     }
 
     @Override
-    public List<Detail> getAllData(int id) {
+    public List<Detail> getAllData(int foreignKey) {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
-
-        String query= "Select * from details where foreign_id="+id+" order by percent";
-
+                                                 //foreign_id
+        String query= "SELECT * FROM details";// WHERE foreign_id = "+foreignKey;
         Cursor cursor = db.rawQuery(query, null);
 
 //        if (!cursor.moveToFirst())
-//            throw new RuntimeException("Not Found The Id : "+id);
+//            Log.e("DetailController","cursor.movieToFirstIsError");
+//            throw new RuntimeException("Not Found The Id : "+foreignKey);
+
+
 
         dao.setCursor(cursor);
         dao.setDb(db);
 
         try {
 
-            return dao.getAllData(id);
+            return dao.getAllData(foreignKey);
 
         } catch(Exception e) {
 
@@ -100,6 +104,7 @@ public class DetailController implements DAO<Detail>,Controller{
                 cursor.close();
         }
         return null;
+
     }
 
 }

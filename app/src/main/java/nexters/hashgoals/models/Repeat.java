@@ -6,8 +6,8 @@ package nexters.hashgoals.models;
 
 public interface Repeat {
 
-    int getRecycleNo();
-    void setRecycleNo(int recycleNo);
+    int getRepeat();
+    void setRepeat(int repeat);
 
 
 }

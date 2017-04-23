@@ -3,10 +3,14 @@ package nexters.hashgoals.controllers;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import java.util.ArrayList;
-import java.util.List;
+
+
 import nexters.hashgoals.models.Detail;
 import nexters.hashgoals.models.DetailData;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kwongiho on 2017. 2. 24..
@@ -42,29 +46,33 @@ public class DetailControllerImpl implements DAO<Detail>,Controller {
         this.db = db;
     }
 
+    //private static final String INSERT_QUERY = "insert into details (foreign_id,text,repeat_no,remain_no) ";
     /* dependency injection ended */
     @Override
     public int insertData(Detail data)  throws Exception{
         ContentValues values = new ContentValues();
         values . put ( "foreign_id" , data.getId() );
         values . put ( "text" , data.getTaskName() );
-        values . put ( "recycle_no" , data.getRecycleNo() );
-        values . put ( "remain_no" , data.getRecycleNo() );
-        return (int)db.insertOrThrow("details", null, values);
+        values . put ( "remain_no" , data.getRepeat() );
+        values . put ( "repeat_no" , data.getRepeat() );
+        return (int)db.insert("details", null, values);
     }
 
     @Override
-    public List<Detail> getAllData(int id) throws Exception {
+    public List<Detail> getAllData(int foreignKey) throws Exception {
+
         List<Detail> lists = new ArrayList<Detail>();
+
         do {
+
             Detail detail = new DetailData();
             detail.setId( cursor.getInt( cursor.getColumnIndex("_id")));
             detail.setTaskName( cursor . getString ( cursor . getColumnIndex ( "text" ) ) );
-            detail.setRecycleNo( cursor . getInt ( cursor . getColumnIndex ( "remain_no" ) ) );
-            detail.setRecycleNo( cursor . getInt( cursor.getColumnIndex( "recycle_no" )));
-            //detail.setPe( cursor . getInt( cursor. getColumnIndex( "percent" )));
+            detail.setRemain( cursor . getInt ( cursor . getColumnIndex ( "remain_no" ) ) );
+            detail.setRepeat( cursor . getInt( cursor.getColumnIndex( "repeat_no" )));
 
             lists.add(detail);
+
         } while ( cursor.moveToNext() );
         return lists;
     }

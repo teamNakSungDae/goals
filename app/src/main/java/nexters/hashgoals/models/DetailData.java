@@ -9,15 +9,10 @@ import lombok.Data;
  */
 @Data
 public class DetailData implements Detail , Serializable {
-
     private int id;
     private int foreignKey;
     private String taskName;
-    private int remainNo;
+    private int remain;
     private int viewType;
-    private int recycleNo;
-
-
-
-
+    private int repeat;
 }

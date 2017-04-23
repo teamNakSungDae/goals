@@ -45,6 +45,8 @@ public class DetailAdapter extends CustomAdapter<ViewType,CustomViewHolder> {
             case TASK :
                 DetailViewHolder detailViewHolder = (DetailViewHolder)holder;
                 detailViewHolder.onBindView((Detail)list.get(position),context);
+
+
                 break;
             case PERCENT :
                 DetailPercentViewHolder detailPercentViewHolder = (DetailPercentViewHolder)holder;

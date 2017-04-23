@@ -6,4 +6,5 @@ package nexters.hashgoals.models;
 
 public interface ViewType {
     int getViewType();
+    void setViewType(int viewType);
 }
