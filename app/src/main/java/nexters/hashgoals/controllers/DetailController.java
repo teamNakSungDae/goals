@@ -81,12 +81,9 @@ public class DetailController implements DAO<Detail>,Controller{
                                                  //foreign_id
         String query= "SELECT * FROM details";// WHERE foreign_id = "+foreignKey;
         Cursor cursor = db.rawQuery(query, null);
-
 //        if (!cursor.moveToFirst())
 //            Log.e("DetailController","cursor.movieToFirstIsError");
 //            throw new RuntimeException("Not Found The Id : "+foreignKey);
-
-
 
         dao.setCursor(cursor);
         dao.setDb(db);
