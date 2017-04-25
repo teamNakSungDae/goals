@@ -67,8 +67,6 @@ public class DetailController implements DAO<Detail>,Controller{
         } catch(Exception ex) {
             ex.printStackTrace();
         }
-
-
         db.setTransactionSuccessful();
         db.endTransaction();
 
@@ -79,15 +77,11 @@ public class DetailController implements DAO<Detail>,Controller{
     public List<Detail> getAllData(int foreignKey) {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
                                                  //foreign_id
-        String query= "SELECT * FROM details";// WHERE foreign_id = "+foreignKey;
+        String query= "SELECT _id,text,remain_no,repeat_no,foreign_id,percent FROM details where foreign_id="+foreignKey+" order by percent";// WHERE foreign_id = "+foreignKey;
         Cursor cursor = db.rawQuery(query, null);
-//        if (!cursor.moveToFirst())
-//            Log.e("DetailController","cursor.movieToFirstIsError");
-//            throw new RuntimeException("Not Found The Id : "+foreignKey);
 
         dao.setCursor(cursor);
         dao.setDb(db);
-
         try {
 
             return dao.getAllData(foreignKey);
@@ -101,7 +95,29 @@ public class DetailController implements DAO<Detail>,Controller{
                 cursor.close();
         }
         return null;
-
     }
 
+    @Override
+    public void updateRemainAndPercent(Detail detail) {
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        dao.setDb(db);
+        try {
+            dao.updateRemainAndPercent(detail);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        /*
+        db.beginTransaction();
+        try {
+            return dao.updateRemainAndPercent(detail);
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            return 0;
+        }
+        finally {
+            db.endTransaction();
+        }
+        */
+    }
 }

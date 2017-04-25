@@ -8,7 +8,7 @@
     android:layout_marginRight="7dp"
     >
     <ImageView
-        android:id="@+id/percent_status_top"
+        android:id="@+id/decoration_top"
         android:layout_alignParentTop="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
         android:layout_marginTop="-1dp"
         />
     <ImageView
-        android:id="@+id/percent_status"
+        android:id="@+id/decoration_mid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/gridlines"
@@ -28,7 +28,7 @@
         android:id="@+id/detail_list_task"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_toRightOf="@id/percent_status"
+        android:layout_toRightOf="@id/decoration_mid"
         android:gravity="center_vertical"
         android:layout_marginLeft="13dp"
         android:paddingLeft="14dp"
@@ -44,7 +44,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="16dp"
-        android:visibility="invisible"
 
         />
 </RelativeLayout>
+    <!--android:visibility="invisible"-->

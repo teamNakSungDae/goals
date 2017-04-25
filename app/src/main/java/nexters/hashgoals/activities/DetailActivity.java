@@ -48,7 +48,7 @@ public class DetailActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     private static DetailController detailController;
     private List<ViewType> detailList = new ArrayList<ViewType>();
-
+    private List<Detail> list = null;
 
     Goal goal = null;
     int tempLongNo = 0 ;
@@ -74,7 +74,7 @@ public class DetailActivity extends AppCompatActivity {
         CustomPreference.getInstance(getApplicationContext()).getValue("selectedGoalsId",0)
         List<Detail> list = detailController . getAllData( goal.getMId() );
         */
-        List<Detail> list = detailController . getAllData( CustomPreference.getInstance(getApplicationContext()).getValue("selectedGoalsId",0) );
+        list = detailController . getAllData( goal.getMId() );
         if(list == null)
             Toast.makeText(getApplicationContext(),"detailController is null",Toast.LENGTH_SHORT).show();
 
@@ -82,17 +82,15 @@ public class DetailActivity extends AppCompatActivity {
          * check data
          */
         //tempLongNo = (int)goal.getMId(); // Just its have an error and require modify
+        makeToPercentNode();
+        if(goal.getMTitle().length()>=18)
+            detailTitle.setText(goal.getMTitle().substring(0,18)+"..");
+        else
+            detailTitle.setText(goal.getMTitle());
 
-
-        detailTitle.setText(goal.getMTitle());
+        //Toast.makeText(getApplicationContext(),goal.getMTitle().length()+"-",Toast.LENGTH_LONG).show();
         /* data view type setting (temp)*/
-        if(list!=null)
-            for(int i=0;i<list.size();i++)
-                list.get(i).setViewType(1);
-        /**/
-        if(list!=null)
-            for(int i=0;i<list.size();i++)
-                detailList.add(list.get(i));
+
         /*
          * initialize value.
          */
@@ -101,11 +99,58 @@ public class DetailActivity extends AppCompatActivity {
         detailAdapter = new DetailAdapter(this,detailList);
         recyclerView.setAdapter(detailAdapter);
 
-
-
-
     }
+    public void makeToPercentNode(){
+        Detail divideViewType = null;
+        double divideValue = 100.0 ;
+        boolean divide20=true,
+                divide40=true,
+                divide60=true,
+                divide80=true;
+        /**
+         * view type 1 - data node
+         * view type 2 - percent node.
+         */
+        for(int i=0;i<list.size();i++)
+            list.get(i).setViewType(1);
+        /**
+         * for set data node and percent node in adapter
+         */
+        if(list!=null) {
+            /**
+             * total repeat no ==> data node + addedNodeCount(percentNode)
+             */
+            for (int i = 0; i < list.size(); i++) {
+                divideViewType = list.get(i);
+                //divideValue-= (double)divideViewType.getRemain() / (double)divideViewType.getRepeat();
+                divideValue = divideViewType.getPercent();
+                Log.e("divideValue-"+divideValue,list.get(i).getRemain()+"-remain");
+                //divideValue*=100;
 
+                //for debug
+                //Log.e("DetailActivity ,i-"+i,"divideValue-"+divideValue+"/remain/repeat"+ ((double)divideViewType.getRemain() / (double)divideViewType.getRepeat()));
+                if(80 <= divideValue && divide80) {
+                    detailList.add(new DetailPercent(2,20));
+                    divide80=false;
+                } else if (60 <= divideValue && divide60) {
+                    detailList.add(new DetailPercent(2,40));
+                    divide60=false;
+                } else if (40 <= divideValue && divide40) {
+                    detailList.add(new DetailPercent(2,60));
+                    divide40=false;
+                } else if (20 <= divideValue && divide20) {
+                    detailList.add(new DetailPercent(2,80));
+                    divide20=false;
+                }
+                detailList.add(list.get(i));
+                //divideValue=1.0;
+            }
+        }
+        /**/
+//        if(list!=null)
+//            for(int i=0;i<list.size();i++)
+//                detailList.add(list.get(i));
+    }
     /**
      * add sub task.
      * @param detail
@@ -114,11 +159,15 @@ public class DetailActivity extends AppCompatActivity {
 
         detail.setRepeat( Integer.parseInt( repeatEdit.getText().toString() ) );
 
+        detail.setRemain( Integer.parseInt( repeatEdit.getText().toString() ) );
+
         detail.setTaskName( addTaskDescription.getText().toString() );
 
         detail.setViewType(1);
 
         detail.setForeignKey(goal.getMId());
+
+        detail.setPercent(100);
 
         int rowId = detailController.insertData(detail);
 
@@ -136,11 +185,11 @@ public class DetailActivity extends AppCompatActivity {
      * add persent line.
      * @param persent
      */
-    public void addPersent(double persent) {
+    /*public void addPersent(double persent) {
         DetailPercent detailPercent = new DetailPercent();
         detailPercent.setViewType(2);
         detailPercent.setPercent(persent);
-    }
+    }*/
 
     /**
      * When you press the plus image button.

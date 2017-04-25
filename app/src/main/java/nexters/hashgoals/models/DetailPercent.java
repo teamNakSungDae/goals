@@ -1,6 +1,8 @@
 package nexters.hashgoals.models;
 
 import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -15,4 +17,8 @@ public class DetailPercent implements Serializable,Percent{
 
     private double percent;
 
+    public DetailPercent(int viewType, double percent) {
+        this.viewType = viewType;
+        this.percent = percent;
+    }
 }

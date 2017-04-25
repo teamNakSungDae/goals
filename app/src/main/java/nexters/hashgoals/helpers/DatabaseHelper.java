@@ -36,7 +36,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_DETAIL_TEXT = "text";
     private static final String COL_DETAIL_REPEAT_NO = "repeat_no";
     private static final String COL_DETAIL_WHOLE_REPEAT_NO = "remain_no";
-    //private static final String COL_DETAIL_PERSENT = "percent";
+    /**
+     * 100을 곱해서 저장
+     * ex) 0.31%일 경우 100을 곱해 31을 저장 값을 get할때 100을 나누어서 사용
+     */
+    private static final String COL_DETAIL_PERSENT = "percent";
 
     //String query = "SELECT * FROM details d , goals g WHERE d._id = g._id and value='"+data.getId()+"' order by d.percent";
 
@@ -81,7 +85,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         COL_DETAIL_FOREIGN+" INTEGER REFERENCES "+TABLE_GOALS+"("+COL_GOAL_ID+") ,"+
                         COL_DETAIL_TEXT +" TEXT," +
                         COL_DETAIL_REPEAT_NO +" INTEGER ,"+
-                        COL_DETAIL_WHOLE_REPEAT_NO + " INTEGER " +
+                        COL_DETAIL_WHOLE_REPEAT_NO + " INTEGER ," +
+                        COL_DETAIL_PERSENT+" INTEGER " +
                 ")";
 
         db.execSQL(CREATE_GOALS_TABLE);

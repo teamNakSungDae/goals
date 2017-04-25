@@ -15,5 +15,6 @@ public interface DAO<T extends Detail>{
     void setCursor(Cursor cursor);
     List<T> getAllData(int foreignKey) throws Exception;
     int insertData(T data) throws Exception;
+    void updateRemainAndPercent(Detail detail) throws Exception ;
 
 }

@@ -6,7 +6,7 @@
     <TextView
         android:id="@+id/percent_value"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="wrap_content"
         android:hint="10%"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"

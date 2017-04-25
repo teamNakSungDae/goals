@@ -24,7 +24,6 @@ public class DetailAdapter extends CustomAdapter<ViewType,CustomViewHolder> {
     public DetailAdapter (Context context , List<ViewType> lists) {
         super(context,lists);
     }
-
     public CustomViewHolder onCreateViewHolder(ViewGroup parent , int viewType) {
         View view = null;
 
@@ -56,6 +55,8 @@ public class DetailAdapter extends CustomAdapter<ViewType,CustomViewHolder> {
                 return ;
         }
     }
+
+
     @Override
     public int getItemCount(){
         return list.size();
