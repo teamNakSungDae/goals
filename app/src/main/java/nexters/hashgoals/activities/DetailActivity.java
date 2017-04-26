@@ -64,19 +64,18 @@ public class DetailActivity extends AppCompatActivity {
          */
         goal= getIntent().getParcelableExtra("goalInfo");
 
+        /*
+        getIntent().getParcelableExtra() 메소드로는 goal의 primary key를 get 할 수 없어서 다음과 같이 불러왔음.
+         */
         goal.setMId(CustomPreference.getInstance(getApplicationContext()).getValue("selectedGoalsId",0)); // temp code
 
         //for debug
         //Log.e("DetailActivity goal id-",goal.getMId()+"");
         Toast.makeText(getApplicationContext(),goal.getMId()+"-goalsmid",Toast.LENGTH_SHORT).show();
-        /*
-        List<Detail> list = detailController.getAllData(goal.getMId()); // Just its have an error and require modify in future
-        CustomPreference.getInstance(getApplicationContext()).getValue("selectedGoalsId",0)
-        List<Detail> list = detailController . getAllData( goal.getMId() );
-        */
+
+
         list = detailController . getAllData( goal.getMId() );
-        if(list == null)
-            Toast.makeText(getApplicationContext(),"detailController is null",Toast.LENGTH_SHORT).show();
+
 
         /*
          * check data
@@ -88,7 +87,6 @@ public class DetailActivity extends AppCompatActivity {
         else
             detailTitle.setText(goal.getMTitle());
 
-        //Toast.makeText(getApplicationContext(),goal.getMTitle().length()+"-",Toast.LENGTH_LONG).show();
         /* data view type setting (temp)*/
 
         /*
@@ -122,10 +120,8 @@ public class DetailActivity extends AppCompatActivity {
              */
             for (int i = 0; i < list.size(); i++) {
                 divideViewType = list.get(i);
-                //divideValue-= (double)divideViewType.getRemain() / (double)divideViewType.getRepeat();
                 divideValue = divideViewType.getPercent();
                 Log.e("divideValue-"+divideValue,list.get(i).getRemain()+"-remain");
-                //divideValue*=100;
 
                 //for debug
                 //Log.e("DetailActivity ,i-"+i,"divideValue-"+divideValue+"/remain/repeat"+ ((double)divideViewType.getRemain() / (double)divideViewType.getRepeat()));
@@ -146,10 +142,6 @@ public class DetailActivity extends AppCompatActivity {
                 //divideValue=1.0;
             }
         }
-        /**/
-//        if(list!=null)
-//            for(int i=0;i<list.size();i++)
-//                detailList.add(list.get(i));
     }
     /**
      * add sub task.
@@ -180,16 +172,6 @@ public class DetailActivity extends AppCompatActivity {
         detailAdapter.notifyDataSetChanged();
 
     }
-
-    /**
-     * add persent line.
-     * @param persent
-     */
-    /*public void addPersent(double persent) {
-        DetailPercent detailPercent = new DetailPercent();
-        detailPercent.setViewType(2);
-        detailPercent.setPercent(persent);
-    }*/
 
     /**
      * When you press the plus image button.
