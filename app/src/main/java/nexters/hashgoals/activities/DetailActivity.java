@@ -105,6 +105,8 @@ public class DetailActivity extends AppCompatActivity {
                 divide40=true,
                 divide60=true,
                 divide80=true;
+        if(list==null)
+            return;
         /**
          * view type 1 - data node
          * view type 2 - percent node.

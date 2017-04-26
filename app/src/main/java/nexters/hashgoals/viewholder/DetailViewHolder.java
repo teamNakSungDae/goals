@@ -119,3 +119,4 @@ public class DetailViewHolder extends CustomViewHolder<Detail>{
 
 
 }
+
